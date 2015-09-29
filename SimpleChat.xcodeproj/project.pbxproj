@@ -27,6 +27,8 @@
 		26EF7E3C1BBABBB80017D02E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26EF7E3B1BBABBB80017D02E /* SystemConfiguration.framework */; };
 		26EF7E3E1BBABBC70017D02E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 26EF7E3D1BBABBC70017D02E /* libz.tbd */; };
 		26EF7E401BBABBD30017D02E /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 26EF7E3F1BBABBD30017D02E /* libsqlite3.tbd */; };
+		26EF7E4B1BBABDF60017D02E /* Typhoon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26EF7E4A1BBABDF60017D02E /* Typhoon.framework */; };
+		26EF7E4F1BBABE520017D02E /* Typhoon.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 26EF7E4E1BBABE520017D02E /* Typhoon.framework.dSYM */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +47,19 @@
 			remoteInfo = SimpleChat;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		26EF7E4D1BBABE350017D02E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				26EF7E4F1BBABE520017D02E /* Typhoon.framework.dSYM in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		26EF7DEA1BBA95E60017D02E /* SimpleChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,6 +89,8 @@
 		26EF7E3B1BBABBB80017D02E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		26EF7E3D1BBABBC70017D02E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		26EF7E3F1BBABBD30017D02E /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		26EF7E4A1BBABDF60017D02E /* Typhoon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Typhoon.framework; path = ../../Carthage/Build/iOS/Typhoon.framework; sourceTree = "<group>"; };
+		26EF7E4E1BBABE520017D02E /* Typhoon.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Typhoon.framework.dSYM; path = ../../Carthage/Build/iOS/Typhoon.framework.dSYM; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +110,7 @@
 				26EF7E2E1BBABB860017D02E /* AudioToolbox.framework in Frameworks */,
 				26EF7E2A1BBABA530017D02E /* Parse.framework in Frameworks */,
 				26EF7E2C1BBABA9B0017D02E /* Bolts.framework in Frameworks */,
+				26EF7E4B1BBABDF60017D02E /* Typhoon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,6 +216,8 @@
 				26EF7E2D1BBABB860017D02E /* AudioToolbox.framework */,
 				26EF7E2B1BBABA9B0017D02E /* Bolts.framework */,
 				26EF7E291BBABA530017D02E /* Parse.framework */,
+				26EF7E4A1BBABDF60017D02E /* Typhoon.framework */,
+				26EF7E4E1BBABE520017D02E /* Typhoon.framework.dSYM */,
 			);
 			path = Frameworks;
 			sourceTree = "<group>";
@@ -212,6 +232,8 @@
 				26EF7DE61BBA95E60017D02E /* Sources */,
 				26EF7DE71BBA95E60017D02E /* Frameworks */,
 				26EF7DE81BBA95E60017D02E /* Resources */,
+				26EF7E4C1BBABE090017D02E /* ShellScript */,
+				26EF7E4D1BBABE350017D02E /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -328,6 +350,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		26EF7E4C1BBABE090017D02E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Typhoon.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		26EF7DE61BBA95E60017D02E /* Sources */ = {
@@ -483,6 +522,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SimpleChat/Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = SimpleChat/Application/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -499,6 +539,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SimpleChat/Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = SimpleChat/Application/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
