@@ -15,6 +15,8 @@
 		26EF7E081BBA95E60017D02E /* SimpleChatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7E071BBA95E60017D02E /* SimpleChatTests.m */; };
 		26EF7E131BBA95E60017D02E /* SimpleChatUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7E121BBA95E60017D02E /* SimpleChatUITests.m */; };
 		26EF7E231BBA993B0017D02E /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 26EF7E221BBA993B0017D02E /* Warnings.xcconfig */; settings = {ASSET_TAGS = (); }; };
+		26EF7E2A1BBABA530017D02E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26EF7E291BBABA530017D02E /* Parse.framework */; settings = {ASSET_TAGS = (); }; };
+		26EF7E2C1BBABA9B0017D02E /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26EF7E2B1BBABA9B0017D02E /* Bolts.framework */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,8 @@
 		26EF7E121BBA95E60017D02E /* SimpleChatUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimpleChatUITests.m; sourceTree = "<group>"; };
 		26EF7E141BBA95E60017D02E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		26EF7E221BBA993B0017D02E /* Warnings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Warnings.xcconfig; sourceTree = "<group>"; };
+		26EF7E291BBABA530017D02E /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		26EF7E2B1BBABA9B0017D02E /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26EF7E2A1BBABA530017D02E /* Parse.framework in Frameworks */,
+				26EF7E2C1BBABA9B0017D02E /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,6 +108,7 @@
 			children = (
 				26EF7E201BBA96100017D02E /* Application */,
 				26EF7E211BBA96100017D02E /* Resources */,
+				26EF7E281BBABA490017D02E /* Frameworks */,
 			);
 			path = SimpleChat;
 			sourceTree = "<group>";
@@ -144,6 +151,15 @@
 				26EF7DFB1BBA95E60017D02E /* LaunchScreen.storyboard */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		26EF7E281BBABA490017D02E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				26EF7E2B1BBABA9B0017D02E /* Bolts.framework */,
+				26EF7E291BBABA530017D02E /* Parse.framework */,
+			);
+			path = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -424,6 +440,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SimpleChat/Frameworks",
+				);
 				INFOPLIST_FILE = SimpleChat/Application/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.akademon.SimpleChat;
@@ -436,6 +456,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SimpleChat/Frameworks",
+				);
 				INFOPLIST_FILE = SimpleChat/Application/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.akademon.SimpleChat;
