@@ -337,6 +337,7 @@
 /* Begin XCBuildConfiguration section */
 		26EF7E151BBA95E60017D02E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 26EF7E221BBA993B0017D02E /* Warnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -506,6 +507,7 @@
 				26EF7E191BBA95E60017D02E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		26EF7E1A1BBA95E60017D02E /* Build configuration list for PBXNativeTarget "SimpleChatTests" */ = {
 			isa = XCConfigurationList;
@@ -514,6 +516,7 @@
 				26EF7E1C1BBA95E60017D02E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		26EF7E1D1BBA95E60017D02E /* Build configuration list for PBXNativeTarget "SimpleChatUITests" */ = {
 			isa = XCConfigurationList;
@@ -522,6 +525,7 @@
 				26EF7E1F1BBA95E60017D02E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
