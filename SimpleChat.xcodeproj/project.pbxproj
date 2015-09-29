@@ -14,6 +14,7 @@
 		26EF7DFD1BBA95E60017D02E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26EF7DFB1BBA95E60017D02E /* LaunchScreen.storyboard */; };
 		26EF7E081BBA95E60017D02E /* SimpleChatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7E071BBA95E60017D02E /* SimpleChatTests.m */; };
 		26EF7E131BBA95E60017D02E /* SimpleChatUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7E121BBA95E60017D02E /* SimpleChatUITests.m */; };
+		26EF7E231BBA993B0017D02E /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 26EF7E221BBA993B0017D02E /* Warnings.xcconfig */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		26EF7E0E1BBA95E60017D02E /* SimpleChatUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleChatUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		26EF7E121BBA95E60017D02E /* SimpleChatUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimpleChatUITests.m; sourceTree = "<group>"; };
 		26EF7E141BBA95E60017D02E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		26EF7E221BBA993B0017D02E /* Warnings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Warnings.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,7 @@
 				26EF7DF11BBA95E60017D02E /* AppDelegate.m */,
 				26EF7DFE1BBA95E60017D02E /* Info.plist */,
 				26EF7DEE1BBA95E60017D02E /* main.m */,
+				26EF7E221BBA993B0017D02E /* Warnings.xcconfig */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				26EF7DFD1BBA95E60017D02E /* LaunchScreen.storyboard in Resources */,
+				26EF7E231BBA993B0017D02E /* Warnings.xcconfig in Resources */,
 				26EF7DFA1BBA95E60017D02E /* Assets.xcassets in Resources */,
 				26EF7DF81BBA95E60017D02E /* Main.storyboard in Resources */,
 			);
