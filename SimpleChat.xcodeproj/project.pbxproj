@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		26EF7DEF1BBA95E60017D02E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7DEE1BBA95E60017D02E /* main.m */; };
 		26EF7DF21BBA95E60017D02E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7DF11BBA95E60017D02E /* AppDelegate.m */; };
-		26EF7DF51BBA95E60017D02E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7DF41BBA95E60017D02E /* ViewController.m */; };
 		26EF7DF81BBA95E60017D02E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26EF7DF61BBA95E60017D02E /* Main.storyboard */; };
 		26EF7DFA1BBA95E60017D02E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26EF7DF91BBA95E60017D02E /* Assets.xcassets */; };
 		26EF7DFD1BBA95E60017D02E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26EF7DFB1BBA95E60017D02E /* LaunchScreen.storyboard */; };
@@ -39,8 +38,6 @@
 		26EF7DEE1BBA95E60017D02E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		26EF7DF01BBA95E60017D02E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		26EF7DF11BBA95E60017D02E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		26EF7DF31BBA95E60017D02E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		26EF7DF41BBA95E60017D02E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		26EF7DF71BBA95E60017D02E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		26EF7DF91BBA95E60017D02E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		26EF7DFC1BBA95E60017D02E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -101,25 +98,10 @@
 		26EF7DEC1BBA95E60017D02E /* SimpleChat */ = {
 			isa = PBXGroup;
 			children = (
-				26EF7DF01BBA95E60017D02E /* AppDelegate.h */,
-				26EF7DF11BBA95E60017D02E /* AppDelegate.m */,
-				26EF7DF31BBA95E60017D02E /* ViewController.h */,
-				26EF7DF41BBA95E60017D02E /* ViewController.m */,
-				26EF7DF61BBA95E60017D02E /* Main.storyboard */,
-				26EF7DF91BBA95E60017D02E /* Assets.xcassets */,
-				26EF7DFB1BBA95E60017D02E /* LaunchScreen.storyboard */,
-				26EF7DFE1BBA95E60017D02E /* Info.plist */,
-				26EF7DED1BBA95E60017D02E /* Supporting Files */,
+				26EF7E201BBA96100017D02E /* Application */,
+				26EF7E211BBA96100017D02E /* Resources */,
 			);
 			path = SimpleChat;
-			sourceTree = "<group>";
-		};
-		26EF7DED1BBA95E60017D02E /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				26EF7DEE1BBA95E60017D02E /* main.m */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		26EF7E061BBA95E60017D02E /* SimpleChatTests */ = {
@@ -138,6 +120,27 @@
 				26EF7E141BBA95E60017D02E /* Info.plist */,
 			);
 			path = SimpleChatUITests;
+			sourceTree = "<group>";
+		};
+		26EF7E201BBA96100017D02E /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				26EF7DF01BBA95E60017D02E /* AppDelegate.h */,
+				26EF7DF11BBA95E60017D02E /* AppDelegate.m */,
+				26EF7DFE1BBA95E60017D02E /* Info.plist */,
+				26EF7DEE1BBA95E60017D02E /* main.m */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		26EF7E211BBA96100017D02E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				26EF7DF61BBA95E60017D02E /* Main.storyboard */,
+				26EF7DF91BBA95E60017D02E /* Assets.xcassets */,
+				26EF7DFB1BBA95E60017D02E /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,7 +273,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				26EF7DF51BBA95E60017D02E /* ViewController.m in Sources */,
 				26EF7DF21BBA95E60017D02E /* AppDelegate.m in Sources */,
 				26EF7DEF1BBA95E60017D02E /* main.m in Sources */,
 			);
@@ -314,7 +316,8 @@
 				26EF7DF71BBA95E60017D02E /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
+			path = SimpleChat/Resources;
+			sourceTree = SOURCE_ROOT;
 		};
 		26EF7DFB1BBA95E60017D02E /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -322,7 +325,8 @@
 				26EF7DFC1BBA95E60017D02E /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
+			path = SimpleChat/Resources;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXVariantGroup section */
 
@@ -413,7 +417,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = SimpleChat/Info.plist;
+				INFOPLIST_FILE = SimpleChat/Application/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.akademon.SimpleChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -424,7 +428,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = SimpleChat/Info.plist;
+				INFOPLIST_FILE = SimpleChat/Application/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.akademon.SimpleChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
