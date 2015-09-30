@@ -1,25 +1,73 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Uim-vM-ds7">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Chat-->
+        <scene sceneID="Xns-dL-tNj">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                <tableViewController title="Chat" id="Uim-vM-ds7" customClass="ChatTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="GVa-gb-Xkb" customClass="CFSSpringTableView">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <toolbar key="tableHeaderView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="hpT-VZ-KD6">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <items/>
+                        </toolbar>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Chat Message Cell" rowHeight="44" id="TpV-U1-VH3" customClass="ChatTableViewCell">
+                                <rect key="frame" x="0.0" y="72" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TpV-U1-VH3" id="AiC-Z2-m2C">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BiA-dR-QBu">
+                                            <rect key="frame" x="108" y="1" width="456" height="42"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bEa-dh-gey">
+                                                    <rect key="frame" x="8" y="8" width="440" height="26"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.047058823530000002" green="0.52156862749999999" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="bEa-dh-gey" secondAttribute="bottom" constant="8" id="26o-Ws-ICF"/>
+                                                <constraint firstAttribute="trailing" secondItem="bEa-dh-gey" secondAttribute="trailing" constant="8" id="46x-xl-Q55"/>
+                                                <constraint firstItem="bEa-dh-gey" firstAttribute="leading" secondItem="BiA-dR-QBu" secondAttribute="leading" constant="8" id="VJ0-75-E7x"/>
+                                                <constraint firstItem="bEa-dh-gey" firstAttribute="top" secondItem="BiA-dR-QBu" secondAttribute="top" constant="8" id="hmH-5y-3AE"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="BiA-dR-QBu" firstAttribute="top" secondItem="AiC-Z2-m2C" secondAttribute="topMargin" constant="-7" id="4au-Hs-OaB"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="BiA-dR-QBu" secondAttribute="trailing" constant="28" id="P1v-z6-m5W"/>
+                                        <constraint firstItem="BiA-dR-QBu" firstAttribute="leading" secondItem="AiC-Z2-m2C" secondAttribute="leadingMargin" constant="100" id="uDP-rf-XYO"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="BiA-dR-QBu" secondAttribute="bottom" constant="-7" id="ubj-7B-WKS"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="bubbleView" destination="BiA-dR-QBu" id="iiE-ZL-2AE"/>
+                                    <outlet property="messageTextLabel" destination="bEa-dh-gey" id="oKx-mk-OwL"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Uim-vM-ds7" id="OHZ-hw-7f7"/>
+                            <outlet property="delegate" destination="Uim-vM-ds7" id="Il2-sW-xGI"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yRf-Pr-HGA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="476" y="495"/>
         </scene>
     </scenes>
 </document>

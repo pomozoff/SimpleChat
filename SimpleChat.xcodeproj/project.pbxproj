@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2637A1391BBBF54800DB4302 /* CFSSpringTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2637A1381BBBF54800DB4302 /* CFSSpringTableView.m */; settings = {ASSET_TAGS = (); }; };
 		26EF7DEF1BBA95E60017D02E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7DEE1BBA95E60017D02E /* main.m */; };
 		26EF7DF21BBA95E60017D02E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7DF11BBA95E60017D02E /* AppDelegate.m */; };
 		26EF7DF81BBA95E60017D02E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26EF7DF61BBA95E60017D02E /* Main.storyboard */; };
@@ -27,8 +28,14 @@
 		26EF7E3C1BBABBB80017D02E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26EF7E3B1BBABBB80017D02E /* SystemConfiguration.framework */; };
 		26EF7E3E1BBABBC70017D02E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 26EF7E3D1BBABBC70017D02E /* libz.tbd */; };
 		26EF7E401BBABBD30017D02E /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 26EF7E3F1BBABBD30017D02E /* libsqlite3.tbd */; };
+		26EF7E441BBABC9A0017D02E /* SimpleChatAssembly.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7E431BBABC9A0017D02E /* SimpleChatAssembly.m */; settings = {ASSET_TAGS = (); }; };
+		26EF7E491BBABCEA0017D02E /* ChatMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7E481BBABCEA0017D02E /* ChatMessage.m */; settings = {ASSET_TAGS = (); }; };
 		26EF7E4B1BBABDF60017D02E /* Typhoon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26EF7E4A1BBABDF60017D02E /* Typhoon.framework */; };
 		26EF7E4F1BBABE520017D02E /* Typhoon.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 26EF7E4E1BBABE520017D02E /* Typhoon.framework.dSYM */; };
+		26EF7E531BBAC7800017D02E /* ChatTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7E521BBAC7800017D02E /* ChatTableViewController.m */; settings = {ASSET_TAGS = (); }; };
+		26EF7E561BBAC85B0017D02E /* ChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7E551BBAC85B0017D02E /* ChatManager.m */; settings = {ASSET_TAGS = (); }; };
+		26EF7E5A1BBAC8C70017D02E /* ChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7E591BBAC8C70017D02E /* ChatTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		26EF7E5D1BBAD2840017D02E /* MessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7E5C1BBAD2840017D02E /* MessageController.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +69,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2637A1371BBBF54800DB4302 /* CFSSpringTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFSSpringTableView.h; sourceTree = "<group>"; };
+		2637A1381BBBF54800DB4302 /* CFSSpringTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFSSpringTableView.m; sourceTree = "<group>"; };
 		26EF7DEA1BBA95E60017D02E /* SimpleChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26EF7DEE1BBA95E60017D02E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		26EF7DF01BBA95E60017D02E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -89,8 +98,20 @@
 		26EF7E3B1BBABBB80017D02E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		26EF7E3D1BBABBC70017D02E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		26EF7E3F1BBABBD30017D02E /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		26EF7E421BBABC9A0017D02E /* SimpleChatAssembly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleChatAssembly.h; sourceTree = "<group>"; };
+		26EF7E431BBABC9A0017D02E /* SimpleChatAssembly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleChatAssembly.m; sourceTree = "<group>"; };
+		26EF7E471BBABCEA0017D02E /* ChatMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMessage.h; sourceTree = "<group>"; };
+		26EF7E481BBABCEA0017D02E /* ChatMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatMessage.m; sourceTree = "<group>"; };
 		26EF7E4A1BBABDF60017D02E /* Typhoon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Typhoon.framework; path = ../../Carthage/Build/iOS/Typhoon.framework; sourceTree = "<group>"; };
 		26EF7E4E1BBABE520017D02E /* Typhoon.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Typhoon.framework.dSYM; path = ../../Carthage/Build/iOS/Typhoon.framework.dSYM; sourceTree = "<group>"; };
+		26EF7E511BBAC7800017D02E /* ChatTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatTableViewController.h; sourceTree = "<group>"; };
+		26EF7E521BBAC7800017D02E /* ChatTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatTableViewController.m; sourceTree = "<group>"; };
+		26EF7E541BBAC85B0017D02E /* ChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatManager.h; sourceTree = "<group>"; };
+		26EF7E551BBAC85B0017D02E /* ChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatManager.m; sourceTree = "<group>"; };
+		26EF7E581BBAC8C70017D02E /* ChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatTableViewCell.h; sourceTree = "<group>"; };
+		26EF7E591BBAC8C70017D02E /* ChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatTableViewCell.m; sourceTree = "<group>"; };
+		26EF7E5B1BBAD2840017D02E /* MessageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageController.h; sourceTree = "<group>"; };
+		26EF7E5C1BBAD2840017D02E /* MessageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,7 +175,11 @@
 		26EF7DEC1BBA95E60017D02E /* SimpleChat */ = {
 			isa = PBXGroup;
 			children = (
+				26EF7E571BBAC8B20017D02E /* Views */,
+				26EF7E501BBAC7650017D02E /* Controllers */,
+				26EF7E451BBABCAA0017D02E /* Models */,
 				26EF7E201BBA96100017D02E /* Application */,
+				26EF7E411BBABC9A0017D02E /* Assembly */,
 				26EF7E211BBA96100017D02E /* Resources */,
 				26EF7E281BBABA490017D02E /* Frameworks */,
 			);
@@ -220,6 +245,56 @@
 				26EF7E4E1BBABE520017D02E /* Typhoon.framework.dSYM */,
 			);
 			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		26EF7E411BBABC9A0017D02E /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				26EF7E421BBABC9A0017D02E /* SimpleChatAssembly.h */,
+				26EF7E431BBABC9A0017D02E /* SimpleChatAssembly.m */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		26EF7E451BBABCAA0017D02E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				26EF7E461BBABCAA0017D02E /* Objects */,
+				26EF7E541BBAC85B0017D02E /* ChatManager.h */,
+				26EF7E551BBAC85B0017D02E /* ChatManager.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		26EF7E461BBABCAA0017D02E /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				26EF7E471BBABCEA0017D02E /* ChatMessage.h */,
+				26EF7E481BBABCEA0017D02E /* ChatMessage.m */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
+		26EF7E501BBAC7650017D02E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				26EF7E511BBAC7800017D02E /* ChatTableViewController.h */,
+				26EF7E521BBAC7800017D02E /* ChatTableViewController.m */,
+				26EF7E5B1BBAD2840017D02E /* MessageController.h */,
+				26EF7E5C1BBAD2840017D02E /* MessageController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		26EF7E571BBAC8B20017D02E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2637A1371BBBF54800DB4302 /* CFSSpringTableView.h */,
+				2637A1381BBBF54800DB4302 /* CFSSpringTableView.m */,
+				26EF7E581BBAC8C70017D02E /* ChatTableViewCell.h */,
+				26EF7E591BBAC8C70017D02E /* ChatTableViewCell.m */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -374,7 +449,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				26EF7DF21BBA95E60017D02E /* AppDelegate.m in Sources */,
+				26EF7E531BBAC7800017D02E /* ChatTableViewController.m in Sources */,
+				26EF7E491BBABCEA0017D02E /* ChatMessage.m in Sources */,
+				26EF7E5A1BBAC8C70017D02E /* ChatTableViewCell.m in Sources */,
 				26EF7DEF1BBA95E60017D02E /* main.m in Sources */,
+				26EF7E441BBABC9A0017D02E /* SimpleChatAssembly.m in Sources */,
+				26EF7E561BBAC85B0017D02E /* ChatManager.m in Sources */,
+				2637A1391BBBF54800DB4302 /* CFSSpringTableView.m in Sources */,
+				26EF7E5D1BBAD2840017D02E /* MessageController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
