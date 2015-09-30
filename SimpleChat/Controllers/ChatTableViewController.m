@@ -7,7 +7,6 @@
 //
 
 #import "ChatTableViewController.h"
-#import "CFSSpringTableView.h"
 #import "ChatTableViewCell.h"
 
 @interface ChatTableViewController ()
@@ -33,9 +32,6 @@ static NSString * const kCellReuseIdentifier = @"Chat Message Cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Automatic calculation of a row height
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -66,10 +62,6 @@ static NSString * const kCellReuseIdentifier = @"Chat Message Cell";
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(nonnull UITableViewCell *)cell forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    CFSSpringTableView *springTtableView = (CFSSpringTableView *)tableView;
-    [springTtableView prepareCellForShow:cell];
-}
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewAutomaticDimension;
 }

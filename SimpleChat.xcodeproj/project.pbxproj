@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2637A1391BBBF54800DB4302 /* CFSSpringTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2637A1381BBBF54800DB4302 /* CFSSpringTableView.m */; settings = {ASSET_TAGS = (); }; };
 		26EF7DEF1BBA95E60017D02E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7DEE1BBA95E60017D02E /* main.m */; };
 		26EF7DF21BBA95E60017D02E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7DF11BBA95E60017D02E /* AppDelegate.m */; };
 		26EF7DF81BBA95E60017D02E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26EF7DF61BBA95E60017D02E /* Main.storyboard */; };
@@ -69,8 +68,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2637A1371BBBF54800DB4302 /* CFSSpringTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFSSpringTableView.h; sourceTree = "<group>"; };
-		2637A1381BBBF54800DB4302 /* CFSSpringTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFSSpringTableView.m; sourceTree = "<group>"; };
 		26EF7DEA1BBA95E60017D02E /* SimpleChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26EF7DEE1BBA95E60017D02E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		26EF7DF01BBA95E60017D02E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -289,8 +286,6 @@
 		26EF7E571BBAC8B20017D02E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				2637A1371BBBF54800DB4302 /* CFSSpringTableView.h */,
-				2637A1381BBBF54800DB4302 /* CFSSpringTableView.m */,
 				26EF7E581BBAC8C70017D02E /* ChatTableViewCell.h */,
 				26EF7E591BBAC8C70017D02E /* ChatTableViewCell.m */,
 			);
@@ -455,7 +450,6 @@
 				26EF7DEF1BBA95E60017D02E /* main.m in Sources */,
 				26EF7E441BBABC9A0017D02E /* SimpleChatAssembly.m in Sources */,
 				26EF7E561BBAC85B0017D02E /* ChatManager.m in Sources */,
-				2637A1391BBBF54800DB4302 /* CFSSpringTableView.m in Sources */,
 				26EF7E5D1BBAD2840017D02E /* MessageController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
