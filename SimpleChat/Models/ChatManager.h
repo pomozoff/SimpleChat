@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSInteger)numberOfSections;
 - (NSInteger)numberOfRowsInSection:(NSInteger)section;
 - (id <ChatMessage>)chatMessageAtIndexPath:(NSIndexPath *)indexPath;
+- (BOOL)isLastMessage:(NSIndexPath *)indexPath;
 
 @end
 

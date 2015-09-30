@@ -12,6 +12,7 @@
 
 @property (nonatomic, weak) IBOutlet UIView *bubbleView;
 @property (nonatomic, weak) IBOutlet UILabel *messageTextLabel;
+@property (nonatomic, weak) IBOutlet UIImageView *bubbleTail;
 
 @end
 
@@ -24,6 +25,10 @@
     self.messageTextLabel.text = _chatMessage.text;
     [self.messageContoller updateImageWithCompletion:^(UIImage * _Nullable image, NSError * _Nullable error) {
     }];
+}
+- (void)setHasTail:(BOOL)hasTail {
+    _hasTail = hasTail;
+    self.bubbleTail.hidden = !hasTail;
 }
 
 #pragma mark - Lifecycle

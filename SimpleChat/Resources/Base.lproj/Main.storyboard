@@ -37,7 +37,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.047058823530000002" green="0.52156862749999999" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="0.043137254901960784" green="0.47058823529411764" blue="0.99607843137254903" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="bEa-dh-gey" secondAttribute="bottom" constant="8" id="26o-Ws-ICF"/>
                                                 <constraint firstAttribute="trailing" secondItem="bEa-dh-gey" secondAttribute="trailing" constant="8" id="46x-xl-Q55"/>
@@ -45,15 +45,25 @@
                                                 <constraint firstItem="bEa-dh-gey" firstAttribute="top" secondItem="BiA-dR-QBu" secondAttribute="top" constant="8" id="hmH-5y-3AE"/>
                                             </constraints>
                                         </view>
+                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bubble_tail" translatesAutoresizingMaskIntoConstraints="NO" id="guH-fl-2Lp">
+                                            <rect key="frame" x="548" y="21" width="22" height="22"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="22" id="0n8-ko-v2L"/>
+                                                <constraint firstAttribute="height" constant="22" id="Ylf-6z-wJv"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="BiA-dR-QBu" firstAttribute="top" secondItem="AiC-Z2-m2C" secondAttribute="topMargin" constant="-7" id="4au-Hs-OaB"/>
+                                        <constraint firstItem="guH-fl-2Lp" firstAttribute="bottom" secondItem="BiA-dR-QBu" secondAttribute="bottom" id="9vn-Bt-sUE"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="BiA-dR-QBu" secondAttribute="trailing" constant="28" id="P1v-z6-m5W"/>
+                                        <constraint firstItem="guH-fl-2Lp" firstAttribute="leading" secondItem="BiA-dR-QBu" secondAttribute="trailing" constant="-16" id="qM0-uk-gQ0"/>
                                         <constraint firstItem="BiA-dR-QBu" firstAttribute="leading" secondItem="AiC-Z2-m2C" secondAttribute="leadingMargin" constant="100" id="uDP-rf-XYO"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="BiA-dR-QBu" secondAttribute="bottom" constant="-7" id="ubj-7B-WKS"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="bubbleTail" destination="guH-fl-2Lp" id="IE5-I2-4zW"/>
                                     <outlet property="bubbleView" destination="BiA-dR-QBu" id="iiE-ZL-2AE"/>
                                     <outlet property="messageTextLabel" destination="bEa-dh-gey" id="oKx-mk-OwL"/>
                                 </connections>
@@ -70,4 +80,7 @@
             <point key="canvasLocation" x="476" y="495"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="bubble_tail" width="22" height="21"/>
+    </resources>
 </document>

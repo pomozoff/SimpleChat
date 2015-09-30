@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) id <ChatMessage> chatMessage;
 @property (nonatomic, strong) id <MessageController> messageContoller;
+@property (nonatomic, assign) BOOL hasTail;
 
 @end
 

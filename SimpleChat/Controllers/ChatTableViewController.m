@@ -78,7 +78,9 @@ static NSString * const kCellReuseIdentifier = @"Chat Message Cell";
 
 - (void)updateCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     ChatTableViewCell *chatCell = (ChatTableViewCell *)cell;
+    
     chatCell.chatMessage = [self.chatDataSource chatMessageAtIndexPath:indexPath];
+    chatCell.hasTail = [self.chatDataSource isLastMessage:indexPath];
 }
 - (void)updateBackgroundImage:(UIImage *)backgroundImage {
     UIImageView *tempImageView = [[UIImageView alloc] initWithImage:backgroundImage];

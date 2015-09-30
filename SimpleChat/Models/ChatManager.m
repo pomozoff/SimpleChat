@@ -37,5 +37,8 @@
     ChatMessage *chatMessage = [[ChatMessage alloc] initWithText:self.messages[indexPath.row]];
     return chatMessage;
 }
+- (BOOL)isLastMessage:(NSIndexPath *)indexPath {
+    return indexPath.row == self.messages.count - 1;
+}
 
 @end
