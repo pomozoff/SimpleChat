@@ -11,6 +11,8 @@
 
 @interface ChatTableViewController ()
 
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
+
 @end
 
 @implementation ChatTableViewController
