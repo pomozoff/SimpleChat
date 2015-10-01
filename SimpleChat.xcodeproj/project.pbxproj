@@ -68,6 +68,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		26E9BEBD1BBD2F07005F1F9B /* PrivateData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivateData.h; sourceTree = "<group>"; };
+		26E9BEC01BBD31AC005F1F9B /* PrivateDataTemplate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivateDataTemplate.h; sourceTree = "<group>"; };
 		26EF7DEA1BBA95E60017D02E /* SimpleChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26EF7DEE1BBA95E60017D02E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		26EF7DF01BBA95E60017D02E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -149,6 +151,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		26E9BEBC1BBD2EE3005F1F9B /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				26E9BEBD1BBD2F07005F1F9B /* PrivateData.h */,
+			);
+			path = Private;
+			sourceTree = "<group>";
+		};
+		26E9BEBE1BBD3168005F1F9B /* Templates */ = {
+			isa = PBXGroup;
+			children = (
+				26E9BEC01BBD31AC005F1F9B /* PrivateDataTemplate.h */,
+			);
+			path = Templates;
+			sourceTree = "<group>";
+		};
+		26E9BEC11BBD31F4005F1F9B /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Scripts;
+			sourceTree = "<group>";
+		};
 		26EF7DE11BBA95E60017D02E = {
 			isa = PBXGroup;
 			children = (
@@ -178,7 +203,10 @@
 				26EF7E201BBA96100017D02E /* Application */,
 				26EF7E411BBABC9A0017D02E /* Assembly */,
 				26EF7E211BBA96100017D02E /* Resources */,
+				26E9BEC11BBD31F4005F1F9B /* Scripts */,
+				26E9BEBE1BBD3168005F1F9B /* Templates */,
 				26EF7E281BBABA490017D02E /* Frameworks */,
+				26E9BEBC1BBD2EE3005F1F9B /* Private */,
 			);
 			path = SimpleChat;
 			sourceTree = "<group>";

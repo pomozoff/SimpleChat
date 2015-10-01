@@ -6,7 +6,10 @@
 //  Copyright © 2015 Akademon Ltd. All rights reserved.
 //
 
+@import Parse;
+
 #import "AppDelegate.h"
+#import "PrivateData.h"
 
 @interface AppDelegate ()
 
@@ -17,7 +20,11 @@
 #pragma mark - Lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    [Parse enableLocalDatastore];
+    [Parse setApplicationId:kApplicationId
+                  clientKey:kClientId];
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
     return YES;
 }
 - (void)applicationWillResignActive:(UIApplication *)application {
