@@ -61,6 +61,9 @@ static NSString * const kCellReuseIdentifier = @"Chat Message Cell";
 - (BOOL)prefersStatusBarHidden {
     return NO;
 }
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+}
 
 #pragma mark - Table view data source
 
@@ -86,12 +89,7 @@ static NSString * const kCellReuseIdentifier = @"Chat Message Cell";
 #pragma mark - UITextViewDelegate
 
 - (void)textViewDidChange:(UITextView *)textView {
-    CGRect rect = [textView.text boundingRectWithSize:CGSizeMake(textView.frame.size.width, CGFLOAT_MAX)
-                                              options:NSStringDrawingUsesLineFragmentOrigin
-                                           attributes:@{NSFontAttributeName: textView.font}
-                                              context:nil];
-    CGFloat maxHeight = self.maxInputTextViewConstraint.constant - self.maxInputTextViewConstraint.constant / 10;
-    self.userInputTextView.scrollEnabled = rect.size.height > maxHeight;
+    [self updateUserInputTextViewState:textView];
 }
 
 #pragma mark - Private
@@ -148,6 +146,14 @@ static NSString * const kCellReuseIdentifier = @"Chat Message Cell";
 }
 - (void)dismissKeyboard {
     [self.view endEditing:YES];
+}
+- (void)updateUserInputTextViewState:(UITextView *)textView {
+    CGRect rect = [textView.text boundingRectWithSize:CGSizeMake(textView.frame.size.width, CGFLOAT_MAX)
+                                              options:NSStringDrawingUsesLineFragmentOrigin
+                                           attributes:@{NSFontAttributeName: textView.font}
+                                              context:nil];
+    CGFloat maxHeight = self.maxInputTextViewConstraint.constant - self.maxInputTextViewConstraint.constant / 10;
+    self.userInputTextView.scrollEnabled = rect.size.height > maxHeight;
 }
 
 @end
