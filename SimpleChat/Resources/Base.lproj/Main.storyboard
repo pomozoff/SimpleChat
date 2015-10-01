@@ -14,11 +14,11 @@
                         <viewControllerLayoutGuide type="top" id="Yhs-tB-jhH"/>
                         <viewControllerLayoutGuide type="bottom" id="suS-fy-QHt"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="naH-9S-jkP">
+                    <view key="view" contentMode="scaleToFill" id="naH-9S-jkP" userLabel="Background View">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GVa-gb-Xkb">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GVa-gb-Xkb" userLabel="Chat Table View">
                                 <rect key="frame" x="0.0" y="20" width="600" height="580"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Chat Message Cell" rowHeight="44" id="TpV-U1-VH3" customClass="ChatTableViewCell">
