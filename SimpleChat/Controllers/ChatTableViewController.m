@@ -146,7 +146,7 @@ static NSString * const kCellReuseIdentifier = @"Chat Message Cell";
                                                                           action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:tap];
 }
--(void)dismissKeyboard {
+- (void)dismissKeyboard {
     [self.view endEditing:YES];
 }
 
