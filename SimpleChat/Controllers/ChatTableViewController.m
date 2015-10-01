@@ -12,6 +12,8 @@
 @interface ChatTableViewController ()
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UITextView *userInputTextView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomImagesConstraint;
 
 @end
 
@@ -35,11 +37,21 @@ static NSString * const kCellReuseIdentifier = @"Chat Message Cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    // Tune input text view
+    self.userInputTextView.layer.borderWidth = 0.2f;
+    self.userInputTextView.layer.borderColor = [[UIColor grayColor] CGColor];
+    self.userInputTextView.layer.cornerRadius = 5.0f;
+
+    [self addHideKeyboardGestureRecognizer];
+}
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+    [self registerForKeyboardNotification];
+}
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self deregisterKeyboardNotifications];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -82,5 +94,48 @@ static NSString * const kCellReuseIdentifier = @"Chat Message Cell";
     UIImageView *tempImageView = [[UIImageView alloc] initWithImage:backgroundImage];
     [tempImageView setFrame:self.tableView.frame];
     self.tableView.backgroundView = tempImageView;}
+
+- (void)registerForKeyboardNotification {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillChangeFrame:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillChangeFrame:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+}
+- (void)deregisterKeyboardNotifications {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+- (void)keyboardWillChangeFrame:(NSNotification*)notification {
+    NSDictionary *info = [notification userInfo];
+    CGRect endFrame = [info[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    BOOL isShowing = notification.name == UIKeyboardWillShowNotification;
+
+    NSTimeInterval duration = [info[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    NSNumber *animationCurveRawNSN = info[UIKeyboardAnimationCurveUserInfoKey];
+    UIViewAnimationOptions animationCurve = animationCurveRawNSN == nil ? UIViewAnimationOptionCurveEaseInOut : [animationCurveRawNSN unsignedLongValue];
+    
+    self.bottomImagesConstraint.constant = isShowing ? endFrame.size.height : 0.0f;
+    
+    [UIView animateWithDuration:duration
+                          delay:0.0f
+                        options:animationCurve
+                     animations: ^{
+                         [self.view layoutIfNeeded];
+                     }
+                     completion:nil];
+}
+- (void)addHideKeyboardGestureRecognizer {
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                          action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:tap];
+}
+-(void)dismissKeyboard {
+    [self.view endEditing:YES];
+}
 
 @end
