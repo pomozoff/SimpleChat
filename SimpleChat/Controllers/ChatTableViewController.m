@@ -45,6 +45,9 @@ static NSString * const kCellReuseIdentifier = @"Chat Message Cell";
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (BOOL)prefersStatusBarHidden {
+    return NO;
+}
 
 #pragma mark - Table view data source
 
