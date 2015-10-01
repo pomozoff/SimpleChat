@@ -9,11 +9,12 @@
 #import "ChatTableViewController.h"
 #import "ChatTableViewCell.h"
 
-@interface ChatTableViewController ()
+@interface ChatTableViewController () <UITextViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextView *userInputTextView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomImagesConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *maxInputTextViewConstraint;
 
 @end
 
@@ -80,6 +81,16 @@ static NSString * const kCellReuseIdentifier = @"Chat Message Cell";
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewAutomaticDimension;
+}
+
+#pragma mark - UITextViewDelegate
+
+- (void)textViewDidChange:(UITextView *)textView {
+    CGRect rect = [textView.text boundingRectWithSize:CGSizeMake(textView.frame.size.width, CGFLOAT_MAX)
+                                              options:NSStringDrawingUsesLineFragmentOrigin
+                                           attributes:@{NSFontAttributeName: textView.font}
+                                              context:nil];
+    self.userInputTextView.scrollEnabled = rect.size.height > self.maxInputTextViewConstraint.constant;
 }
 
 #pragma mark - Private

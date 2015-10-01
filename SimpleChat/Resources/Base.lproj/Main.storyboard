@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GVa-gb-Xkb" userLabel="Chat Table View">
-                                <rect key="frame" x="0.0" y="20" width="600" height="536"/>
+                                <rect key="frame" x="0.0" y="20" width="600" height="533"/>
                                 <animations/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Chat Message Cell" rowHeight="44" id="TpV-U1-VH3" customClass="ChatTableViewCell">
@@ -82,10 +82,10 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvg-o4-R3K" userLabel="User Input View">
-                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="553" width="600" height="47"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mXo-Re-U1I">
-                                        <rect key="frame" x="547" y="7" width="40" height="30"/>
+                                        <rect key="frame" x="547" y="10" width="40" height="30"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="QA7-Z1-cvp"/>
@@ -93,12 +93,19 @@
                                         </constraints>
                                         <state key="normal" title="Send"/>
                                     </button>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Oes-MW-wEK" userLabel="User Input Text View">
-                                        <rect key="frame" x="50" y="7" width="487" height="30"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Oes-MW-wEK" userLabel="User Input Text View">
+                                        <rect key="frame" x="50" y="7" width="487" height="33"/>
                                         <animations/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="2ep-2b-La9"/>
+                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="200" id="ceM-so-rAp"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="send" enablesReturnKeyAutomatically="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="jNt-2b-EQ4" id="9dp-Jr-GMC"/>
+                                        </connections>
                                     </textView>
                                 </subviews>
                                 <animations/>
@@ -107,7 +114,6 @@
                                     <constraint firstItem="Oes-MW-wEK" firstAttribute="trailing" secondItem="mXo-Re-U1I" secondAttribute="leading" constant="-10" id="5fK-2k-rMJ"/>
                                     <constraint firstItem="mXo-Re-U1I" firstAttribute="bottom" secondItem="Oes-MW-wEK" secondAttribute="bottom" id="JON-KP-9S4"/>
                                     <constraint firstItem="Oes-MW-wEK" firstAttribute="leading" secondItem="dvg-o4-R3K" secondAttribute="leading" constant="50" id="Jz2-h8-Lal"/>
-                                    <constraint firstAttribute="height" constant="44" id="LrP-PK-U69"/>
                                     <constraint firstAttribute="trailing" secondItem="mXo-Re-U1I" secondAttribute="trailing" constant="13" id="YzJ-7r-OTX"/>
                                     <constraint firstAttribute="bottom" secondItem="Oes-MW-wEK" secondAttribute="bottom" constant="7" id="fmA-9B-EeS"/>
                                     <constraint firstItem="Oes-MW-wEK" firstAttribute="top" secondItem="dvg-o4-R3K" secondAttribute="top" constant="7" id="tMH-is-liR"/>
@@ -140,6 +146,7 @@
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="bottomImagesConstraint" destination="eNl-jc-caq" id="zXQ-rI-BDs"/>
+                        <outlet property="maxInputTextViewConstraint" destination="ceM-so-rAp" id="YNe-K7-kps"/>
                         <outlet property="tableView" destination="GVa-gb-Xkb" id="qBe-Lg-qWd"/>
                         <outlet property="userInputTextView" destination="Oes-MW-wEK" id="eRj-2K-dKv"/>
                     </connections>
