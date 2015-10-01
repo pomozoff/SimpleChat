@@ -90,7 +90,8 @@ static NSString * const kCellReuseIdentifier = @"Chat Message Cell";
                                               options:NSStringDrawingUsesLineFragmentOrigin
                                            attributes:@{NSFontAttributeName: textView.font}
                                               context:nil];
-    self.userInputTextView.scrollEnabled = rect.size.height > self.maxInputTextViewConstraint.constant;
+    CGFloat maxHeight = self.maxInputTextViewConstraint.constant - self.maxInputTextViewConstraint.constant / 10;
+    self.userInputTextView.scrollEnabled = rect.size.height > maxHeight;
 }
 
 #pragma mark - Private
