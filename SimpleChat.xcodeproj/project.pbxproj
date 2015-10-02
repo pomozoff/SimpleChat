@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		268995301BBE7C6C005122D1 /* ParseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2689952F1BBE7C6C005122D1 /* ParseDataSource.m */; settings = {ASSET_TAGS = (); }; };
+		268995381BBE911C005122D1 /* BaseCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 268995351BBE911C005122D1 /* BaseCollectionViewController.m */; settings = {ASSET_TAGS = (); }; };
+		268995391BBE911C005122D1 /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 268995371BBE911C005122D1 /* BaseTableViewController.m */; settings = {ASSET_TAGS = (); }; };
 		26EF7DEF1BBA95E60017D02E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7DEE1BBA95E60017D02E /* main.m */; };
 		26EF7DF21BBA95E60017D02E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7DF11BBA95E60017D02E /* AppDelegate.m */; };
 		26EF7DF81BBA95E60017D02E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26EF7DF61BBA95E60017D02E /* Main.storyboard */; };
@@ -68,6 +71,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2689952E1BBE7C6C005122D1 /* ParseDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseDataSource.h; sourceTree = "<group>"; };
+		2689952F1BBE7C6C005122D1 /* ParseDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseDataSource.m; sourceTree = "<group>"; };
+		268995311BBE7C9F005122D1 /* RemoteDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteDataSource.h; sourceTree = "<group>"; };
+		268995341BBE911C005122D1 /* BaseCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseCollectionViewController.h; sourceTree = "<group>"; };
+		268995351BBE911C005122D1 /* BaseCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseCollectionViewController.m; sourceTree = "<group>"; };
+		268995361BBE911C005122D1 /* BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewController.h; sourceTree = "<group>"; };
+		268995371BBE911C005122D1 /* BaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewController.m; sourceTree = "<group>"; };
 		26E9BEBD1BBD2F07005F1F9B /* PrivateData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivateData.h; sourceTree = "<group>"; };
 		26E9BEC01BBD31AC005F1F9B /* PrivateDataTemplate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivateDataTemplate.h; sourceTree = "<group>"; };
 		26EF7DEA1BBA95E60017D02E /* SimpleChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,6 +161,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2689952D1BBE7C5D005122D1 /* Data sources */ = {
+			isa = PBXGroup;
+			children = (
+				268995311BBE7C9F005122D1 /* RemoteDataSource.h */,
+				2689952E1BBE7C6C005122D1 /* ParseDataSource.h */,
+				2689952F1BBE7C6C005122D1 /* ParseDataSource.m */,
+			);
+			path = "Data sources";
+			sourceTree = "<group>";
+		};
+		268995321BBE90D8005122D1 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				26EF7E411BBABC9A0017D02E /* Assembly */,
+				268995331BBE911C005122D1 /* Base classes */,
+				26E9BEBE1BBD3168005F1F9B /* Templates */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		268995331BBE911C005122D1 /* Base classes */ = {
+			isa = PBXGroup;
+			children = (
+				268995341BBE911C005122D1 /* BaseCollectionViewController.h */,
+				268995351BBE911C005122D1 /* BaseCollectionViewController.m */,
+				268995361BBE911C005122D1 /* BaseTableViewController.h */,
+				268995371BBE911C005122D1 /* BaseTableViewController.m */,
+			);
+			path = "Base classes";
+			sourceTree = "<group>";
+		};
 		26E9BEBC1BBD2EE3005F1F9B /* Private */ = {
 			isa = PBXGroup;
 			children = (
@@ -200,11 +241,10 @@
 				26EF7E571BBAC8B20017D02E /* Views */,
 				26EF7E501BBAC7650017D02E /* Controllers */,
 				26EF7E451BBABCAA0017D02E /* Models */,
+				268995321BBE90D8005122D1 /* Library */,
 				26EF7E201BBA96100017D02E /* Application */,
-				26EF7E411BBABC9A0017D02E /* Assembly */,
 				26EF7E211BBA96100017D02E /* Resources */,
 				26E9BEC11BBD31F4005F1F9B /* Scripts */,
-				26E9BEBE1BBD3168005F1F9B /* Templates */,
 				26EF7E281BBABA490017D02E /* Frameworks */,
 				26E9BEBC1BBD2EE3005F1F9B /* Private */,
 			);
@@ -284,6 +324,7 @@
 		26EF7E451BBABCAA0017D02E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2689952D1BBE7C5D005122D1 /* Data sources */,
 				26EF7E461BBABCAA0017D02E /* Objects */,
 				26EF7E541BBAC85B0017D02E /* ChatManager.h */,
 				26EF7E551BBAC85B0017D02E /* ChatManager.m */,
@@ -474,9 +515,12 @@
 				26EF7DF21BBA95E60017D02E /* AppDelegate.m in Sources */,
 				26EF7E531BBAC7800017D02E /* ChatTableViewController.m in Sources */,
 				26EF7E491BBABCEA0017D02E /* ChatMessage.m in Sources */,
+				268995381BBE911C005122D1 /* BaseCollectionViewController.m in Sources */,
 				26EF7E5A1BBAC8C70017D02E /* ChatTableViewCell.m in Sources */,
 				26EF7DEF1BBA95E60017D02E /* main.m in Sources */,
+				268995391BBE911C005122D1 /* BaseTableViewController.m in Sources */,
 				26EF7E441BBABC9A0017D02E /* SimpleChatAssembly.m in Sources */,
+				268995301BBE7C6C005122D1 /* ParseDataSource.m in Sources */,
 				26EF7E561BBAC85B0017D02E /* ChatManager.m in Sources */,
 				26EF7E5D1BBAD2840017D02E /* MessageController.m in Sources */,
 			);

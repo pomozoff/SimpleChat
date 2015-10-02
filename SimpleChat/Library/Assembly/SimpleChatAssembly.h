@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SimpleChatAssembly : TyphoonAssembly
 
 - (ChatTableViewController *)chatTableViewController;
+- (ChatManager *)chatManager;
 
 @end
 

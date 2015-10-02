@@ -11,7 +11,6 @@
 
 @interface ChatTableViewController () <UITextViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextView *userInputTextView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomImagesConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *maxInputTextViewConstraint;
@@ -26,26 +25,30 @@
 static NSString * const kCellReuseIdentifier = @"Chat Message Cell";
 static NSUInteger const kPercentOfUserInputTextHeight = 10;
 
-#pragma mark - Properties
-
-@synthesize backgroundImage = _backgroundImage;
-
-- (void)setBackgroundImage:(UIImage *)backgroundImage {
-    _backgroundImage = backgroundImage;
-    [self updateBackgroundImage:backgroundImage];
-}
-
 #pragma mark - Life cycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
+    NSAssert(self == [(ChatManager *)self.chatHandler chatPresenter], @"Wrong Injection!");
+
     // Tune input text view
     self.userInputTextView.layer.borderWidth = 0.2f;
     self.userInputTextView.layer.borderColor = [[UIColor grayColor] CGColor];
     self.userInputTextView.layer.cornerRadius = 5.0f;
 
     [self addHideKeyboardGestureRecognizer];
+    
+    [self.chatDataSource reloadChatListWithCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            [self reloadData];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 500 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
+                [self scrollMessagesUp];
+            });
+        } else {
+            NSLog(@"Failed to reload chat list: %@ %@", error, error.userInfo);
+        }
+    }];
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -96,6 +99,21 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
     [self updateSendButtonState];
 }
 
+#pragma mark - Actions
+
+- (IBAction)sendMessage:(id)sender {
+    [self.chatHandler sendTextMessage:self.userInputTextView.text
+                       withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                           if (succeeded) {
+                               [self scrollMessagesUp];
+                           } else {
+                               NSLog(@"Failed to send message: %@ %@", error, error.userInfo);
+                           }
+                       }];
+    self.userInputTextView.text = @"";
+    [self updateSendButtonState];
+}
+
 #pragma mark - Private
 
 - (void)updateCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
@@ -141,7 +159,11 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
                      animations: ^{
                          [self.view layoutIfNeeded];
                      }
-                     completion:nil];
+                     completion:^(BOOL finished) {
+                         if (finished) {
+                             [self scrollMessagesUp];
+                         }
+                     }];
 }
 - (void)addHideKeyboardGestureRecognizer {
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
@@ -161,6 +183,14 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
 }
 - (void)updateSendButtonState {
     self.sendButton.enabled = self.userInputTextView.text.length > 0;
+}
+- (void)scrollMessagesUp {
+    if(self.tableView.contentSize.height > self.tableView.frame.size.height) {
+        CGPoint bottomOffset = CGPointMake(0, self.tableView.contentSize.height
+                                           - self.tableView.bounds.size.height);
+        NSLog(@"Bottom: %@", NSStringFromCGPoint(bottomOffset));
+        [self.tableView setContentOffset:bottomOffset animated:YES];
+    }
 }
 
 @end

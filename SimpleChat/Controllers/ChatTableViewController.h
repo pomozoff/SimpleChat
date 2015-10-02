@@ -9,12 +9,14 @@
 @import UIKit;
 
 #import "ChatManager.h"
+#import "BaseTableViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ChatTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, ChatPresnter>
+@interface ChatTableViewController : BaseTableViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) id <ChatDataSource> chatDataSource;
+@property (nonatomic, strong) id <ChatHandler> chatHandler;
 
 @end
 

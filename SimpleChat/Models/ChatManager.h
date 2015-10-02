@@ -9,14 +9,30 @@
 @import Foundation;
 
 #import "ChatMessage.h"
+#import "RemoteDataSource.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^CompletionHandler)(BOOL succeed, NSError * _Nullable error);
+typedef enum : NSUInteger {
+    TableChangeInsert = 1,
+    TableChangeDelete = 2,
+    TableChangeMove   = 3,
+    TableChangeUpdate = 4
+} TableChangeType;
 
-@protocol ChatPresnter <NSObject>
+@protocol ChatPresenter <NSObject>
 
-@property (nonatomic, strong) UIImage *backgroundImage;
+@property (nonatomic, strong) NSBlockOperation *updateOperation;
+
+- (void)reloadData;
+- (void)willChangeContent;
+- (void)didChangeSectionatIndex:(NSUInteger)sectionIndex
+                  forChangeType:(TableChangeType)type;
+- (void)didChangeObject:(id)anObject
+            atIndexPath:(NSIndexPath *)indexPath
+          forChangeType:(TableChangeType)type
+           newIndexPath:(NSIndexPath *)newIndexPath;
+- (void)didChangeContent;
 
 @end
 
@@ -26,18 +42,22 @@ typedef void (^CompletionHandler)(BOOL succeed, NSError * _Nullable error);
 - (NSInteger)numberOfRowsInSection:(NSInteger)section;
 - (id <ChatMessage>)chatMessageAtIndexPath:(NSIndexPath *)indexPath;
 - (BOOL)isLastMessage:(NSIndexPath *)indexPath;
+- (void)reloadChatListWithCompletion:(CompletionHandler)handler;
 
 @end
 
 @protocol ChatHandler <NSObject>
 
-- (void)sendMessage:(NSString *)message withCompletion:(CompletionHandler)handler;
+- (void)sendTextMessage:(NSString *)text withCompletion:(CompletionHandler)handler;
 - (void)sendCurrentLocationWithCompletion:(CompletionHandler)handler;
 - (void)sendImage:(UIImage *)image withCompletion:(CompletionHandler)handler;
 
 @end
 
 @interface ChatManager : NSObject <ChatDataSource, ChatHandler>
+
+@property (nonatomic, strong) id <ChatPresenter> chatPresenter;
+@property (nonatomic, strong) id <RemoteDataSource> remoteDataSource;
 
 @end
 
