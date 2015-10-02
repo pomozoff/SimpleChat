@@ -35,7 +35,7 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
     [self updateBackgroundImage:backgroundImage];
 }
 
-#pragma mark - Lifecycle
+#pragma mark - Life cycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -89,7 +89,7 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
     return UITableViewAutomaticDimension;
 }
 
-#pragma mark - UITextViewDelegate
+#pragma mark - Text view delegate
 
 - (void)textViewDidChange:(UITextView *)textView {
     [self updateUserInputTextViewState:textView];
