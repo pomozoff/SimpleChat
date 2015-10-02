@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^CompletionHandler)(BOOL succeed, NSError * _Nullable error);
 
-@protocol Presnter <NSObject>
+@protocol ChatPresnter <NSObject>
 
 @property (nonatomic, strong) UIImage *backgroundImage;
 

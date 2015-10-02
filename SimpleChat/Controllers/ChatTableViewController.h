@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ChatTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, Presnter>
+@interface ChatTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, ChatPresnter>
 
 @property (nonatomic, strong) id <ChatDataSource> chatDataSource;
 
