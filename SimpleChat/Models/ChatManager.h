@@ -12,6 +12,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void (^CompletionHandler)(BOOL succeed, NSError * _Nullable error);
+
 @protocol Presnter <NSObject>
 
 @property (nonatomic, strong) UIImage *backgroundImage;
@@ -27,7 +29,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface ChatManager : NSObject <ChatDataSource>
+@protocol ChatHandler <NSObject>
+
+- (void)sendMessage:(NSString *)message withCompletion:(CompletionHandler)handler;
+- (void)sendCurrentLocationWithCompletion:(CompletionHandler)handler;
+- (void)sendImage:(UIImage *)image withCompletion:(CompletionHandler)handler;
+
+@end
+
+@interface ChatManager : NSObject <ChatDataSource, ChatHandler>
 
 @end
 
