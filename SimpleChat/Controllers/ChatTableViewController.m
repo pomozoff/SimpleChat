@@ -23,6 +23,7 @@
 #pragma mark - Constants
 
 static NSString * const kCellReuseIdentifier = @"Chat Message Cell";
+static NSUInteger const kPercentOfUserInputTextHeight = 10;
 
 #pragma mark - Properties
 
@@ -152,7 +153,7 @@ static NSString * const kCellReuseIdentifier = @"Chat Message Cell";
                                               options:NSStringDrawingUsesLineFragmentOrigin
                                            attributes:@{NSFontAttributeName: textView.font}
                                               context:nil];
-    CGFloat maxHeight = self.maxInputTextViewConstraint.constant - self.maxInputTextViewConstraint.constant / 10;
+    CGFloat maxHeight = self.maxInputTextViewConstraint.constant - self.maxInputTextViewConstraint.constant / kPercentOfUserInputTextHeight;
     self.userInputTextView.scrollEnabled = rect.size.height > maxHeight;
 }
 
