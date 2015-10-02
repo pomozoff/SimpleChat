@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *userInputTextView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomImagesConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *maxInputTextViewConstraint;
+@property (weak, nonatomic) IBOutlet UIButton *sendButton;
 
 @end
 
@@ -50,6 +51,7 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
     [super viewDidAppear:animated];
 
     [self registerForKeyboardNotification];
+    [self updateSendButtonState];
 }
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
@@ -91,6 +93,7 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
 
 - (void)textViewDidChange:(UITextView *)textView {
     [self updateUserInputTextViewState:textView];
+    [self updateSendButtonState];
 }
 
 #pragma mark - Private
@@ -155,6 +158,9 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
                                               context:nil];
     CGFloat maxHeight = self.maxInputTextViewConstraint.constant - self.maxInputTextViewConstraint.constant / kPercentOfUserInputTextHeight;
     self.userInputTextView.scrollEnabled = rect.size.height > maxHeight;
+}
+- (void)updateSendButtonState {
+    self.sendButton.enabled = self.userInputTextView.text.length > 0;
 }
 
 @end

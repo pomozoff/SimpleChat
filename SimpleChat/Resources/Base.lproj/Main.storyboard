@@ -90,7 +90,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvg-o4-R3K" userLabel="User Input View">
                                 <rect key="frame" x="0.0" y="509" width="600" height="47"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mXo-Re-U1I">
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mXo-Re-U1I">
                                         <rect key="frame" x="547" y="10" width="40" height="30"/>
                                         <animations/>
                                         <constraints>
@@ -174,6 +174,7 @@
                     <connections>
                         <outlet property="bottomImagesConstraint" destination="eNl-jc-caq" id="zXQ-rI-BDs"/>
                         <outlet property="maxInputTextViewConstraint" destination="ceM-so-rAp" id="YNe-K7-kps"/>
+                        <outlet property="sendButton" destination="mXo-Re-U1I" id="yxx-zd-dsb"/>
                         <outlet property="tableView" destination="GVa-gb-Xkb" id="qBe-Lg-qWd"/>
                         <outlet property="userInputTextView" destination="Oes-MW-wEK" id="eRj-2K-dKv"/>
                     </connections>
