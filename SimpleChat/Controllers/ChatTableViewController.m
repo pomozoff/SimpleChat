@@ -11,7 +11,7 @@
 
 @interface ChatTableViewController () <UITextViewDelegate>
 
-@property (nonatomic, weak) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextView *userInputTextView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomImagesConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *maxInputTextViewConstraint;
