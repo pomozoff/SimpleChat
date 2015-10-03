@@ -87,6 +87,13 @@
                                     <outlet property="delegate" destination="jNt-2b-EQ4" id="Rzv-oM-b7N"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chat is empty" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7FK-2X-8A5">
+                                <rect key="frame" x="0.0" y="279" width="600" height="43"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvg-o4-R3K" userLabel="User Input View">
                                 <rect key="frame" x="0.0" y="509" width="600" height="47"/>
                                 <subviews>
@@ -155,11 +162,14 @@
                         <animations/>
                         <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="7FK-2X-8A5" secondAttribute="trailing" constant="-20" id="0Ih-hJ-Npw"/>
                             <constraint firstItem="fUv-XU-4x4" firstAttribute="top" secondItem="dvg-o4-R3K" secondAttribute="bottom" id="1qM-rc-FEF"/>
                             <constraint firstItem="dvg-o4-R3K" firstAttribute="top" secondItem="GVa-gb-Xkb" secondAttribute="bottom" id="3S0-xE-l1n"/>
                             <constraint firstItem="dvg-o4-R3K" firstAttribute="trailing" secondItem="GVa-gb-Xkb" secondAttribute="trailing" id="Byi-6m-GC4"/>
                             <constraint firstItem="fUv-XU-4x4" firstAttribute="leading" secondItem="dvg-o4-R3K" secondAttribute="leading" id="C05-Iq-hz1"/>
                             <constraint firstItem="e7w-bV-8JW" firstAttribute="leading" secondItem="fUv-XU-4x4" secondAttribute="leading" id="KFs-dE-YOa"/>
+                            <constraint firstItem="7FK-2X-8A5" firstAttribute="leading" secondItem="naH-9S-jkP" secondAttribute="leadingMargin" constant="-20" id="MZa-ab-ntu"/>
+                            <constraint firstItem="7FK-2X-8A5" firstAttribute="centerY" secondItem="naH-9S-jkP" secondAttribute="centerY" id="Sbm-LQ-q5v"/>
                             <constraint firstItem="e7w-bV-8JW" firstAttribute="top" secondItem="fUv-XU-4x4" secondAttribute="bottom" id="diA-Br-d4X"/>
                             <constraint firstItem="suS-fy-QHt" firstAttribute="top" secondItem="e7w-bV-8JW" secondAttribute="bottom" id="eNl-jc-caq"/>
                             <constraint firstAttribute="trailingMargin" secondItem="GVa-gb-Xkb" secondAttribute="trailing" constant="-20" id="enG-Sa-9V2"/>
@@ -177,6 +187,7 @@
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="bottomImagesConstraint" destination="eNl-jc-caq" id="zXQ-rI-BDs"/>
+                        <outlet property="chatIsEmptyLabel" destination="7FK-2X-8A5" id="sLr-Dw-eg7"/>
                         <outlet property="maxInputTextViewConstraint" destination="ceM-so-rAp" id="YNe-K7-kps"/>
                         <outlet property="sendButton" destination="mXo-Re-U1I" id="yxx-zd-dsb"/>
                         <outlet property="tableView" destination="GVa-gb-Xkb" id="qBe-Lg-qWd"/>

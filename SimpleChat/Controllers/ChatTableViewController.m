@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomImagesConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *maxInputTextViewConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
+@property (weak, nonatomic) IBOutlet UILabel *chatIsEmptyLabel;
 
 @end
 
@@ -77,7 +78,9 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
     return [self.chatDataSource numberOfSections];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.chatDataSource numberOfRowsInSection:section];
+    NSInteger rowsNumber = [self.chatDataSource numberOfRowsInSection:section];
+    self.chatIsEmptyLabel.hidden = rowsNumber > 0;
+    return rowsNumber;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellReuseIdentifier forIndexPath:indexPath];
