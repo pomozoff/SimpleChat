@@ -85,7 +85,7 @@
     for (id <ChatMessage> chatMessage in newMessages) {
         [self.messages insertObject:chatMessage atIndex:0];
     }
-    NSLog(@"Merged messages count: %d, %p", self.messages.count, self);
+    NSLog(@"Merged messages count: %lu, %p", (unsigned long)self.messages.count, self);
 }
 
 @end
