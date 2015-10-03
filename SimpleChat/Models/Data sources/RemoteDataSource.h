@@ -16,7 +16,7 @@ typedef void (^FetchCompletionHandler)(BOOL succeeded, NSArray <id <ChatMessage>
 
 @protocol RemoteDataSource <NSObject>
 
-- (void)fetchMessagesWithCompletion:(FetchCompletionHandler)handler;
+- (void)fetchNextMessagesWithCompletion:(FetchCompletionHandler)handler;
 - (void)addChatMessage:(id <ChatMessage>)message andCompletion:(CompletionHandler)handler;
 
 @end

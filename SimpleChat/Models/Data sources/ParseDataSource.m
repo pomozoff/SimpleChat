@@ -10,6 +10,12 @@
 
 #import "ParseDataSource.h"
 
+@interface ParseDataSource ()
+
+@property (nonatomic, strong) PFQuery *query;
+
+@end
+
 @implementation ParseDataSource
 
 #pragma mark - Constants
@@ -17,13 +23,22 @@
 static NSString *kSortKey = @"createdAt";
 static NSUInteger const kFetchedObjectsLimit = 10;
 
+#pragma mark - Properties
+
+- (PFQuery *)query {
+    if (!_query) {
+        _query = [PFQuery queryWithClassName:NSStringFromClass([ChatMessage class])];
+        _query.limit = kFetchedObjectsLimit;
+        _query.skip = 0;
+    }
+    return _query;
+}
+
 #pragma mark - Remote data source
 
 - (void)fetchMessagesWithCompletion:(FetchCompletionHandler)handler {
-    PFQuery *query = [PFQuery queryWithClassName:NSStringFromClass([ChatMessage class])];
-    [query orderByDescending:kSortKey];
-    query.limit = kFetchedObjectsLimit;
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    [self.query orderByDescending:kSortKey];
+    [self.query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (error) {
             NSLog(@"Error: %@ %@", error, error.userInfo);
         }
@@ -32,6 +47,14 @@ static NSUInteger const kFetchedObjectsLimit = 10;
             handler(!error, messages, error);
         });
     }];
+}
+- (void)fetchLastMessagesWithCompletion:(FetchCompletionHandler)handler {
+    self.query.limit += kFetchedObjectsLimit;
+    [self fetchMessagesWithCompletion:handler];
+}
+- (void)fetchNextMessagesWithCompletion:(FetchCompletionHandler)handler {
+    self.query.skip = 0;
+    [self fetchMessagesWithCompletion:handler];
 }
 - (void)addChatMessage:(id <ChatMessage>)message andCompletion:(CompletionHandler)handler {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

@@ -33,23 +33,10 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
 
     NSAssert(self == [(ChatManager *)self.chatHandler chatPresenter], @"Wrong Injection!");
 
-    // Tune input text view
-    self.userInputTextView.layer.borderWidth = 0.2f;
-    self.userInputTextView.layer.borderColor = [[UIColor grayColor] CGColor];
-    self.userInputTextView.layer.cornerRadius = 5.0f;
-
+    [self tuneUserInputView];
+    [self addRefreshController];
     [self addHideKeyboardGestureRecognizer];
-    
-    [self.chatDataSource reloadChatListWithCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-        if (succeeded) {
-            [self reloadData];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 500 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
-                [self scrollMessagesUp];
-            });
-        } else {
-            NSLog(@"Failed to reload chat list: %@ %@", error, error.userInfo);
-        }
-    }];
+    [self reloadChatList];
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -117,7 +104,7 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
     [self updateSendButtonState];
 }
 
-#pragma mark - Private
+#pragma mark - Private common
 
 - (void)updateCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     ChatTableViewCell *chatCell = (ChatTableViewCell *)cell;
@@ -128,7 +115,22 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
 - (void)updateBackgroundImage:(UIImage *)backgroundImage {
     UIImageView *tempImageView = [[UIImageView alloc] initWithImage:backgroundImage];
     [tempImageView setFrame:self.tableView.frame];
-    self.tableView.backgroundView = tempImageView;}
+    self.tableView.backgroundView = tempImageView;
+}
+- (void)reloadChatList {
+    [self.chatDataSource fetchMessagesWithCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            [self reloadData];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 500 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
+                [self scrollMessagesUp];
+            });
+        } else {
+            NSLog(@"Failed to reload chat list: %@ %@", error, error.userInfo);
+        }
+    }];
+}
+
+#pragma mark - Private keyboard
 
 - (void)registerForKeyboardNotification {
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -175,6 +177,23 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
 }
 - (void)dismissKeyboard {
     [self.view endEditing:YES];
+}
+
+#pragma mark - Private interface
+
+- (void)tuneUserInputView {
+    self.userInputTextView.layer.borderWidth = 0.2f;
+    self.userInputTextView.layer.borderColor = [[UIColor grayColor] CGColor];
+    self.userInputTextView.layer.cornerRadius = 5.0f;
+}
+- (void)addRefreshController {
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    refreshControl.backgroundColor = [UIColor purpleColor];
+    refreshControl.tintColor = [UIColor whiteColor];
+    [refreshControl addTarget:self
+                       action:@selector(reloadChatList)
+             forControlEvents:UIControlEventValueChanged];
+
 }
 - (void)updateUserInputTextViewState:(UITextView *)textView {
     CGRect rect = [textView.text boundingRectWithSize:CGSizeMake(textView.frame.size.width, CGFLOAT_MAX)

@@ -40,8 +40,8 @@
 - (BOOL)isLastMessage:(NSIndexPath *)indexPath {
     return indexPath.row == self.messages.count - 1;
 }
-- (void)reloadChatListWithCompletion:(CompletionHandler)handler {
-    [self.remoteDataSource fetchMessagesWithCompletion:^(BOOL succeeded, NSArray <id <ChatMessage>> *messages, NSError * _Nullable error) {
+- (void)fetchMessagesWithCompletion:(CompletionHandler)handler {
+    [self.remoteDataSource fetchNextMessagesWithCompletion:^(BOOL succeeded, NSArray <id <ChatMessage>> *messages, NSError * _Nullable error) {
         if (succeeded) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self mergeMessages:messages];

@@ -42,7 +42,7 @@ typedef enum : NSUInteger {
 - (NSInteger)numberOfRowsInSection:(NSInteger)section;
 - (id <ChatMessage>)chatMessageAtIndexPath:(NSIndexPath *)indexPath;
 - (BOOL)isLastMessage:(NSIndexPath *)indexPath;
-- (void)reloadChatListWithCompletion:(CompletionHandler)handler;
+- (void)fetchMessagesWithCompletion:(CompletionHandler)handler;
 
 @end
 
