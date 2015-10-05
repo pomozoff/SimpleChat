@@ -183,7 +183,7 @@ static NSString * const kImageName = @"cat";
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
-- (void)keyboardWillChangeFrame:(NSNotification*)notification {
+- (void)keyboardWillChangeFrame:(NSNotification *)notification {
     NSDictionary *info = [notification userInfo];
     CGRect endFrame = [info[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     

@@ -129,16 +129,6 @@ static NSUInteger const kFetchedObjectsLimit = 10;
     }
     return [mutableMessages copy];
 }
-/*
-- (PFObject *)objectWithId:(NSString *)objectId {
-    NSError *error = nil;
-    PFObject *object = [PFQuery getObjectOfClass:NSStringFromClass([ChatMessage class]) objectId:objectId error:&error];
-    if (!object && error) {
-        NSLog(@"Failed get object with id: %@, %@ %@", objectId, error, error.userInfo);
-    }
-    return object;
-}
-*/
 - (void)saveImage:(nonnull UIImage *)image toParseObject:(nonnull PFObject *)object {
     NSData *data = UIImageJPEGRepresentation(image, 1.0f);
     PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:data];
