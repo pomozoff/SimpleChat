@@ -32,13 +32,13 @@
 }
 - (NSInteger)numberOfRowsInSection:(NSInteger)section {
     NSAssert([NSThread isMainThread], @"Not in main thread!");
-    return self.messages.count;
+    return (NSInteger)self.messages.count;
 }
 - (id <ChatMessage>)chatMessageAtIndexPath:(NSIndexPath *)indexPath {
-    return self.messages[indexPath.row];
+    return self.messages[(NSUInteger)indexPath.row];
 }
 - (BOOL)isLastMessage:(NSIndexPath *)indexPath {
-    return indexPath.row == self.messages.count - 1;
+    return indexPath.row == (NSInteger)self.messages.count - 1;
 }
 - (void)fetchMessagesWithCompletion:(CompletionHandler)handler {
     [self.remoteDataSource fetchLastMessagesWithCompletion:^(BOOL succeeded, NSArray <id <ChatMessage>> *messages, NSError * _Nullable error) {
@@ -94,7 +94,7 @@
         handler(succeeded, error);
     }];
 
-    NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0];
+    NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:(NSInteger)self.messages.count - 1 inSection:0];
     [self.chatPresenter willChangeContent];
     [self.chatPresenter didChangeObject:chatMessage
                             atIndexPath:newIndexPath

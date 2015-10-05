@@ -25,8 +25,8 @@ typedef void (^FetchImageCompletionHandler)(UIImage * _Nullable image, NSError *
 #pragma mark - Constants
 
 static NSString *kSortKey = @"createdAt";
-static NSUInteger const kFetchedLocalObjectsLimit = 20;
-static NSUInteger const kFetchedRemoteObjectsLimit = 10;
+static NSInteger const kFetchedLocalObjectsLimit = 20;
+static NSInteger const kFetchedRemoteObjectsLimit = 10;
 
 #pragma mark - Properties
 
