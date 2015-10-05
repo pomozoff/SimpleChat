@@ -94,10 +94,11 @@ static NSString * const kImageName = @"cat";
 
 - (IBAction)sendMessage:(UIButton *)sender {
     NSString *trimmedText = [self processTextToSend];
+    __weak __typeof(self) weakSelf = self;
     [self.chatHandler sendTextMessage:trimmedText
                        withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                            if (succeeded) {
-                               [self scrollMessagesUp];
+                               [weakSelf scrollMessagesUp];
                            } else {
                                NSLog(@"Failed to send message: %@ %@", error, error.userInfo);
                            }
@@ -109,11 +110,12 @@ static NSString * const kImageName = @"cat";
 }
 - (IBAction)sendImage:(UIBarButtonItem *)sender {
     NSString *trimmedText = [self processTextToSend];
+    __weak __typeof(self) weakSelf = self;
     [self.chatHandler sendTextMessage:trimmedText
                              andImage:[UIImage imageNamed:kImageName]
                        withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                            if (succeeded) {
-                               [self scrollMessagesUp];
+                               [weakSelf scrollMessagesUp];
                            } else {
                                NSLog(@"Failed to send message with image: %@ %@", error, error.userInfo);
                            }
@@ -151,11 +153,13 @@ static NSString * const kImageName = @"cat";
     [self.chatDataSource fetchMessagesWithCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             [self reloadData];
+            __weak __typeof(self) weakSelf = self;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 200 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
-                [self scrollMessagesUp];
+                [weakSelf scrollMessagesUp];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.tableView beginUpdates];
-                    [self.tableView endUpdates];
+                    __typeof(self) strongSelf = weakSelf;
+                    [strongSelf.tableView beginUpdates];
+                    [strongSelf.tableView endUpdates];
                 });
             });
         } else {
@@ -199,15 +203,16 @@ static NSString * const kImageName = @"cat";
     
     self.bottomImagesConstraint.constant = isShowing ? endFrame.size.height : 0.0f;
     
+    __weak __typeof(self) weakSelf = self;
     [UIView animateWithDuration:duration
                           delay:0.0f
                         options:animationCurve
                      animations: ^{
-                         [self.view layoutIfNeeded];
+                         [weakSelf.view layoutIfNeeded];
                      }
                      completion:^(BOOL finished) {
                          if (finished) {
-                             [self scrollMessagesUp];
+                             [weakSelf scrollMessagesUp];
                          }
                      }];
 }

@@ -57,13 +57,14 @@ static NSInteger const kFetchedRemoteObjectsLimit = 10;
 #pragma mark - Remote data source
 
 - (void)fetchMessagesWithCompletion:(FetchCompletionHandler)handler {
+    __weak __typeof(self) weakSelf = self;
     [self.queryRemote orderByDescending:kSortKey];
     [self.queryRemote findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (error) {
             NSLog(@"Error: %@ %@", error, error.userInfo);
         }
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            NSArray <id <ChatMessage>> *messages = [self messagesFromObjects:objects];
+            NSArray <id <ChatMessage>> *messages = [weakSelf messagesFromObjects:objects];
             handler(!error, messages, error);
         });
     }];

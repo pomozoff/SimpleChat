@@ -41,10 +41,11 @@
     return indexPath.row == (NSInteger)self.messages.count - 1;
 }
 - (void)fetchMessagesWithCompletion:(CompletionHandler)handler {
+    __weak __typeof(self) weakSelf = self;
     [self.remoteDataSource fetchLastMessagesWithCompletion:^(BOOL succeeded, NSArray <id <ChatMessage>> *messages, NSError * _Nullable error) {
         if (succeeded) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self mergeMessages:messages];
+                [weakSelf mergeMessages:messages];
             });
         } else {
             NSLog(@"Failed to fetch messages: %@ %@", error, error.userInfo);
