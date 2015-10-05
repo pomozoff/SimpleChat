@@ -57,7 +57,7 @@
                                                             <animations/>
                                                             <color key="backgroundColor" red="0.896484375" green="0.063546637739999995" blue="0.027489839660000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" relation="lessThanOrEqual" placeholder="YES" id="aek-wF-3Yo"/>
+                                                                <constraint firstAttribute="height" priority="500" id="aek-wF-3Yo"/>
                                                             </constraints>
                                                         </imageView>
                                                     </subviews>
@@ -89,6 +89,7 @@
                                         <connections>
                                             <outlet property="bubbleTail" destination="oq2-S3-Dqr" id="6ic-Zk-tWS"/>
                                             <outlet property="bubbleView" destination="cv8-cA-CYP" id="I7M-zy-OhE"/>
+                                            <outlet property="chatImageHeightConstraint" destination="aek-wF-3Yo" id="WC6-3h-kNT"/>
                                             <outlet property="chatImageView" destination="UDn-xI-zXY" id="HVT-Ct-Zoy"/>
                                             <outlet property="gapBetweenImageAndTextConstraint" destination="wUi-R9-07e" id="HTz-9S-IjL"/>
                                             <outlet property="gapBetweenTextAndSuperviewConstraint" destination="xR3-Y9-ysI" id="aSH-IK-RGw"/>

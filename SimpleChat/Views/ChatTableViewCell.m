@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *chatImageView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *gapBetweenImageAndTextConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *gapBetweenTextAndSuperviewConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *chatImageHeightConstraint;
 
 @end
 
@@ -41,12 +42,19 @@
 #pragma mark - Public
 
 - (void)updateImage:(nullable UIImage *)image {
-    CGFloat scale = self.chatImageView.frame.size.width / image.size.width;
-    UIImage *scaledImage = [UIImage imageWithCGImage:[image CGImage]
-                                               scale:(image.scale / scale)
-                                         orientation:image.imageOrientation];
+    UIImage *scaledImage;
+    CGFloat imageHeight;
+    if (image) {
+        CGFloat scale = self.chatImageView.frame.size.width / image.size.width;
+        scaledImage = [UIImage imageWithCGImage:[image CGImage]
+                                          scale:(image.scale / scale)
+                                    orientation:image.imageOrientation];
+        imageHeight = scaledImage.size.height;
+    } else {
+        imageHeight = 0;
+    }
+    self.chatImageHeightConstraint.constant = imageHeight;
     self.chatImageView.image = scaledImage;
-    //NSLog(@"Message id: %@, cell: %p, image: %@", self.chatMessage.messageId, self, image);
 }
 
 #pragma mark - Lifecycle

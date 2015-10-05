@@ -34,7 +34,7 @@ static NSString * const kImageName = @"cat";
 
     NSAssert(self == [(ChatManager *)self.chatHandler chatPresenter], @"Wrong Injection!");
     
-    self.tableView.estimatedRowHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedRowHeight = 10;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     
     [self tuneUserInputView];
@@ -151,8 +151,12 @@ static NSString * const kImageName = @"cat";
     [self.chatDataSource fetchMessagesWithCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             [self reloadData];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1000 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 200 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
                 [self scrollMessagesUp];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.tableView beginUpdates];
+                    [self.tableView endUpdates];
+                });
             });
         } else {
             NSLog(@"Failed to reload chat list: %@ %@", error, error.userInfo);
