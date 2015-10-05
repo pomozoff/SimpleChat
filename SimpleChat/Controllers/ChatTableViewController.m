@@ -93,7 +93,8 @@ static NSString * const kImageName = @"cat";
 #pragma mark - Actions
 
 - (IBAction)sendMessage:(UIButton *)sender {
-    [self.chatHandler sendTextMessage:self.userInputTextView.text
+    NSString *trimmedText = [self processTextToSend];
+    [self.chatHandler sendTextMessage:trimmedText
                        withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                            if (succeeded) {
                                [self scrollMessagesUp];
@@ -101,15 +102,14 @@ static NSString * const kImageName = @"cat";
                                NSLog(@"Failed to send message: %@ %@", error, error.userInfo);
                            }
                        }];
-    self.userInputTextView.text = @"";
-    [self updateSendButtonState];
 }
 - (IBAction)sendLocation:(UIBarButtonItem *)sender {
 }
 - (IBAction)makePhoto:(UIBarButtonItem *)sender {
 }
 - (IBAction)sendImage:(UIBarButtonItem *)sender {
-    [self.chatHandler sendTextMessage:self.userInputTextView.text
+    NSString *trimmedText = [self processTextToSend];
+    [self.chatHandler sendTextMessage:trimmedText
                              andImage:[UIImage imageNamed:kImageName]
                        withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                            if (succeeded) {
@@ -118,8 +118,6 @@ static NSString * const kImageName = @"cat";
                                NSLog(@"Failed to send message with image: %@ %@", error, error.userInfo);
                            }
                        }];
-    self.userInputTextView.text = @"";
-    [self updateSendButtonState];
 }
 
 #pragma mark - Private common
@@ -164,6 +162,13 @@ static NSString * const kImageName = @"cat";
             NSLog(@"Failed to reload chat list: %@ %@", error, error.userInfo);
         }
     }];
+}
+- (NSString *)processTextToSend {
+    NSString *trimmedText = [self.userInputTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    self.userInputTextView.text = @"";
+    [self updateSendButtonState];
+
+    return trimmedText;
 }
 
 #pragma mark - Private keyboard
