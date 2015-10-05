@@ -20,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *chatIsEmptyLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
 
+@property (nonatomic, assign) CGFloat imagesCollectionViewHeight;
+
 @end
 
 @implementation ChatTableViewController
@@ -41,6 +43,12 @@ static NSString * const kImageName = @"cat";
     [self addRefreshController];
     [self addHideKeyboardGestureRecognizer];
     [self reloadChatList];
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.imagesCollectionViewHeight = self.imagesCollectionViewHeightConstraint.constant;
+    [self triggerImagesCollectionView];
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -120,6 +128,9 @@ static NSString * const kImageName = @"cat";
                                NSLog(@"Failed to send message with image: %@ %@", error, error.userInfo);
                            }
                        }];
+}
+- (IBAction)selectImageFromGallery:(UIBarButtonItem *)sender {
+    [self triggerImagesCollectionView];
 }
 
 #pragma mark - Private common
@@ -259,6 +270,10 @@ static NSString * const kImageName = @"cat";
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:rowsNumber - 1 inSection:sectionsNumber - 1]
                               atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
+}
+- (void)triggerImagesCollectionView {
+    self.imagesCollectionViewHeightConstraint.constant = (NSInteger)self.imagesCollectionViewHeightConstraint.constant == 0 ? self.imagesCollectionViewHeight : 0;
+    [self.view setNeedsUpdateConstraints];
 }
 
 @end
