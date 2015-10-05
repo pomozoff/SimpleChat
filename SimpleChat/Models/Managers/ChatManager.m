@@ -96,12 +96,12 @@
     }];
 
     NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:(NSInteger)self.messages.count - 1 inSection:0];
-    [self.chatPresenter willChangeContent];
-    [self.chatPresenter didChangeObject:chatMessage
+    [self.dataPresenter willChangeContent];
+    [self.dataPresenter didChangeObject:chatMessage
                             atIndexPath:newIndexPath
                           forChangeType:CollectionChangeInsert
                            newIndexPath:newIndexPath];
-    [self.chatPresenter didChangeContent];
+    [self.dataPresenter didChangeContent];
 }
 
 @end

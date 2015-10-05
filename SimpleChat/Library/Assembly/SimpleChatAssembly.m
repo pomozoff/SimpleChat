@@ -23,7 +23,7 @@
 }
 - (ChatManager *)chatManager {
     return [TyphoonDefinition withClass:[ChatManager class] configuration:^(TyphoonDefinition *definition) {
-        [definition injectProperty:@selector(chatPresenter) with:[self chatTableViewController]];
+        [definition injectProperty:@selector(dataPresenter) with:[self chatTableViewController]];
         [definition injectProperty:@selector(remoteDataSource) with:[self parseDataSource]];
     }];
 }

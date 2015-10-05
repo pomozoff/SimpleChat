@@ -8,13 +8,11 @@
 
 @import UIKit;
 
-#import "ChatManager.h"
+#import "Common.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BaseTableViewController : UIViewController <ChatPresenter>
-
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@interface BaseTableViewController : UITableViewController <DataPresenter>
 
 @end
 

@@ -10,31 +10,9 @@
 
 #import "ChatMessage.h"
 #import "RemoteDataSource.h"
+#import "Common.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
-typedef enum : NSUInteger {
-    CollectionChangeInsert = 1,
-    CollectionChangeDelete = 2,
-    CollectionChangeMove   = 3,
-    CollectionChangeUpdate = 4
-} CollectionChangeType;
-
-@protocol ChatPresenter <NSObject>
-
-@property (nonatomic, strong) NSBlockOperation *updateOperation;
-
-- (void)reloadData;
-- (void)willChangeContent;
-- (void)didChangeSectionatIndex:(NSUInteger)sectionIndex
-                  forChangeType:(CollectionChangeType)type;
-- (void)didChangeObject:(id)anObject
-            atIndexPath:(NSIndexPath *)indexPath
-          forChangeType:(CollectionChangeType)type
-           newIndexPath:(NSIndexPath *)newIndexPath;
-- (void)didChangeContent;
-
-@end
 
 @protocol ChatDataSource <NSObject>
 
@@ -62,7 +40,7 @@ typedef enum : NSUInteger {
 
 @interface ChatManager : NSObject <ChatDataSource, ChatHandler, MessageController>
 
-@property (nonatomic, strong) id <ChatPresenter> chatPresenter;
+@property (nonatomic, strong) id <DataPresenter> dataPresenter;
 @property (nonatomic, strong) id <RemoteDataSource> remoteDataSource;
 
 @end

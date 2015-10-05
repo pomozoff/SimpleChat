@@ -38,7 +38,7 @@ static NSString * const kImageName = @"cat";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    NSAssert(self == [(ChatManager *)self.chatHandler chatPresenter], @"Wrong Injection!");
+    NSAssert(self == [(ChatManager *)self.chatHandler dataPresenter], @"Wrong Injection!");
     
     [self tuneUserInputView];
     [self addRefreshController];

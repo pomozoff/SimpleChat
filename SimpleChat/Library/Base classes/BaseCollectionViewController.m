@@ -7,9 +7,8 @@
 //
 
 #import "BaseCollectionViewController.h"
-#import "ChatManager.h"
 
-@interface BaseCollectionViewController () <ChatPresenter>
+@interface BaseCollectionViewController ()
 
 @end
 
@@ -28,7 +27,7 @@
     [super didReceiveMemoryWarning];
 }
 
-#pragma mark - Chat presenter
+#pragma mark - Data presenter
 
 - (void)reloadData {
     dispatch_async(dispatch_get_main_queue(), ^{

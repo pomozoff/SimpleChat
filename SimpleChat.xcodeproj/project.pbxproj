@@ -13,6 +13,7 @@
 		268995391BBE911C005122D1 /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 268995371BBE911C005122D1 /* BaseTableViewController.m */; settings = {ASSET_TAGS = (); }; };
 		26A4450D1BC316780073DFBB /* ChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A4450C1BC316780073DFBB /* ChatManager.m */; settings = {ASSET_TAGS = (); }; };
 		26A445101BC316B60073DFBB /* CollectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A4450F1BC316B60073DFBB /* CollectionManager.m */; settings = {ASSET_TAGS = (); }; };
+		26A445141BC319B60073DFBB /* Common.h in Headers */ = {isa = PBXBuildFile; fileRef = 26A445121BC3195E0073DFBB /* Common.h */; };
 		26EF7DEF1BBA95E60017D02E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7DEE1BBA95E60017D02E /* main.m */; };
 		26EF7DF21BBA95E60017D02E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7DF11BBA95E60017D02E /* AppDelegate.m */; };
 		26EF7DF81BBA95E60017D02E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26EF7DF61BBA95E60017D02E /* Main.storyboard */; };
@@ -85,6 +86,7 @@
 		26A4450C1BC316780073DFBB /* ChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatManager.m; sourceTree = "<group>"; };
 		26A4450E1BC316B60073DFBB /* CollectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionManager.h; sourceTree = "<group>"; };
 		26A4450F1BC316B60073DFBB /* CollectionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionManager.m; sourceTree = "<group>"; };
+		26A445121BC3195E0073DFBB /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		26E9BEBD1BBD2F07005F1F9B /* PrivateData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivateData.h; sourceTree = "<group>"; };
 		26EF7DEA1BBA95E60017D02E /* SimpleChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26EF7DEE1BBA95E60017D02E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 		26A445111BC317650073DFBB /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				26A445121BC3195E0073DFBB /* Common.h */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -366,6 +369,17 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		26A445131BC319AC0073DFBB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				26A445141BC319B60073DFBB /* Common.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		26EF7DE91BBA95E60017D02E /* SimpleChat */ = {
 			isa = PBXNativeTarget;
@@ -376,6 +390,7 @@
 				26EF7DE81BBA95E60017D02E /* Resources */,
 				26EF7E4C1BBABE090017D02E /* ShellScript */,
 				26EF7E4D1BBABE350017D02E /* CopyFiles */,
+				26A445131BC319AC0073DFBB /* Headers */,
 			);
 			buildRules = (
 			);

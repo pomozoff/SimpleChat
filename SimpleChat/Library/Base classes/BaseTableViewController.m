@@ -8,6 +8,10 @@
 
 #import "BaseTableViewController.h"
 
+@interface BaseTableViewController ()
+
+@end
+
 @implementation BaseTableViewController
 
 #pragma mark - Properties
@@ -23,7 +27,7 @@
     [super didReceiveMemoryWarning];
 }
 
-#pragma mark - Chat presenter
+#pragma mark - Data presenter
 
 - (void)reloadData {
     dispatch_async(dispatch_get_main_queue(), ^{
