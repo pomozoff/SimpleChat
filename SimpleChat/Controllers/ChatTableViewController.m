@@ -176,7 +176,10 @@ static NSString * const kImageName = @"cat";
         if (succeeded) {
             [self reloadData];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 200 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
+                [weakSelf.tableView layoutIfNeeded];
+                dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf scrollMessagesUp];
+            });
             });
         } else {
             NSLog(@"Failed to reload chat list: %@ %@", error, error.userInfo);
