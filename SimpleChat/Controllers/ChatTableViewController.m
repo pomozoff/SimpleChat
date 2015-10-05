@@ -237,6 +237,7 @@ static NSString * const kImageName = @"cat";
     [self.view addGestureRecognizer:tap];
 }
 - (void)dismissKeyboard {
+    [self hideImagesCollectionView];
     [self.view endEditing:YES];
 }
 
@@ -283,6 +284,11 @@ static NSString * const kImageName = @"cat";
     self.previewImageView.hidden = !self.previewImageView.hidden;
     self.previewImageHeightConstraint.constant = (NSInteger)self.previewImageHeightConstraint.constant == 0 ? self.imagesCollectionViewHeight : 0;
     [self.view setNeedsUpdateConstraints];
+}
+- (void)hideImagesCollectionView {
+    if ((NSInteger)self.imagesCollectionViewHeightConstraint.constant == self.imagesCollectionViewHeight) {
+        [self triggerImagesCollectionView];
+    }
 }
 
 @end
