@@ -296,6 +296,7 @@ static NSString * const kImageName = @"cat";
 - (void)triggerImagesCollectionViewWithAnimation:(BOOL)animation {
     self.imagesCollectionViewHeightConstraint.constant = (NSInteger)self.imagesCollectionViewHeightConstraint.constant == 0 ? self.imagesCollectionViewHeight : 0;
     [self.view setNeedsUpdateConstraints];
+    [self dismissKeyboard];
     if (animation) {
         [self animateConstraintsChanges];
     }
