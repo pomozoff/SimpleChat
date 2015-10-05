@@ -164,7 +164,7 @@ static NSString * const kImageName = @"cat";
             dispatch_async(dispatch_get_main_queue(), ^{
                 ChatTableViewCell *oldChatCell = [tableView cellForRowAtIndexPath:indexPath];
                 [oldChatCell updateImage:chatMessage.image];
-                [tableView setNeedsLayout];
+                [tableView layoutIfNeeded];
             });
         }];
         [chatCell updateImage:[UIImage imageNamed:@"placeholder"]];
