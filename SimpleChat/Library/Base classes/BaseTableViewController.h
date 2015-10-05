@@ -12,7 +12,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BaseTableViewController : UITableViewController <DataPresenter>
+@interface BaseTableViewController : UIViewController <DataPresenter>
+
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 
