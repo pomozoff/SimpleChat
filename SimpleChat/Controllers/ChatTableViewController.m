@@ -59,9 +59,6 @@ static NSString * const kImageName = @"cat";
 - (BOOL)prefersStatusBarHidden {
     return NO;
 }
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-}
 
 #pragma mark - Table view data source
 
