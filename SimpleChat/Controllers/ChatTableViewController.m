@@ -281,7 +281,7 @@ static NSString * const kImageName = @"cat";
     }
 }
 - (void)animateConstraintsChanges {
-    CGFloat damping = 0.6f;
+    CGFloat damping = 0.8f;
     CGFloat velocity = 0.8f;
     [UIView animateWithDuration:0.3f
                           delay:0.0f
