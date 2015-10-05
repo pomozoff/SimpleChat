@@ -102,6 +102,10 @@ static NSString * const kImageName = @"cat";
     [self updateUserInputTextViewState:textView];
     [self updateSendButtonState];
 }
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+    [self hideImagesCollectionView];
+    return YES;
+}
 
 #pragma mark - Actions
 
