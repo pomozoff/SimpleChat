@@ -245,10 +245,8 @@ static NSString * const kImageName = @"cat";
 - (void)scrollMessagesUp {
     NSInteger sectionsNumber = [self.chatDataSource numberOfSections];
     NSInteger rowsNumber = [self.chatDataSource numberOfRowsInSection:sectionsNumber - 1];
-    [UIView animateWithDuration:0.5f animations:^{
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:rowsNumber - 1 inSection:sectionsNumber - 1]
                               atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-    }];
 }
 
 @end
