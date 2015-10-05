@@ -183,7 +183,6 @@
                                     <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="500" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFx-cE-ves">
                                         <rect key="frame" x="8" y="162" width="584" height="30"/>
                                         <animations/>
-                                        <color key="backgroundColor" red="1" green="0.98154384143410578" blue="0.59994728049994861" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="lessThanOrEqual" priority="500" constant="30" id="hjC-66-UlD"/>
                                         </constraints>
@@ -198,7 +197,7 @@
                                     </containerView>
                                 </subviews>
                                 <animations/>
-                                <color key="backgroundColor" red="0.61944907448263353" green="1" blue="0.82732077904960133" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="IFx-cE-ves" firstAttribute="top" secondItem="9ky-ah-xkv" secondAttribute="bottom" priority="500" constant="8" id="4OH-YH-2Yf"/>
                                     <constraint firstItem="9ky-ah-xkv" firstAttribute="top" secondItem="e7w-bV-8JW" secondAttribute="top" priority="500" constant="8" id="4u5-ra-2jt"/>
@@ -274,7 +273,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="584" height="146"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
-                        <color key="backgroundColor" red="0.9794921875" green="0.91161809059999999" blue="0.01966987479" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="sOR-41-ID1">
                             <size key="itemSize" width="146" height="146"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -292,7 +290,6 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <animations/>
-                                <color key="backgroundColor" red="0.52942262969999998" green="0.85326086960000003" blue="0.4087025212" alpha="1" colorSpace="calibratedRGB"/>
                             </collectionViewCell>
                         </cells>
                         <connections>
