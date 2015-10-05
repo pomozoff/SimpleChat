@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
 
 @property (nonatomic, assign) CGFloat imagesCollectionViewHeight;
+@property (nonatomic, assign) CGFloat previewImageHeight;
 
 @end
 
@@ -48,7 +49,10 @@ static NSString * const kImageName = @"cat";
     [super viewWillAppear:animated];
     
     self.imagesCollectionViewHeight = self.imagesCollectionViewHeightConstraint.constant;
+    self.previewImageHeight = self.previewImageHeightConstraint.constant;
+    
     [self triggerImagesCollectionView];
+    [self triggerImagePreviewView];
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -273,6 +277,11 @@ static NSString * const kImageName = @"cat";
 }
 - (void)triggerImagesCollectionView {
     self.imagesCollectionViewHeightConstraint.constant = (NSInteger)self.imagesCollectionViewHeightConstraint.constant == 0 ? self.imagesCollectionViewHeight : 0;
+    [self.view setNeedsUpdateConstraints];
+}
+- (void)triggerImagePreviewView {
+    self.previewImageView.hidden = !self.previewImageView.hidden;
+    self.previewImageHeightConstraint.constant = (NSInteger)self.previewImageHeightConstraint.constant == 0 ? self.imagesCollectionViewHeight : 0;
     [self.view setNeedsUpdateConstraints];
 }
 
