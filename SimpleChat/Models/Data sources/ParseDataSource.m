@@ -146,11 +146,11 @@ static NSInteger const kFetchedRemoteObjectsLimit = 10;
     [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
             object[@"image"] = imageFile;
-            [object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if (!error) {
+            [object saveInBackgroundWithBlock:^(BOOL innerSucceeded, NSError *innerError) {
+                if (!innerError) {
                     NSLog(@"The image was successfuly saved to the parse object");
                 } else {
-                    NSLog(@"Failed to save the image to the parse object: %@ %@", error, error.userInfo);
+                    NSLog(@"Failed to save the image to the parse object: %@ %@", innerError, innerError.userInfo);
                 }
             }];
         } else {
