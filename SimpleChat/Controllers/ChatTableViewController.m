@@ -178,8 +178,8 @@ static NSString * const kImageName = @"cat";
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 200 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
                 [weakSelf.tableView layoutIfNeeded];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf scrollMessagesUp];
-            });
+                    [weakSelf scrollMessagesUp];
+                });
             });
         } else {
             NSLog(@"Failed to reload chat list: %@ %@", error, error.userInfo);
@@ -296,7 +296,11 @@ static NSString * const kImageName = @"cat";
                      animations:^{
                          [weakSelf.view layoutIfNeeded];
                      }
-                     completion:nil];
+                     completion:^(BOOL finished) {
+                         if (finished) {
+                             [weakSelf scrollMessagesUp];
+                         }
+                     }];
 }
 - (void)triggerImagesCollectionViewWithAnimation:(BOOL)animation {
     self.imagesCollectionViewHeightConstraint.constant = (NSInteger)self.imagesCollectionViewHeightConstraint.constant == 0 ? self.imagesCollectionViewHeight : 0;
