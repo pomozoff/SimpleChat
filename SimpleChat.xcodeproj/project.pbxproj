@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2661276B1BC2A5C200302DBA /* ImagesCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661276A1BC2A5C200302DBA /* ImagesCollectionViewController.m */; settings = {ASSET_TAGS = (); }; };
 		268995301BBE7C6C005122D1 /* ParseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2689952F1BBE7C6C005122D1 /* ParseDataSource.m */; settings = {ASSET_TAGS = (); }; };
 		268995381BBE911C005122D1 /* BaseCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 268995351BBE911C005122D1 /* BaseCollectionViewController.m */; settings = {ASSET_TAGS = (); }; };
 		268995391BBE911C005122D1 /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 268995371BBE911C005122D1 /* BaseTableViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -70,6 +71,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		266127691BC2A5C200302DBA /* ImagesCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagesCollectionViewController.h; sourceTree = "<group>"; };
+		2661276A1BC2A5C200302DBA /* ImagesCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagesCollectionViewController.m; sourceTree = "<group>"; };
 		2689952E1BBE7C6C005122D1 /* ParseDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseDataSource.h; sourceTree = "<group>"; };
 		2689952F1BBE7C6C005122D1 /* ParseDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseDataSource.m; sourceTree = "<group>"; };
 		268995311BBE7C9F005122D1 /* RemoteDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteDataSource.h; sourceTree = "<group>"; };
@@ -325,6 +328,8 @@
 			children = (
 				26EF7E511BBAC7800017D02E /* ChatTableViewController.h */,
 				26EF7E521BBAC7800017D02E /* ChatTableViewController.m */,
+				266127691BC2A5C200302DBA /* ImagesCollectionViewController.h */,
+				2661276A1BC2A5C200302DBA /* ImagesCollectionViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -498,6 +503,7 @@
 				268995391BBE911C005122D1 /* BaseTableViewController.m in Sources */,
 				26EF7E441BBABC9A0017D02E /* SimpleChatAssembly.m in Sources */,
 				268995301BBE7C6C005122D1 /* ParseDataSource.m in Sources */,
+				2661276B1BC2A5C200302DBA /* ImagesCollectionViewController.m in Sources */,
 				26EF7E561BBAC85B0017D02E /* ChatManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
