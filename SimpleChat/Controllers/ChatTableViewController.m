@@ -72,7 +72,7 @@ static NSString * const kImageName = @"cat";
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kMessageCellReuseIdentifier forIndexPath:indexPath];
-    [self updateCell:cell inTableView:tableView atIndexPath:indexPath];
+    [self tableView:tableView updateCell:cell atIndexPath:indexPath];
 
     return cell;
 }
@@ -122,9 +122,7 @@ static NSString * const kImageName = @"cat";
 
 #pragma mark - Private common
 
-- (void)updateCell:(UITableViewCell *)cell inTableView:(UITableView *)tableView atIndexPath:(NSIndexPath *)indexPath {
-    NSAssert([NSThread isMainThread], @"Not in main thread!");
-
+- (void)tableView:(nonnull UITableView *)tableView updateCell:(nonnull UITableViewCell *)cell atIndexPath:(nonnull NSIndexPath *)indexPath {
     ChatTableViewCell *chatCell = (ChatTableViewCell *)cell;
     id <ChatMessage> chatMessage = [self.chatDataSource chatMessageAtIndexPath:indexPath];
     chatCell.chatMessage = chatMessage;
