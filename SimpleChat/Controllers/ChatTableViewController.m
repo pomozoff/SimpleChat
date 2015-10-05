@@ -171,10 +171,10 @@ static NSString * const kImageName = @"cat";
     }
 }
 - (void)reloadChatList {
+    __weak __typeof(self) weakSelf = self;
     [self.chatDataSource fetchMessagesWithCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             [self reloadData];
-            __weak __typeof(self) weakSelf = self;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 200 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
                 [weakSelf scrollMessagesUp];
             });
