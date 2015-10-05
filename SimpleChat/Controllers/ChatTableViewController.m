@@ -53,6 +53,7 @@ static NSString * const kImageName = @"cat";
     
     [self triggerImagesCollectionView];
     [self triggerImagePreviewView];
+    [self animateConstraintsChanges];
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -275,6 +276,19 @@ static NSString * const kImageName = @"cat";
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:rowsNumber - 1 inSection:sectionsNumber - 1]
                               atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
+}
+- (void)animateConstraintsChanges {
+    CGFloat damping = 0.6f;
+    CGFloat velocity = 0.8f;
+    [UIView animateWithDuration:0.3f
+                          delay:0.0f
+         usingSpringWithDamping:damping
+          initialSpringVelocity:velocity
+                        options:0
+                     animations:^{
+                         [self.view layoutIfNeeded];
+                     }
+                     completion:nil];
 }
 - (void)triggerImagesCollectionView {
     self.imagesCollectionViewHeightConstraint.constant = (NSInteger)self.imagesCollectionViewHeightConstraint.constant == 0 ? self.imagesCollectionViewHeight : 0;
