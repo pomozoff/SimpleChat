@@ -34,9 +34,6 @@ static NSString * const kImageName = @"cat";
 
     NSAssert(self == [(ChatManager *)self.chatHandler chatPresenter], @"Wrong Injection!");
     
-    self.tableView.estimatedRowHeight = 10;
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
-    
     [self tuneUserInputView];
     [self addRefreshController];
     [self addHideKeyboardGestureRecognizer];
