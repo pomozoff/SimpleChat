@@ -129,26 +129,23 @@ static NSString * const kImageName = @"cat";
     [chatCell updateImage:nil];
     
     if (chatMessage.hasImage) {
-        if (chatMessage.image) {
-            [chatCell updateImage:chatMessage.image];
-        } else {
-            [self.messageContoller fetchImageForChatMessage:chatMessage withCompletion:^(UIImage * _Nullable image, NSError * _Nullable error) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    ChatTableViewCell *oldChatCell = [tableView cellForRowAtIndexPath:indexPath];
-                    [oldChatCell updateImage:chatMessage.image];
-                });
-            }];
-            [chatCell updateImage:[UIImage imageNamed:@"placeholder"]];
-        }
+        [self tableView:tableView updateImageInCell:chatCell atIndexPath:indexPath];
     }
     chatCell.hasTail = [self.chatDataSource isLastMessage:indexPath];
 }
-- (void)updateImageForChatCell:(ChatTableViewCell *)chatCell andChatMessage:(id <ChatMessage>)chatMessage atIndexPath:(NSIndexPath *)indexPath {
-}
-- (void)updateBackgroundImage:(UIImage *)backgroundImage {
-    UIImageView *tempImageView = [[UIImageView alloc] initWithImage:backgroundImage];
-    [tempImageView setFrame:self.tableView.frame];
-    self.tableView.backgroundView = tempImageView;
+- (void)tableView:(nonnull UITableView *)tableView updateImageInCell:(nonnull ChatTableViewCell *)chatCell atIndexPath:(nonnull NSIndexPath *)indexPath {
+    id <ChatMessage> chatMessage = chatCell.chatMessage;
+    if (chatMessage.image) {
+        [chatCell updateImage:chatMessage.image];
+    } else {
+        [self.messageContoller fetchImageForChatMessage:chatMessage withCompletion:^(UIImage * _Nullable image, NSError * _Nullable error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                ChatTableViewCell *oldChatCell = [tableView cellForRowAtIndexPath:indexPath];
+                [oldChatCell updateImage:chatMessage.image];
+            });
+        }];
+        [chatCell updateImage:[UIImage imageNamed:@"placeholder"]];
+    }
 }
 - (void)reloadChatList {
     [self.chatDataSource fetchMessagesWithCompletion:^(BOOL succeeded, NSError * _Nullable error) {
