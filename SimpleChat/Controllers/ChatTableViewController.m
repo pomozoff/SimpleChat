@@ -281,7 +281,7 @@ static NSString * const kImageName = @"cat";
     }
 }
 - (void)animateConstraintsChanges {
-    CGFloat damping = 0.8f;
+    CGFloat damping = 0.7f;
     CGFloat velocity = 0.8f;
 
     __weak __typeof(self) weakSelf = self;
