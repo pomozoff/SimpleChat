@@ -234,11 +234,14 @@ static NSString * const kImageName = @"cat";
 }
 - (void)addHideKeyboardGestureRecognizer {
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                          action:@selector(dismissKeyboard)];
+                                                                          action:@selector(hideOpenedViews)];
     [self.view addGestureRecognizer:tap];
 }
-- (void)dismissKeyboard {
+- (void)hideOpenedViews {
     [self hideImagesCollectionView];
+    [self dismissKeyboard];
+}
+- (void)dismissKeyboard {
     [self.view endEditing:YES];
 }
 
