@@ -19,7 +19,7 @@ typedef void (^FetchCompletionHandler)(BOOL succeeded, NSArray <id <ChatMessage>
 - (void)fetchLastMessagesWithCompletion:(FetchCompletionHandler)handler;
 - (void)fetchNextMessagesWithCompletion:(FetchCompletionHandler)handler;
 - (void)addChatMessage:(id <ChatMessage>)chatMessage andCompletion:(CompletionHandler)handler;
-- (void)fetchImageForChatMessage:(id <ChatMessage>)chatMessage withCompletion:(FetchImageCompletionHandler _Nonnull)handler;
+- (void)fetchImageForChatMessage:(id <ChatMessage>)chatMessage withCompletion:(FetchImageCompletionHandler)handler;
 
 @end
 

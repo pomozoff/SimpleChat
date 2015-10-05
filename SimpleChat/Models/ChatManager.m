@@ -55,17 +55,17 @@
 
 #pragma mark - Chat handler
 
-- (void)sendTextMessage:(NSString *)text withCompletion:(CompletionHandler _Nonnull)handler {
+- (void)sendTextMessage:(NSString *)text withCompletion:(CompletionHandler)handler {
     id <ChatMessage> chatMessage = [self addNewMessageWithText:text];
     [self processNewMessage:chatMessage withCompletion:handler];
 }
-- (void)sendTextMessage:(NSString *)text andImage:(UIImage * _Nullable)image withCompletion:(CompletionHandler _Nonnull)handler {
+- (void)sendTextMessage:(nullable NSString *)text andImage:(UIImage *)image withCompletion:(CompletionHandler)handler {
     id <ChatMessage> chatMessage = [self addNewMessageWithText:text];
     chatMessage.hasImage = YES;
     chatMessage.image = image;
     [self processNewMessage:chatMessage withCompletion:handler];
 }
-- (void)sendTextMessage:(NSString *)text andCurrentLocationWithCompletion:(CompletionHandler _Nonnull)handler {
+- (void)sendTextMessage:(NSString *)text andCurrentLocationWithCompletion:(CompletionHandler)handler {
     
 }
 
@@ -77,19 +77,19 @@
 
 #pragma mark - Private
 
-- (void)mergeMessages:(NSArray <id <ChatMessage>> *)newMessages {
+- (void)mergeMessages:(nonnull NSArray <id <ChatMessage>> *)newMessages {
     for (id <ChatMessage> chatMessage in newMessages) {
         [self.messages insertObject:chatMessage atIndex:0];
     }
 }
-- (id <ChatMessage>)addNewMessageWithText:(NSString *)text {
+- (id <ChatMessage>)addNewMessageWithText:(nullable NSString *)text {
     NSAssert([NSThread isMainThread], @"Not in main thread!");
     id <ChatMessage> chatMessage = [[ChatMessage alloc] initWithText:text];
     [self.messages addObject:chatMessage];
     
     return chatMessage;
 }
-- (void)processNewMessage:(id <ChatMessage> _Nonnull)chatMessage withCompletion:(CompletionHandler _Nonnull)handler {
+- (void)processNewMessage:(nonnull id <ChatMessage>)chatMessage withCompletion:(nonnull CompletionHandler)handler {
     [self.remoteDataSource addChatMessage:chatMessage andCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         handler(succeeded, error);
     }];

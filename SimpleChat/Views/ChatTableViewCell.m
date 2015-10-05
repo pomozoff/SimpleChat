@@ -40,7 +40,7 @@
 
 #pragma mark - Public
 
-- (void)updateImage:(UIImage *)image {
+- (void)updateImage:(nullable UIImage *)image {
     CGFloat scale = self.chatImageView.frame.size.width / image.size.width;
     UIImage *scaledImage = [UIImage imageWithCGImage:[image CGImage]
                                                scale:(image.scale / scale)

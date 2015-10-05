@@ -48,9 +48,9 @@ typedef enum : NSUInteger {
 
 @protocol ChatHandler <NSObject>
 
-- (void)sendTextMessage:(NSString *)text withCompletion:(CompletionHandler _Nonnull)handler;
-- (void)sendTextMessage:(NSString *)text andImage:(UIImage * _Nullable)image withCompletion:(CompletionHandler _Nonnull)handler;
-- (void)sendTextMessage:(NSString *)text andCurrentLocationWithCompletion:(CompletionHandler _Nonnull)handler;
+- (void)sendTextMessage:(NSString *)text withCompletion:(CompletionHandler)handler;
+- (void)sendTextMessage:(nullable NSString *)text andImage:(UIImage *)image withCompletion:(CompletionHandler)handler;
+- (void)sendTextMessage:(NSString *)text andCurrentLocationWithCompletion:(CompletionHandler)handler;
 
 @end
 

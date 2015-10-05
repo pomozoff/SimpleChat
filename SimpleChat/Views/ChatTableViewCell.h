@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) id <ChatMessage> chatMessage;
 @property (nonatomic, assign) BOOL hasTail;
 
-- (void)updateImage:(UIImage *)image;
+- (void)updateImage:(nullable UIImage *)image;
 
 @end
 

@@ -66,7 +66,7 @@ static NSUInteger const kFetchedObjectsLimit = 10;
     self.query.skip += kFetchedObjectsLimit;
     [self fetchMessagesWithCompletion:handler];
 }
-- (void)fetchImageForChatMessage:(id <ChatMessage>)chatMessage withCompletion:(FetchImageCompletionHandler _Nonnull)handler {
+- (void)fetchImageForChatMessage:(id <ChatMessage>)chatMessage withCompletion:(FetchImageCompletionHandler)handler {
     PFFile *file = self.images[chatMessage.messageId];
     [file getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
         if (!data && error) {
@@ -111,7 +111,7 @@ static NSUInteger const kFetchedObjectsLimit = 10;
 
 #pragma mark - Private
 
-- (NSArray <id <ChatMessage>> *)messagesFromObjects:(NSArray <PFObject *> *)objects {
+- (NSArray <id <ChatMessage>> *)messagesFromObjects:(nonnull NSArray <PFObject *> *)objects {
     NSMutableArray <id <ChatMessage>> *mutableMessages = [NSMutableArray arrayWithCapacity:objects.count];
     for (PFObject *object in objects) {
         ChatMessage *chatMessage = [[ChatMessage alloc] initWithText:object[@"text"]];
@@ -139,7 +139,7 @@ static NSUInteger const kFetchedObjectsLimit = 10;
     return object;
 }
 */
-- (void)saveImage:(UIImage *)image toParseObject:(PFObject *)object {
+- (void)saveImage:(nonnull UIImage *)image toParseObject:(nonnull PFObject *)object {
     NSData *data = UIImageJPEGRepresentation(image, 1.0f);
     PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:data];
     [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
