@@ -9,15 +9,15 @@
 @import UIKit;
 
 #import "ChatMessage.h"
-#import "MessageController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ChatTableViewCell : UITableViewCell
 
-@property (nonatomic, strong) id <ChatMessage> chatMessage;
-@property (nonatomic, strong) id <MessageController> messageContoller;
+@property (nonatomic, strong, nullable) id <ChatMessage> chatMessage;
 @property (nonatomic, assign) BOOL hasTail;
+
+- (void)updateImage:(UIImage *)image;
 
 @end
 

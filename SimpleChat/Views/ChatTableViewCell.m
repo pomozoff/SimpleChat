@@ -10,9 +10,12 @@
 
 @interface ChatTableViewCell ()
 
-@property (nonatomic, weak) IBOutlet UIView *bubbleView;
-@property (nonatomic, weak) IBOutlet UILabel *messageTextLabel;
-@property (nonatomic, weak) IBOutlet UIImageView *bubbleTail;
+@property (weak, nonatomic) IBOutlet UIView *bubbleView;
+@property (weak, nonatomic) IBOutlet UILabel *messageTextLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *bubbleTail;
+@property (weak, nonatomic) IBOutlet UIImageView *chatImageView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *gapBetweenImageAndTextConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *gapBetweenTextAndSuperviewConstraint;
 
 @end
 
@@ -23,12 +26,27 @@
 - (void)setChatMessage:(id<ChatMessage>)chatMessage {
     _chatMessage = chatMessage;
     self.messageTextLabel.text = _chatMessage.text;
-    [self.messageContoller updateImageWithCompletion:^(UIImage * _Nullable image, NSError * _Nullable error) {
-    }];
+
+    if (!_chatMessage.hasImage || _chatMessage.text.length == 0) {
+        self.gapBetweenImageAndTextConstraint.constant = 0.0f;
+    } else if (_chatMessage.hasImage && _chatMessage.text.length > 0) {
+        self.gapBetweenImageAndTextConstraint.constant = self.gapBetweenTextAndSuperviewConstraint.constant;
+    }
 }
 - (void)setHasTail:(BOOL)hasTail {
     _hasTail = hasTail;
     self.bubbleTail.hidden = !hasTail;
+}
+
+#pragma mark - Public
+
+- (void)updateImage:(UIImage *)image {
+    CGFloat scale = self.chatImageView.frame.size.width / image.size.width;
+    UIImage *scaledImage = [UIImage imageWithCGImage:[image CGImage]
+                                               scale:(image.scale / scale)
+                                         orientation:image.imageOrientation];
+    self.chatImageView.image = scaledImage;
+    //NSLog(@"Message id: %@, cell: %p, image: %@", self.chatMessage.messageId, self, image);
 }
 
 #pragma mark - Lifecycle
@@ -37,14 +55,9 @@
     // Initialization code
     self.bubbleView.layer.cornerRadius = 10.0f;
     self.bubbleView.layer.masksToBounds = YES;
-}
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-- (void)prepareForReuse {
     
+    self.chatImageView.layer.cornerRadius = 5.0f;
+    self.chatImageView.layer.masksToBounds = YES;
 }
 
 @end

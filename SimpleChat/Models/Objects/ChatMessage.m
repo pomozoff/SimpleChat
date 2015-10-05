@@ -12,6 +12,7 @@
 
 #pragma mark - Properties
 
+@synthesize messageId = _messageId;
 @synthesize text = _text;
 @synthesize image = _image;
 @synthesize latitude = _latitude;

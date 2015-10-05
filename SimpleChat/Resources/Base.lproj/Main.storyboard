@@ -27,58 +27,72 @@
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Chat Message Cell" rowHeight="44" id="TpV-U1-VH3" customClass="ChatTableViewCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Chat Message Cell" id="Wki-pt-GkO" customClass="ChatTableViewCell">
                                         <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TpV-U1-VH3" id="AiC-Z2-m2C">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wki-pt-GkO" id="SBw-G6-Wyl">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bubble_tail" translatesAutoresizingMaskIntoConstraints="NO" id="guH-fl-2Lp">
-                                                    <rect key="frame" x="566" y="21" width="22" height="22"/>
+                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bubble_tail" translatesAutoresizingMaskIntoConstraints="NO" id="oq2-S3-Dqr">
+                                                    <rect key="frame" x="566" y="20" width="22" height="22"/>
                                                     <animations/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="22" id="0n8-ko-v2L"/>
-                                                        <constraint firstAttribute="height" constant="22" id="Ylf-6z-wJv"/>
+                                                        <constraint firstAttribute="width" constant="22" id="UfH-yD-fMm"/>
+                                                        <constraint firstAttribute="height" constant="22" id="l2N-IF-IxZ"/>
                                                     </constraints>
                                                 </imageView>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BiA-dR-QBu">
-                                                    <rect key="frame" x="108" y="1" width="474" height="42"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cv8-cA-CYP">
+                                                    <rect key="frame" x="108" y="2" width="474" height="40"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bEa-dh-gey">
-                                                            <rect key="frame" x="8" y="8" width="458" height="26"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BlI-pH-u3K">
+                                                            <rect key="frame" x="8" y="8" width="458" height="24"/>
                                                             <animations/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <imageView opaque="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UDn-xI-zXY" userLabel="Chat Image View">
+                                                            <rect key="frame" x="8" y="32" width="458" height="0.0"/>
+                                                            <animations/>
+                                                            <color key="backgroundColor" red="0.896484375" green="0.063546637739999995" blue="0.027489839660000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" relation="lessThanOrEqual" placeholder="YES" id="aek-wF-3Yo"/>
+                                                            </constraints>
+                                                        </imageView>
                                                     </subviews>
                                                     <animations/>
-                                                    <color key="backgroundColor" red="0.043137254901960784" green="0.47058823529411764" blue="0.99607843137254903" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" red="0.043137254899999998" green="0.47058823529999999" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="bottom" secondItem="bEa-dh-gey" secondAttribute="bottom" constant="8" id="26o-Ws-ICF"/>
-                                                        <constraint firstAttribute="trailing" secondItem="bEa-dh-gey" secondAttribute="trailing" constant="8" id="46x-xl-Q55"/>
-                                                        <constraint firstItem="bEa-dh-gey" firstAttribute="leading" secondItem="BiA-dR-QBu" secondAttribute="leading" constant="8" id="VJ0-75-E7x"/>
-                                                        <constraint firstItem="bEa-dh-gey" firstAttribute="top" secondItem="BiA-dR-QBu" secondAttribute="top" constant="8" id="hmH-5y-3AE"/>
+                                                        <constraint firstItem="UDn-xI-zXY" firstAttribute="trailing" secondItem="BlI-pH-u3K" secondAttribute="trailing" id="9Hn-H8-CcZ"/>
+                                                        <constraint firstItem="BlI-pH-u3K" firstAttribute="leading" secondItem="cv8-cA-CYP" secondAttribute="leading" constant="8" id="RLg-dn-T3X"/>
+                                                        <constraint firstAttribute="trailing" secondItem="BlI-pH-u3K" secondAttribute="trailing" constant="8" id="fqN-vR-hsH"/>
+                                                        <constraint firstItem="UDn-xI-zXY" firstAttribute="leading" secondItem="BlI-pH-u3K" secondAttribute="leading" id="kB6-Qc-M8v"/>
+                                                        <constraint firstAttribute="bottom" secondItem="UDn-xI-zXY" secondAttribute="bottom" constant="8" id="r66-vu-5C6"/>
+                                                        <constraint firstItem="UDn-xI-zXY" firstAttribute="top" secondItem="BlI-pH-u3K" secondAttribute="bottom" id="wUi-R9-07e"/>
+                                                        <constraint firstItem="BlI-pH-u3K" firstAttribute="top" secondItem="cv8-cA-CYP" secondAttribute="top" constant="8" id="xR3-Y9-ysI"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
                                             <animations/>
                                             <constraints>
-                                                <constraint firstItem="BiA-dR-QBu" firstAttribute="top" secondItem="AiC-Z2-m2C" secondAttribute="topMargin" constant="-7" id="4au-Hs-OaB"/>
-                                                <constraint firstItem="guH-fl-2Lp" firstAttribute="bottom" secondItem="BiA-dR-QBu" secondAttribute="bottom" id="9vn-Bt-sUE"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="BiA-dR-QBu" secondAttribute="trailing" constant="10" id="P1v-z6-m5W"/>
-                                                <constraint firstItem="guH-fl-2Lp" firstAttribute="leading" secondItem="BiA-dR-QBu" secondAttribute="trailing" constant="-16" id="qM0-uk-gQ0"/>
-                                                <constraint firstItem="BiA-dR-QBu" firstAttribute="leading" secondItem="AiC-Z2-m2C" secondAttribute="leadingMargin" constant="100" id="uDP-rf-XYO"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="BiA-dR-QBu" secondAttribute="bottom" constant="-7" id="ubj-7B-WKS"/>
+                                                <constraint firstItem="cv8-cA-CYP" firstAttribute="leading" secondItem="SBw-G6-Wyl" secondAttribute="leadingMargin" constant="100" id="99P-Fw-6sc"/>
+                                                <constraint firstItem="oq2-S3-Dqr" firstAttribute="bottom" secondItem="cv8-cA-CYP" secondAttribute="bottom" id="Gbi-m7-neo"/>
+                                                <constraint firstItem="cv8-cA-CYP" firstAttribute="top" secondItem="SBw-G6-Wyl" secondAttribute="topMargin" constant="-6" id="Lcz-F0-9k0"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="cv8-cA-CYP" secondAttribute="trailing" constant="10" id="YdU-7C-yYl"/>
+                                                <constraint firstItem="oq2-S3-Dqr" firstAttribute="leading" secondItem="cv8-cA-CYP" secondAttribute="trailing" constant="-16" id="foW-Li-V9v"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="cv8-cA-CYP" secondAttribute="bottom" constant="-6" id="tWT-E1-UAn"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <outlet property="bubbleTail" destination="guH-fl-2Lp" id="IE5-I2-4zW"/>
-                                            <outlet property="bubbleView" destination="BiA-dR-QBu" id="iiE-ZL-2AE"/>
-                                            <outlet property="messageTextLabel" destination="bEa-dh-gey" id="oKx-mk-OwL"/>
+                                            <outlet property="bubbleTail" destination="oq2-S3-Dqr" id="6ic-Zk-tWS"/>
+                                            <outlet property="bubbleView" destination="cv8-cA-CYP" id="I7M-zy-OhE"/>
+                                            <outlet property="chatImageView" destination="UDn-xI-zXY" id="HVT-Ct-Zoy"/>
+                                            <outlet property="gapBetweenImageAndTextConstraint" destination="wUi-R9-07e" id="HTz-9S-IjL"/>
+                                            <outlet property="gapBetweenTextAndSuperviewConstraint" destination="xR3-Y9-ysI" id="aSH-IK-RGw"/>
+                                            <outlet property="messageTextLabel" destination="BlI-pH-u3K" id="nVb-H2-biD"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -142,11 +156,23 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="1hm-Pa-S0n"/>
-                                    <barButtonItem image="camera" id="0Pq-El-nc5" userLabel="Camera Button"/>
+                                    <barButtonItem image="camera" id="0Pq-El-nc5" userLabel="Camera Button">
+                                        <connections>
+                                            <action selector="makePhoto:" destination="jNt-2b-EQ4" id="JLp-vx-yE4"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="YZI-yx-jve"/>
-                                    <barButtonItem image="images" id="TWs-R0-Lvo" userLabel="Images Button"/>
+                                    <barButtonItem image="images" id="TWs-R0-Lvo" userLabel="Images Button">
+                                        <connections>
+                                            <action selector="sendImage:" destination="jNt-2b-EQ4" id="EmG-hn-iGc"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="GBs-99-8G6"/>
-                                    <barButtonItem image="geo" id="UBQ-9I-73u" userLabel="Geo Button"/>
+                                    <barButtonItem image="geo" id="UBQ-9I-73u" userLabel="Geo Button">
+                                        <connections>
+                                            <action selector="sendLocation:" destination="jNt-2b-EQ4" id="iWt-mh-YIP"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="2j4-L4-hp0"/>
                                 </items>
                             </toolbar>

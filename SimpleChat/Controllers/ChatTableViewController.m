@@ -9,7 +9,7 @@
 #import "ChatTableViewController.h"
 #import "ChatTableViewCell.h"
 
-@interface ChatTableViewController () <UITextViewDelegate>
+@interface ChatTableViewController () <UITextViewDelegate, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *userInputTextView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomImagesConstraint;
@@ -23,8 +23,9 @@
 
 #pragma mark - Constants
 
-static NSString * const kCellReuseIdentifier = @"Chat Message Cell";
+static NSString * const kMessageCellReuseIdentifier = @"Chat Message Cell";
 static NSUInteger const kPercentOfUserInputTextHeight = 10;
+static NSString * const kImageName = @"cat";
 
 #pragma mark - Life cycle
 
@@ -32,7 +33,10 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
     [super viewDidLoad];
 
     NSAssert(self == [(ChatManager *)self.chatHandler chatPresenter], @"Wrong Injection!");
-
+    
+    self.tableView.estimatedRowHeight = UITableViewAutomaticDimension;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    
     [self tuneUserInputView];
     [self addRefreshController];
     [self addHideKeyboardGestureRecognizer];
@@ -70,15 +74,15 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
     return rowsNumber;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellReuseIdentifier forIndexPath:indexPath];
-    [self updateCell:cell atIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kMessageCellReuseIdentifier forIndexPath:indexPath];
+    [self updateCell:cell inTableView:tableView atIndexPath:indexPath];
 
     return cell;
 }
 
 #pragma mark - Table view delegate
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     return UITableViewAutomaticDimension;
 }
 
@@ -91,7 +95,7 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
 
 #pragma mark - Actions
 
-- (IBAction)sendMessage:(id)sender {
+- (IBAction)sendMessage:(UIButton *)sender {
     [self.chatHandler sendTextMessage:self.userInputTextView.text
                        withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                            if (succeeded) {
@@ -103,14 +107,49 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
     self.userInputTextView.text = @"";
     [self updateSendButtonState];
 }
+- (IBAction)sendLocation:(UIBarButtonItem *)sender {
+}
+- (IBAction)makePhoto:(UIBarButtonItem *)sender {
+}
+- (IBAction)sendImage:(UIBarButtonItem *)sender {
+    [self.chatHandler sendTextMessage:self.userInputTextView.text
+                             andImage:[UIImage imageNamed:kImageName]
+                       withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                           if (succeeded) {
+                               [self scrollMessagesUp];
+                           } else {
+                               NSLog(@"Failed to send message with image: %@ %@", error, error.userInfo);
+                           }
+                       }];
+    self.userInputTextView.text = @"";
+    [self updateSendButtonState];
+}
 
 #pragma mark - Private common
 
-- (void)updateCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+- (void)updateCell:(UITableViewCell *)cell inTableView:(UITableView *)tableView atIndexPath:(NSIndexPath *)indexPath {
+    NSAssert([NSThread isMainThread], @"Not in main thread!");
+
     ChatTableViewCell *chatCell = (ChatTableViewCell *)cell;
+    id <ChatMessage> chatMessage = [self.chatDataSource chatMessageAtIndexPath:indexPath];
+    chatCell.chatMessage = chatMessage;
     
-    chatCell.chatMessage = [self.chatDataSource chatMessageAtIndexPath:indexPath];
+    if (chatMessage.hasImage) {
+        if (chatMessage.image) {
+            [chatCell updateImage:chatMessage.image];
+        } else {
+            [self.messageContoller fetchImageForChatMessage:chatMessage withCompletion:^(UIImage * _Nullable image, NSError * _Nullable error) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    ChatTableViewCell *oldChatCell = [tableView cellForRowAtIndexPath:indexPath];
+                    [oldChatCell updateImage:chatMessage.image];
+                });
+            }];
+            [chatCell updateImage:[UIImage imageNamed:@"placeholder"]];
+        }
+    }
     chatCell.hasTail = [self.chatDataSource isLastMessage:indexPath];
+}
+- (void)updateImageForChatCell:(ChatTableViewCell *)chatCell andChatMessage:(id <ChatMessage>)chatMessage atIndexPath:(NSIndexPath *)indexPath {
 }
 - (void)updateBackgroundImage:(UIImage *)backgroundImage {
     UIImageView *tempImageView = [[UIImageView alloc] initWithImage:backgroundImage];
@@ -121,7 +160,7 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
     [self.chatDataSource fetchMessagesWithCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             [self reloadData];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 500 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1000 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
                 [self scrollMessagesUp];
             });
         } else {
@@ -207,12 +246,12 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
     self.sendButton.enabled = self.userInputTextView.text.length > 0;
 }
 - (void)scrollMessagesUp {
-    if(self.tableView.contentSize.height > self.tableView.frame.size.height) {
-        CGPoint bottomOffset = CGPointMake(0, self.tableView.contentSize.height
-                                           - self.tableView.bounds.size.height);
-        NSLog(@"Bottom: %@", NSStringFromCGPoint(bottomOffset));
-        [self.tableView setContentOffset:bottomOffset animated:YES];
-    }
+    NSInteger sectionsNumber = [self.chatDataSource numberOfSections];
+    NSInteger rowsNumber = [self.chatDataSource numberOfRowsInSection:sectionsNumber - 1];
+    [UIView animateWithDuration:0.5f animations:^{
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:rowsNumber - 1 inSection:sectionsNumber - 1]
+                              atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }];
 }
 
 @end

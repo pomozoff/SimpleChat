@@ -18,6 +18,7 @@
                           configuration:^(TyphoonDefinition *definition) {
                               [definition injectProperty:@selector(chatDataSource) with:[self chatManager]];
                               [definition injectProperty:@selector(chatHandler) with:[self chatManager]];
+                              [definition injectProperty:@selector(messageContoller) with:[self chatManager]];
                           }];
 }
 - (ChatManager *)chatManager {

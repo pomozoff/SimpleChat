@@ -11,9 +11,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^CompletionHandler)(BOOL succeeded, NSError * _Nullable error);
+typedef void (^FetchImageCompletionHandler)(UIImage * _Nullable image, NSError * _Nullable error);
 
 @protocol ChatMessage <NSObject>
 
+@property (nonatomic, copy) NSString *messageId;
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, assign) CLLocationDegrees latitude;

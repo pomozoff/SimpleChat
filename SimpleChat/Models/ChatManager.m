@@ -41,7 +41,7 @@
     return indexPath.row == self.messages.count - 1;
 }
 - (void)fetchMessagesWithCompletion:(CompletionHandler)handler {
-    [self.remoteDataSource fetchNextMessagesWithCompletion:^(BOOL succeeded, NSArray <id <ChatMessage>> *messages, NSError * _Nullable error) {
+    [self.remoteDataSource fetchLastMessagesWithCompletion:^(BOOL succeeded, NSArray <id <ChatMessage>> *messages, NSError * _Nullable error) {
         if (succeeded) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self mergeMessages:messages];
@@ -55,28 +55,24 @@
 
 #pragma mark - Chat handler
 
-- (void)sendTextMessage:(NSString *)text withCompletion:(CompletionHandler)handler {
-    id <ChatMessage> chatMessage = [[ChatMessage alloc] initWithText:text];
-    [self.remoteDataSource addChatMessage:chatMessage andCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-        handler(succeeded, error);
-    }];
-    
-    NSAssert([NSThread isMainThread], @"Not in main thread!");
-    [self.messages addObject:chatMessage];
-    NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0];
-    
-    [self.chatPresenter willChangeContent];
-    [self.chatPresenter didChangeObject:chatMessage
-                            atIndexPath:newIndexPath
-                          forChangeType:TableChangeInsert
-                           newIndexPath:newIndexPath];
-    [self.chatPresenter didChangeContent];
+- (void)sendTextMessage:(NSString *)text withCompletion:(CompletionHandler _Nonnull)handler {
+    id <ChatMessage> chatMessage = [self addNewMessageWithText:text];
+    [self processNewMessage:chatMessage withCompletion:handler];
 }
-- (void)sendCurrentLocationWithCompletion:(CompletionHandler)handler {
+- (void)sendTextMessage:(NSString *)text andImage:(UIImage * _Nullable)image withCompletion:(CompletionHandler _Nonnull)handler {
+    id <ChatMessage> chatMessage = [self addNewMessageWithText:text];
+    chatMessage.hasImage = YES;
+    chatMessage.image = image;
+    [self processNewMessage:chatMessage withCompletion:handler];
+}
+- (void)sendTextMessage:(NSString *)text andCurrentLocationWithCompletion:(CompletionHandler _Nonnull)handler {
     
 }
-- (void)sendImage:(UIImage *)image withCompletion:(CompletionHandler)handler {
-    
+
+#pragma mark - Message controller
+
+- (void)fetchImageForChatMessage:(id <ChatMessage>)chatMessage withCompletion:(FetchImageCompletionHandler)handler {
+    [self.remoteDataSource fetchImageForChatMessage:chatMessage withCompletion:handler];
 }
 
 #pragma mark - Private
@@ -85,7 +81,26 @@
     for (id <ChatMessage> chatMessage in newMessages) {
         [self.messages insertObject:chatMessage atIndex:0];
     }
-    NSLog(@"Merged messages count: %lu, %p", (unsigned long)self.messages.count, self);
+}
+- (id <ChatMessage>)addNewMessageWithText:(NSString *)text {
+    NSAssert([NSThread isMainThread], @"Not in main thread!");
+    id <ChatMessage> chatMessage = [[ChatMessage alloc] initWithText:text];
+    [self.messages addObject:chatMessage];
+    
+    return chatMessage;
+}
+- (void)processNewMessage:(id <ChatMessage> _Nonnull)chatMessage withCompletion:(CompletionHandler _Nonnull)handler {
+    [self.remoteDataSource addChatMessage:chatMessage andCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        handler(succeeded, error);
+    }];
+
+    NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0];
+    [self.chatPresenter willChangeContent];
+    [self.chatPresenter didChangeObject:chatMessage
+                            atIndexPath:newIndexPath
+                          forChangeType:TableChangeInsert
+                           newIndexPath:newIndexPath];
+    [self.chatPresenter didChangeContent];
 }
 
 @end

@@ -48,13 +48,19 @@ typedef enum : NSUInteger {
 
 @protocol ChatHandler <NSObject>
 
-- (void)sendTextMessage:(NSString *)text withCompletion:(CompletionHandler)handler;
-- (void)sendCurrentLocationWithCompletion:(CompletionHandler)handler;
-- (void)sendImage:(UIImage *)image withCompletion:(CompletionHandler)handler;
+- (void)sendTextMessage:(NSString *)text withCompletion:(CompletionHandler _Nonnull)handler;
+- (void)sendTextMessage:(NSString *)text andImage:(UIImage * _Nullable)image withCompletion:(CompletionHandler _Nonnull)handler;
+- (void)sendTextMessage:(NSString *)text andCurrentLocationWithCompletion:(CompletionHandler _Nonnull)handler;
 
 @end
 
-@interface ChatManager : NSObject <ChatDataSource, ChatHandler>
+@protocol MessageController <NSObject>
+
+- (void)fetchImageForChatMessage:(id <ChatMessage>)chatMessage withCompletion:(FetchImageCompletionHandler)handler;
+
+@end
+
+@interface ChatManager : NSObject <ChatDataSource, ChatHandler, MessageController>
 
 @property (nonatomic, strong) id <ChatPresenter> chatPresenter;
 @property (nonatomic, strong) id <RemoteDataSource> remoteDataSource;

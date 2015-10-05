@@ -16,8 +16,10 @@ typedef void (^FetchCompletionHandler)(BOOL succeeded, NSArray <id <ChatMessage>
 
 @protocol RemoteDataSource <NSObject>
 
+- (void)fetchLastMessagesWithCompletion:(FetchCompletionHandler)handler;
 - (void)fetchNextMessagesWithCompletion:(FetchCompletionHandler)handler;
-- (void)addChatMessage:(id <ChatMessage>)message andCompletion:(CompletionHandler)handler;
+- (void)addChatMessage:(id <ChatMessage>)chatMessage andCompletion:(CompletionHandler)handler;
+- (void)fetchImageForChatMessage:(id <ChatMessage>)chatMessage withCompletion:(FetchImageCompletionHandler _Nonnull)handler;
 
 @end
 
