@@ -51,7 +51,7 @@ static NSString * const kImageName = @"cat";
     self.imagesCollectionViewHeight = self.imagesCollectionViewHeightConstraint.constant;
     self.previewImageHeight = self.previewImageHeightConstraint.constant;
     
-    [self triggerImagesCollectionView];
+    [self triggerImagesCollectionViewWithAnimation:YES];
     [self triggerImagePreviewView];
     [self animateConstraintsChanges];
 }
@@ -135,7 +135,7 @@ static NSString * const kImageName = @"cat";
                        }];
 }
 - (IBAction)selectImageFromGallery:(UIBarButtonItem *)sender {
-    [self triggerImagesCollectionView];
+    [self triggerImagesCollectionViewWithAnimation:YES];
 }
 
 #pragma mark - Private common
@@ -286,9 +286,12 @@ static NSString * const kImageName = @"cat";
                      }
                      completion:nil];
 }
-- (void)triggerImagesCollectionView {
+- (void)triggerImagesCollectionViewWithAnimation:(BOOL)animation {
     self.imagesCollectionViewHeightConstraint.constant = (NSInteger)self.imagesCollectionViewHeightConstraint.constant == 0 ? self.imagesCollectionViewHeight : 0;
     [self.view setNeedsUpdateConstraints];
+    if (animation) {
+        [self animateConstraintsChanges];
+    }
 }
 - (void)triggerImagePreviewView {
     self.previewImageView.hidden = !self.previewImageView.hidden;
@@ -297,7 +300,7 @@ static NSString * const kImageName = @"cat";
 }
 - (void)hideImagesCollectionView {
     if ((NSInteger)self.imagesCollectionViewHeightConstraint.constant == self.imagesCollectionViewHeight) {
-        [self triggerImagesCollectionView];
+        [self triggerImagesCollectionViewWithAnimation:YES];
     }
 }
 
