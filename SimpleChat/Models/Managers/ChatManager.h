@@ -14,11 +14,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef enum : NSUInteger {
-    TableChangeInsert = 1,
-    TableChangeDelete = 2,
-    TableChangeMove   = 3,
-    TableChangeUpdate = 4
-} TableChangeType;
+    CollectionChangeInsert = 1,
+    CollectionChangeDelete = 2,
+    CollectionChangeMove   = 3,
+    CollectionChangeUpdate = 4
+} CollectionChangeType;
 
 @protocol ChatPresenter <NSObject>
 
@@ -27,10 +27,10 @@ typedef enum : NSUInteger {
 - (void)reloadData;
 - (void)willChangeContent;
 - (void)didChangeSectionatIndex:(NSUInteger)sectionIndex
-                  forChangeType:(TableChangeType)type;
+                  forChangeType:(CollectionChangeType)type;
 - (void)didChangeObject:(id)anObject
             atIndexPath:(NSIndexPath *)indexPath
-          forChangeType:(TableChangeType)type
+          forChangeType:(CollectionChangeType)type
            newIndexPath:(NSIndexPath *)newIndexPath;
 - (void)didChangeContent;
 

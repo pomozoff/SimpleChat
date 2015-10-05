@@ -11,6 +11,7 @@
 		268995301BBE7C6C005122D1 /* ParseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2689952F1BBE7C6C005122D1 /* ParseDataSource.m */; settings = {ASSET_TAGS = (); }; };
 		268995381BBE911C005122D1 /* BaseCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 268995351BBE911C005122D1 /* BaseCollectionViewController.m */; settings = {ASSET_TAGS = (); }; };
 		268995391BBE911C005122D1 /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 268995371BBE911C005122D1 /* BaseTableViewController.m */; settings = {ASSET_TAGS = (); }; };
+		26A4450D1BC316780073DFBB /* ChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A4450C1BC316780073DFBB /* ChatManager.m */; settings = {ASSET_TAGS = (); }; };
 		26EF7DEF1BBA95E60017D02E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7DEE1BBA95E60017D02E /* main.m */; };
 		26EF7DF21BBA95E60017D02E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7DF11BBA95E60017D02E /* AppDelegate.m */; };
 		26EF7DF81BBA95E60017D02E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26EF7DF61BBA95E60017D02E /* Main.storyboard */; };
@@ -36,7 +37,6 @@
 		26EF7E4B1BBABDF60017D02E /* Typhoon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26EF7E4A1BBABDF60017D02E /* Typhoon.framework */; };
 		26EF7E4F1BBABE520017D02E /* Typhoon.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = 26EF7E4E1BBABE520017D02E /* Typhoon.framework.dSYM */; };
 		26EF7E531BBAC7800017D02E /* ChatTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7E521BBAC7800017D02E /* ChatTableViewController.m */; settings = {ASSET_TAGS = (); }; };
-		26EF7E561BBAC85B0017D02E /* ChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7E551BBAC85B0017D02E /* ChatManager.m */; settings = {ASSET_TAGS = (); }; };
 		26EF7E5A1BBAC8C70017D02E /* ChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7E591BBAC8C70017D02E /* ChatTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
@@ -80,6 +80,8 @@
 		268995351BBE911C005122D1 /* BaseCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseCollectionViewController.m; sourceTree = "<group>"; };
 		268995361BBE911C005122D1 /* BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewController.h; sourceTree = "<group>"; };
 		268995371BBE911C005122D1 /* BaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewController.m; sourceTree = "<group>"; };
+		26A4450B1BC316780073DFBB /* ChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatManager.h; sourceTree = "<group>"; };
+		26A4450C1BC316780073DFBB /* ChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatManager.m; sourceTree = "<group>"; };
 		26E9BEBD1BBD2F07005F1F9B /* PrivateData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivateData.h; sourceTree = "<group>"; };
 		26EF7DEA1BBA95E60017D02E /* SimpleChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26EF7DEE1BBA95E60017D02E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -116,8 +118,6 @@
 		26EF7E4E1BBABE520017D02E /* Typhoon.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Typhoon.framework.dSYM; path = ../../Carthage/Build/iOS/Typhoon.framework.dSYM; sourceTree = "<group>"; };
 		26EF7E511BBAC7800017D02E /* ChatTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatTableViewController.h; sourceTree = "<group>"; };
 		26EF7E521BBAC7800017D02E /* ChatTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatTableViewController.m; sourceTree = "<group>"; };
-		26EF7E541BBAC85B0017D02E /* ChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatManager.h; sourceTree = "<group>"; };
-		26EF7E551BBAC85B0017D02E /* ChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatManager.m; sourceTree = "<group>"; };
 		26EF7E581BBAC8C70017D02E /* ChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatTableViewCell.h; sourceTree = "<group>"; };
 		26EF7E591BBAC8C70017D02E /* ChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -175,6 +175,7 @@
 			children = (
 				26EF7E411BBABC9A0017D02E /* Assembly */,
 				268995331BBE911C005122D1 /* Base classes */,
+				26A445111BC317650073DFBB /* Headers */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -188,6 +189,22 @@
 				268995371BBE911C005122D1 /* BaseTableViewController.m */,
 			);
 			path = "Base classes";
+			sourceTree = "<group>";
+		};
+		26A4450A1BC316780073DFBB /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				26A4450B1BC316780073DFBB /* ChatManager.h */,
+				26A4450C1BC316780073DFBB /* ChatManager.m */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		26A445111BC317650073DFBB /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Headers;
 			sourceTree = "<group>";
 		};
 		26E9BEBC1BBD2EE3005F1F9B /* Private */ = {
@@ -306,10 +323,9 @@
 		26EF7E451BBABCAA0017D02E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				26A4450A1BC316780073DFBB /* Managers */,
 				2689952D1BBE7C5D005122D1 /* Data sources */,
 				26EF7E461BBABCAA0017D02E /* Objects */,
-				26EF7E541BBAC85B0017D02E /* ChatManager.h */,
-				26EF7E551BBAC85B0017D02E /* ChatManager.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -504,7 +520,7 @@
 				26EF7E441BBABC9A0017D02E /* SimpleChatAssembly.m in Sources */,
 				268995301BBE7C6C005122D1 /* ParseDataSource.m in Sources */,
 				2661276B1BC2A5C200302DBA /* ImagesCollectionViewController.m in Sources */,
-				26EF7E561BBAC85B0017D02E /* ChatManager.m in Sources */,
+				26A4450D1BC316780073DFBB /* ChatManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -99,7 +99,7 @@
     [self.chatPresenter willChangeContent];
     [self.chatPresenter didChangeObject:chatMessage
                             atIndexPath:newIndexPath
-                          forChangeType:TableChangeInsert
+                          forChangeType:CollectionChangeInsert
                            newIndexPath:newIndexPath];
     [self.chatPresenter didChangeContent];
 }
