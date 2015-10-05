@@ -160,6 +160,7 @@ static NSString * const kImageName = @"cat";
             dispatch_async(dispatch_get_main_queue(), ^{
                 ChatTableViewCell *oldChatCell = [tableView cellForRowAtIndexPath:indexPath];
                 [oldChatCell updateImage:chatMessage.image];
+                [tableView setNeedsLayout];
             });
         }];
         [chatCell updateImage:[UIImage imageNamed:@"placeholder"]];
@@ -172,11 +173,6 @@ static NSString * const kImageName = @"cat";
             __weak __typeof(self) weakSelf = self;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 200 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
                 [weakSelf scrollMessagesUp];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    __typeof(self) strongSelf = weakSelf;
-                    [strongSelf.tableView beginUpdates];
-                    [strongSelf.tableView endUpdates];
-                });
             });
         } else {
             NSLog(@"Failed to reload chat list: %@ %@", error, error.userInfo);
