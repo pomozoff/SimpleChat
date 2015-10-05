@@ -12,6 +12,7 @@
 		268995381BBE911C005122D1 /* BaseCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 268995351BBE911C005122D1 /* BaseCollectionViewController.m */; settings = {ASSET_TAGS = (); }; };
 		268995391BBE911C005122D1 /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 268995371BBE911C005122D1 /* BaseTableViewController.m */; settings = {ASSET_TAGS = (); }; };
 		26A4450D1BC316780073DFBB /* ChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A4450C1BC316780073DFBB /* ChatManager.m */; settings = {ASSET_TAGS = (); }; };
+		26A445101BC316B60073DFBB /* CollectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A4450F1BC316B60073DFBB /* CollectionManager.m */; settings = {ASSET_TAGS = (); }; };
 		26EF7DEF1BBA95E60017D02E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7DEE1BBA95E60017D02E /* main.m */; };
 		26EF7DF21BBA95E60017D02E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7DF11BBA95E60017D02E /* AppDelegate.m */; };
 		26EF7DF81BBA95E60017D02E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26EF7DF61BBA95E60017D02E /* Main.storyboard */; };
@@ -82,6 +83,8 @@
 		268995371BBE911C005122D1 /* BaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewController.m; sourceTree = "<group>"; };
 		26A4450B1BC316780073DFBB /* ChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatManager.h; sourceTree = "<group>"; };
 		26A4450C1BC316780073DFBB /* ChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatManager.m; sourceTree = "<group>"; };
+		26A4450E1BC316B60073DFBB /* CollectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionManager.h; sourceTree = "<group>"; };
+		26A4450F1BC316B60073DFBB /* CollectionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionManager.m; sourceTree = "<group>"; };
 		26E9BEBD1BBD2F07005F1F9B /* PrivateData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivateData.h; sourceTree = "<group>"; };
 		26EF7DEA1BBA95E60017D02E /* SimpleChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26EF7DEE1BBA95E60017D02E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -196,6 +199,8 @@
 			children = (
 				26A4450B1BC316780073DFBB /* ChatManager.h */,
 				26A4450C1BC316780073DFBB /* ChatManager.m */,
+				26A4450E1BC316B60073DFBB /* CollectionManager.h */,
+				26A4450F1BC316B60073DFBB /* CollectionManager.m */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -519,6 +524,7 @@
 				268995391BBE911C005122D1 /* BaseTableViewController.m in Sources */,
 				26EF7E441BBABC9A0017D02E /* SimpleChatAssembly.m in Sources */,
 				268995301BBE7C6C005122D1 /* ParseDataSource.m in Sources */,
+				26A445101BC316B60073DFBB /* CollectionManager.m in Sources */,
 				2661276B1BC2A5C200302DBA /* ImagesCollectionViewController.m in Sources */,
 				26A4450D1BC316780073DFBB /* ChatManager.m in Sources */,
 			);
