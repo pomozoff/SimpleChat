@@ -42,33 +42,33 @@
     });
 }
 - (void)didChangeSectionatIndex:(NSUInteger)sectionIndex
-                  forChangeType:(TableChangeType)type
+                  forChangeType:(CollectionChangeType)type
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         __weak UICollectionView *weakCollectionView = self.collectionView;
         switch(type) {
-            case TableChangeInsert: {
+            case CollectionChangeInsert: {
                 [self.updateOperation addExecutionBlock:^{
                     [weakCollectionView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
                 }];
                 break;
             }
-            case TableChangeDelete: {
+            case CollectionChangeDelete: {
                 [self.updateOperation addExecutionBlock:^{
                     [weakCollectionView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
                 }];
                 break;
             }
-            case TableChangeUpdate: {
+            case CollectionChangeMove: {
+                [self.updateOperation addExecutionBlock:^{
+                    [weakCollectionView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+                    [weakCollectionView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+                }];
+                break;
+            }
+            case CollectionChangeUpdate: {
                 [self.updateOperation addExecutionBlock:^{
                     [weakCollectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
-                }];
-                break;
-            }
-            case TableChangeMove: {
-                [self.updateOperation addExecutionBlock:^{
-                    [weakCollectionView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
-                    [weakCollectionView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
                 }];
                 break;
             }
@@ -79,34 +79,34 @@
 }
 - (void)didChangeObject:(id)anObject
             atIndexPath:(NSIndexPath *)indexPath
-          forChangeType:(TableChangeType)type
+          forChangeType:(CollectionChangeType)type
            newIndexPath:(NSIndexPath *)newIndexPath
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         __weak UICollectionView *weakCollectionView = self.collectionView;
         switch(type) {
-            case TableChangeInsert: {
+            case CollectionChangeInsert: {
                 [self.updateOperation addExecutionBlock:^{
                     [weakCollectionView insertItemsAtIndexPaths:@[newIndexPath]];
                 }];
                 break;
             }
-            case TableChangeDelete: {
+            case CollectionChangeDelete: {
                 [self.updateOperation addExecutionBlock:^{
                     [weakCollectionView deleteItemsAtIndexPaths:@[newIndexPath]];
                 }];
                 break;
             }
-            case TableChangeUpdate: {
+            case CollectionChangeMove: {
+                [self.updateOperation addExecutionBlock:^{
+                    [weakCollectionView deleteItemsAtIndexPaths:@[newIndexPath]];
+                    [weakCollectionView insertItemsAtIndexPaths:@[newIndexPath]];
+                }];
+                break;
+            }
+            case CollectionChangeUpdate: {
                 [self.updateOperation addExecutionBlock:^{
                     [weakCollectionView reloadItemsAtIndexPaths:@[newIndexPath]];
-                }];
-                break;
-            }
-            case TableChangeMove: {
-                [self.updateOperation addExecutionBlock:^{
-                    [weakCollectionView deleteItemsAtIndexPaths:@[newIndexPath]];
-                    [weakCollectionView insertItemsAtIndexPaths:@[newIndexPath]];
                 }];
                 break;
             }
