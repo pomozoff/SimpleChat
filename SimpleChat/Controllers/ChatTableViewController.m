@@ -283,13 +283,15 @@ static NSString * const kImageName = @"cat";
 - (void)animateConstraintsChanges {
     CGFloat damping = 0.8f;
     CGFloat velocity = 0.8f;
+
+    __weak __typeof(self) weakSelf = self;
     [UIView animateWithDuration:0.3f
                           delay:0.0f
          usingSpringWithDamping:damping
           initialSpringVelocity:velocity
                         options:0
                      animations:^{
-                         [self.view layoutIfNeeded];
+                         [weakSelf.view layoutIfNeeded];
                      }
                      completion:nil];
 }
