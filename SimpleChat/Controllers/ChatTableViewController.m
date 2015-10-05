@@ -126,6 +126,7 @@ static NSString * const kImageName = @"cat";
     ChatTableViewCell *chatCell = (ChatTableViewCell *)cell;
     id <ChatMessage> chatMessage = [self.chatDataSource chatMessageAtIndexPath:indexPath];
     chatCell.chatMessage = chatMessage;
+    [chatCell updateImage:nil];
     
     if (chatMessage.hasImage) {
         if (chatMessage.image) {
