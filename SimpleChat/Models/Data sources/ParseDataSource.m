@@ -14,7 +14,8 @@ typedef void (^FetchImageCompletionHandler)(UIImage * _Nullable image, NSError *
 
 @interface ParseDataSource ()
 
-@property (nonatomic, strong) PFQuery *query;
+@property (nonatomic, strong) PFQuery *queryLocal;
+@property (nonatomic, strong) PFQuery *queryRemote;
 @property (nonatomic, strong) NSMutableDictionary *images;
 
 @end
@@ -24,17 +25,27 @@ typedef void (^FetchImageCompletionHandler)(UIImage * _Nullable image, NSError *
 #pragma mark - Constants
 
 static NSString *kSortKey = @"createdAt";
-static NSUInteger const kFetchedObjectsLimit = 10;
+static NSUInteger const kFetchedLocalObjectsLimit = 20;
+static NSUInteger const kFetchedRemoteObjectsLimit = 10;
 
 #pragma mark - Properties
 
-- (PFQuery *)query {
-    if (!_query) {
-        _query = [PFQuery queryWithClassName:NSStringFromClass([ChatMessage class])];
-        _query.limit = kFetchedObjectsLimit;
-        _query.skip = 0;
+- (PFQuery *)queryLocal {
+    if (!_queryLocal) {
+        _queryLocal = [PFQuery queryWithClassName:NSStringFromClass([ChatMessage class])];
+        _queryLocal.limit = kFetchedLocalObjectsLimit;
+        _queryLocal.skip = 0;
+        [_queryLocal fromLocalDatastore];
     }
-    return _query;
+    return _queryLocal;
+}
+- (PFQuery *)queryRemote {
+    if (!_queryRemote) {
+        _queryRemote = [PFQuery queryWithClassName:NSStringFromClass([ChatMessage class])];
+        _queryRemote.limit = kFetchedRemoteObjectsLimit;
+        _queryRemote.skip = 0;
+    }
+    return _queryRemote;
 }
 - (NSMutableDictionary *)images {
     if (!_images) {
@@ -46,8 +57,8 @@ static NSUInteger const kFetchedObjectsLimit = 10;
 #pragma mark - Remote data source
 
 - (void)fetchMessagesWithCompletion:(FetchCompletionHandler)handler {
-    [self.query orderByDescending:kSortKey];
-    [self.query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    [self.queryRemote orderByDescending:kSortKey];
+    [self.queryRemote findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (error) {
             NSLog(@"Error: %@ %@", error, error.userInfo);
         }
@@ -59,11 +70,11 @@ static NSUInteger const kFetchedObjectsLimit = 10;
 }
 - (void)fetchLastMessagesWithCompletion:(FetchCompletionHandler)handler {
     self.images = [NSMutableDictionary dictionary];
-    self.query.skip = 0;
+    self.queryRemote.skip = 0;
     [self fetchMessagesWithCompletion:handler];
 }
 - (void)fetchNextMessagesWithCompletion:(FetchCompletionHandler)handler {
-    self.query.skip += kFetchedObjectsLimit;
+    self.queryRemote.skip += kFetchedRemoteObjectsLimit;
     [self fetchMessagesWithCompletion:handler];
 }
 - (void)fetchImageForChatMessage:(id <ChatMessage>)chatMessage withCompletion:(FetchImageCompletionHandler)handler {
