@@ -20,10 +20,8 @@
 #pragma mark - Lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [Parse enableLocalDatastore];
-    [Parse setApplicationId:kApplicationId
-                  clientKey:kClientId];
-    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    [self setupAppearance];
+    [self setupParseWithOptions:launchOptions];
     
     return YES;
 }
@@ -43,6 +41,18 @@
 }
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - Private
+
+- (void)setupAppearance {
+    [[UITableViewCell appearance] setBackgroundColor:[UIColor clearColor]];
+}
+- (void)setupParseWithOptions:(NSDictionary *)launchOptions {
+    [Parse enableLocalDatastore];
+    [Parse setApplicationId:kApplicationId
+                  clientKey:kClientId];
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 }
 
 @end
