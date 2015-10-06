@@ -40,9 +40,20 @@
 - (BOOL)isLastMessage:(NSIndexPath *)indexPath {
     return indexPath.row == (NSInteger)self.messages.count - 1;
 }
-- (void)fetchMessagesWithCompletion:(CompletionHandler)handler {
+- (void)resetToNewestMessageWithCompletion:(CompletionHandler)handler {
     __weak __typeof(self) weakSelf = self;
-    [self.remoteDataSource fetchLastMessagesWithCompletion:^(BOOL succeeded, NSArray <id <ChatMessage>> *messages, NSError * _Nullable error) {
+    [self.remoteDataSource resetToNewestMessageWithCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            [weakSelf.messages removeAllObjects];
+        } else {
+            NSLog(@"Failed to fetch messages: %@ %@", error, error.userInfo);
+        }
+        handler(succeeded, error);
+    }];
+}
+- (void)fetchMoreMessagesWithCompletion:(CompletionHandler)handler {
+    __weak __typeof(self) weakSelf = self;
+    [self.remoteDataSource fetchMoreMessagesWithCompletion:^(BOOL succeeded, NSArray <id <ChatMessage>> *messages, NSError * _Nullable error) {
         if (succeeded) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf mergeMessages:messages];

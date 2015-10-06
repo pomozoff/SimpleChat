@@ -26,7 +26,7 @@ typedef void (^FetchImageCompletionHandler)(UIImage * _Nullable image, NSError *
 
 static NSString *kSortKey = @"createdAt";
 static NSInteger const kFetchedLocalObjectsLimit = 20;
-static NSInteger const kFetchedRemoteObjectsLimit = 10;
+static NSInteger const kFetchedRemoteObjectsLimit = 4;
 
 #pragma mark - Properties
 
@@ -35,6 +35,7 @@ static NSInteger const kFetchedRemoteObjectsLimit = 10;
         _queryLocal = [PFQuery queryWithClassName:NSStringFromClass([ChatMessage class])];
         _queryLocal.limit = kFetchedLocalObjectsLimit;
         _queryLocal.skip = 0;
+        [_queryLocal orderByDescending:kSortKey];
         [_queryLocal fromLocalDatastore];
     }
     return _queryLocal;
@@ -44,6 +45,7 @@ static NSInteger const kFetchedRemoteObjectsLimit = 10;
         _queryRemote = [PFQuery queryWithClassName:NSStringFromClass([ChatMessage class])];
         _queryRemote.limit = kFetchedRemoteObjectsLimit;
         _queryRemote.skip = 0;
+        [_queryRemote orderByDescending:kSortKey];
     }
     return _queryRemote;
 }
@@ -56,27 +58,12 @@ static NSInteger const kFetchedRemoteObjectsLimit = 10;
 
 #pragma mark - Remote data source
 
-- (void)fetchMessagesWithCompletion:(FetchCompletionHandler)handler {
-    __weak __typeof(self) weakSelf = self;
-    [self.queryRemote orderByDescending:kSortKey];
-    [self.queryRemote findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (error) {
-            NSLog(@"Error: %@ %@", error, error.userInfo);
-        }
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            NSArray <id <ChatMessage>> *messages = [weakSelf messagesFromObjects:objects];
-            handler(!error, messages, error);
-        });
-    }];
-}
-- (void)fetchLastMessagesWithCompletion:(FetchCompletionHandler)handler {
-    self.images = [NSMutableDictionary dictionary];
+- (void)resetToNewestMessageWithCompletion:(CompletionHandler)handler {
     self.queryRemote.skip = 0;
-    [self fetchMessagesWithCompletion:handler];
+    handler(YES, nil);
 }
-- (void)fetchNextMessagesWithCompletion:(FetchCompletionHandler)handler {
-    self.queryRemote.skip += kFetchedRemoteObjectsLimit;
-    [self fetchMessagesWithCompletion:handler];
+- (void)fetchMoreMessagesWithCompletion:(FetchCompletionHandler)handler {
+    [self fetchMessagesFromQuery:self.queryRemote withCompletion:handler];
 }
 - (void)fetchImageForChatMessage:(id <ChatMessage>)chatMessage withCompletion:(FetchImageCompletionHandler)handler {
     PFFile *file = self.images[chatMessage.messageId];
@@ -123,7 +110,7 @@ static NSInteger const kFetchedRemoteObjectsLimit = 10;
 
 #pragma mark - Private
 
-- (NSArray <id <ChatMessage>> *)messagesFromObjects:(nonnull NSArray <PFObject *> *)objects {
+- (nonnull NSArray <id <ChatMessage>> *)messagesFromObjects:(nonnull NSArray <PFObject *> *)objects {
     NSMutableArray <id <ChatMessage>> *mutableMessages = [NSMutableArray arrayWithCapacity:objects.count];
     for (PFObject *object in objects) {
         ChatMessage *chatMessage = [[ChatMessage alloc] initWithText:object[@"text"]];
@@ -156,6 +143,20 @@ static NSInteger const kFetchedRemoteObjectsLimit = 10;
             }];
         } else {
             NSLog(@"Failed to upload the image to Parse: %@ %@", error, error.userInfo);
+        }
+    }];
+}
+- (void)fetchMessagesFromQuery:(nonnull PFQuery *)query withCompletion:(FetchCompletionHandler)handler {
+    __weak __typeof(self) weakSelf = self;
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            query.skip += kFetchedRemoteObjectsLimit;
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSArray <id <ChatMessage>> *messages = [weakSelf messagesFromObjects:objects];
+                handler(!error, messages, error);
+            });
+        } else {
+            NSLog(@"Error: %@ %@", error, error.userInfo);
         }
     }];
 }

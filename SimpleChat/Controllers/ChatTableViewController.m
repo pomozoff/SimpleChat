@@ -9,6 +9,11 @@
 #import "ChatTableViewController.h"
 #import "ChatTableViewCell.h"
 
+typedef enum : NSUInteger {
+    ScrollDirectionUp = 1,
+    ScrollDirectionDown = 2,
+} ScrollDirection;
+
 @interface ChatTableViewController () <UITextViewDelegate, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *userInputTextView;
@@ -30,8 +35,10 @@
 #pragma mark - Constants
 
 static NSString * const kImageName = @"cat";
+static NSString * const kImagePlaceholderName = @"placeholder";
 static NSString * const kMessageCellReuseIdentifier = @"Chat Message Cell";
 static NSUInteger const kPercentOfUserInputTextHeight = 10;
+static int64_t const kUpdateLayoutTimeout = 100 * NSEC_PER_MSEC;
 
 #pragma mark - Life cycle
 
@@ -114,7 +121,7 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
     [self.chatHandler sendTextMessage:trimmedText
                        withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                            if (succeeded) {
-                               [weakSelf scrollMessagesUp];
+                               [weakSelf scrollMessages:ScrollDirectionDown];
                            } else {
                                NSLog(@"Failed to send message: %@ %@", error, error.userInfo);
                            }
@@ -131,7 +138,7 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
                              andImage:[UIImage imageNamed:kImageName]
                        withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                            if (succeeded) {
-                               [weakSelf scrollMessagesUp];
+                               [weakSelf scrollMessages:ScrollDirectionDown];
                            } else {
                                NSLog(@"Failed to send message with image: %@ %@", error, error.userInfo);
                            }
@@ -166,22 +173,45 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
                 [tableView layoutIfNeeded];
             });
         }];
-        [chatCell updateImage:[UIImage imageNamed:@"placeholder"]];
+        [chatCell updateImage:[UIImage imageNamed:kImagePlaceholderName]];
     }
 }
-- (void)reloadChatList {
-    __weak __typeof(self) weakSelf = self;
-    [self.chatDataSource fetchMessagesWithCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+- (void)fetchMoreMessagesWithCompletion:(nullable CompletionHandler)handler {
+    [self.chatDataSource fetchMoreMessagesWithCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
-            [self reloadData];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 200 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
+            [self reloadDataInSections:[NSIndexSet indexSetWithIndex:0]];
+        } else {
+            NSLog(@"Failed to fetch more mesages: %@ %@", error, error.userInfo);
+        }
+        if (handler) {
+            handler(succeeded, error);
+        }
+    }];
+}
+- (void)fetchtMoreMessagesWithScrollDown {
+    __weak __typeof(self) weakSelf = self;
+    [self fetchMoreMessagesWithCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, kUpdateLayoutTimeout), dispatch_get_main_queue(), ^{
                 [weakSelf.tableView layoutIfNeeded];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [weakSelf scrollMessagesUp];
+                    [weakSelf scrollMessages:ScrollDirectionDown];
+                    [weakSelf.tableView beginUpdates];
+                    [weakSelf.tableView endUpdates];
                 });
             });
         } else {
-            NSLog(@"Failed to reload chat list: %@ %@", error, error.userInfo);
+            NSLog(@"Failed to fetch more mesages: %@ %@", error, error.userInfo);
+        }
+    }];
+}
+- (void)reloadChatList {
+    __weak __typeof(self) weakSelf = self;
+    [self.chatDataSource resetToNewestMessageWithCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            [weakSelf fetchtMoreMessagesWithScrollDown];
+        } else {
+            NSLog(@"Failed to reset chat list to the newest message: %@ %@", error, error.userInfo);
         }
     }];
 }
@@ -231,7 +261,7 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
                      }
                      completion:^(BOOL finished) {
                          if (finished) {
-                             [weakSelf scrollMessagesUp];
+                             [weakSelf scrollMessages:ScrollDirectionDown];
                          }
                      }];
 }
@@ -255,14 +285,31 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
     self.userInputTextView.layer.borderColor = [[UIColor grayColor] CGColor];
     self.userInputTextView.layer.cornerRadius = 5.0f;
 }
+- (void)refreshControllTriggered:(UIRefreshControl *)refreshControl {
+    __weak __typeof(self) weakSelf = self;
+    [self fetchMoreMessagesWithCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, kUpdateLayoutTimeout), dispatch_get_main_queue(), ^{
+                [weakSelf.tableView layoutIfNeeded];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf.tableView beginUpdates];
+                    [weakSelf.tableView endUpdates];
+                });
+            });
+        } else {
+            NSLog(@"Failed to fetch more mesages: %@ %@", error, error.userInfo);
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [refreshControl endRefreshing];
+        });
+    }];
+}
 - (void)addRefreshController {
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    refreshControl.backgroundColor = [UIColor purpleColor];
-    refreshControl.tintColor = [UIColor whiteColor];
     [refreshControl addTarget:self
-                       action:@selector(reloadChatList)
+                       action:@selector(refreshControllTriggered:)
              forControlEvents:UIControlEventValueChanged];
-
+    [self.tableView addSubview:refreshControl];
 }
 - (void)updateUserInputTextViewState:(UITextView *)textView {
     CGRect rect = [textView.text boundingRectWithSize:CGSizeMake(textView.frame.size.width, CGFLOAT_MAX)
@@ -275,12 +322,14 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
 - (void)updateSendButtonState {
     self.sendButton.enabled = self.userInputTextView.text.length > 0;
 }
-- (void)scrollMessagesUp {
+- (void)scrollMessages:(ScrollDirection)scrollDirection {
     NSInteger sectionsNumber = [self.chatDataSource numberOfSections];
     NSInteger rowsNumber = [self.chatDataSource numberOfRowsInSection:sectionsNumber - 1];
-    if (rowsNumber > 0) {
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:rowsNumber - 1 inSection:sectionsNumber - 1]
-                              atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    if (sectionsNumber > 0 && rowsNumber > 0) {
+        NSInteger rowIndex = scrollDirection == ScrollDirectionUp ? 0 : rowsNumber - 1;
+        UITableViewScrollPosition scrollPosition = scrollDirection == ScrollDirectionUp ? UITableViewScrollPositionTop : UITableViewScrollPositionBottom;
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:rowIndex inSection:sectionsNumber - 1]
+                              atScrollPosition:scrollPosition animated:YES];
     }
 }
 - (void)animateConstraintsChangesWithCompletion:(void (^)(BOOL))completion {
@@ -304,7 +353,7 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
         __weak __typeof(self) weakSelf = self;
         [self animateConstraintsChangesWithCompletion:^(BOOL finished) {
             if (finished) {
-                [weakSelf scrollMessagesUp];
+                [weakSelf scrollMessages:ScrollDirectionDown];
             }
         }];
     }

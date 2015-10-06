@@ -29,9 +29,9 @@
 
 #pragma mark - Data presenter
 
-- (void)reloadData {
+- (void)reloadDataInSections:(NSIndexSet *)indexSet {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
     });
 }
 - (void)willChangeContent {

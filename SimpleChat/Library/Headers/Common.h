@@ -24,7 +24,7 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, strong) NSBlockOperation *updateOperation;
 
-- (void)reloadData;
+- (void)reloadDataInSections:(NSIndexSet *)indexSet;
 - (void)willChangeContent;
 - (void)didChangeSectionatIndex:(NSUInteger)sectionIndex
                   forChangeType:(CollectionChangeType)type;

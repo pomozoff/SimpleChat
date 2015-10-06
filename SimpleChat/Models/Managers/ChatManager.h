@@ -20,7 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSInteger)numberOfRowsInSection:(NSInteger)section;
 - (id <ChatMessage>)chatMessageAtIndexPath:(NSIndexPath *)indexPath;
 - (BOOL)isLastMessage:(NSIndexPath *)indexPath;
-- (void)fetchMessagesWithCompletion:(CompletionHandler)handler;
+- (void)resetToNewestMessageWithCompletion:(CompletionHandler)handler;
+- (void)fetchMoreMessagesWithCompletion:(CompletionHandler)handler;
 
 @end
 
