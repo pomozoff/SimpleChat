@@ -51,9 +51,8 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
     self.imagesCollectionViewHeight = self.imagesCollectionViewHeightConstraint.constant;
     self.previewImageHeight = self.previewImageHeightConstraint.constant;
     
-    [self triggerImagesCollectionViewWithAnimation:YES];
+    [self triggerImagesCollectionViewWithAnimation:NO];
     [self triggerImagePreviewView];
-    [self animateConstraintsChanges];
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -189,7 +188,7 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
 - (NSString *)processTextToSend {
     NSString *trimmedText = [self.userInputTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     self.userInputTextView.text = @"";
-    [self animateConstraintsChanges];
+    [self animateConstraintsChangesWithCompletion:nil];
     [self updateSendButtonState];
 
     return trimmedText;
@@ -284,7 +283,7 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
                               atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
 }
-- (void)animateConstraintsChanges {
+- (void)animateConstraintsChangesWithCompletion:(void (^)(BOOL))completion {
     __weak __typeof(self) weakSelf = self;
     [UIView animateWithDuration:0.5f
                           delay:0.0f
@@ -294,11 +293,7 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
                      animations:^{
                          [weakSelf.view layoutIfNeeded];
                      }
-                     completion:^(BOOL finished) {
-                         if (finished) {
-                             [weakSelf scrollMessagesUp];
-                         }
-                     }];
+                     completion:completion];
 }
 - (void)triggerImagesCollectionViewWithAnimation:(BOOL)animation {
     self.imagesCollectionViewHeightConstraint.constant = (NSInteger)self.imagesCollectionViewHeightConstraint.constant == 0 ? self.imagesCollectionViewHeight : 0;
@@ -306,7 +301,12 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
     [self dismissKeyboard];
 
     if (animation) {
-        [self animateConstraintsChanges];
+        __weak __typeof(self) weakSelf = self;
+        [self animateConstraintsChangesWithCompletion:^(BOOL finished) {
+            if (finished) {
+                [weakSelf scrollMessagesUp];
+            }
+        }];
     }
 }
 - (void)triggerImagePreviewView {
