@@ -120,11 +120,13 @@ static int64_t const kUpdateLayoutTimeout = 100 * NSEC_PER_MSEC;
     __weak __typeof(self) weakSelf = self;
     [self.chatHandler sendTextMessage:trimmedText
                        withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-                           if (succeeded) {
-                               [weakSelf scrollMessages:ScrollDirectionDown];
-                           } else {
-                               NSLog(@"Failed to send message: %@ %@", error, error.userInfo);
-                           }
+                           dispatch_async(dispatch_get_main_queue(), ^{
+                               if (succeeded) {
+                                   [weakSelf scrollMessages:ScrollDirectionDown];
+                               } else {
+                                   NSLog(@"Failed to send message: %@ %@", error, error.userInfo);
+                               }
+                           });
                        }];
 }
 - (IBAction)sendLocation:(UIBarButtonItem *)sender {
@@ -137,11 +139,13 @@ static int64_t const kUpdateLayoutTimeout = 100 * NSEC_PER_MSEC;
     [self.chatHandler sendTextMessage:trimmedText
                              andImage:[UIImage imageNamed:kImageName]
                        withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-                           if (succeeded) {
-                               [weakSelf scrollMessages:ScrollDirectionDown];
-                           } else {
-                               NSLog(@"Failed to send message with image: %@ %@", error, error.userInfo);
-                           }
+                           dispatch_async(dispatch_get_main_queue(), ^{
+                               if (succeeded) {
+                                   [weakSelf scrollMessages:ScrollDirectionDown];
+                               } else {
+                                   NSLog(@"Failed to send message with image: %@ %@", error, error.userInfo);
+                               }
+                           });
                        }];
 }
 - (IBAction)selectImageFromGallery:(UIBarButtonItem *)sender {
