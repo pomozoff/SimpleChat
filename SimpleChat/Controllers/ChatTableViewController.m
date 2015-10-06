@@ -29,9 +29,9 @@
 
 #pragma mark - Constants
 
+static NSString * const kImageName = @"cat";
 static NSString * const kMessageCellReuseIdentifier = @"Chat Message Cell";
 static NSUInteger const kPercentOfUserInputTextHeight = 10;
-static NSString * const kImageName = @"cat";
 
 #pragma mark - Life cycle
 
@@ -306,6 +306,7 @@ static NSString * const kImageName = @"cat";
     self.imagesCollectionViewHeightConstraint.constant = (NSInteger)self.imagesCollectionViewHeightConstraint.constant == 0 ? self.imagesCollectionViewHeight : 0;
     [self.view setNeedsUpdateConstraints];
     [self dismissKeyboard];
+
     if (animation) {
         [self animateConstraintsChanges];
     }
