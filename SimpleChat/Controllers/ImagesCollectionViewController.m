@@ -30,6 +30,10 @@ static NSString * const reuseIdentifier = @"Collection Image Cell";
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    [self.collectionView.collectionViewLayout invalidateLayout];
+}
 
 #pragma mark <UICollectionViewDataSource>
 
@@ -44,6 +48,13 @@ static NSString * const reuseIdentifier = @"Collection Image Cell";
     [self collectionView:collectionView updateCell:cell atIndexPath:indexPath];
     
     return cell;
+}
+
+#pragma mark - <UICollectionViewDelegateFlowLayout>
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    CGSize cellSize = CGSizeMake(self.collectionView.bounds.size.height, self.collectionView.bounds.size.height);
+    return cellSize;
 }
 
 #pragma mark - Private common
