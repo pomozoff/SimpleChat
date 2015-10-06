@@ -43,7 +43,7 @@ static NSString * const kImageName = @"cat";
 static NSString * const kImagePlaceholderName = @"placeholder";
 static NSString * const kMessageCellReuseIdentifier = @"Chat Message Cell";
 static NSUInteger const kPercentOfUserInputTextHeight = 10;
-static int64_t const kUpdateLayoutTimeout = 300 * NSEC_PER_MSEC;
+static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 
 #pragma mark - Life cycle
 
@@ -55,8 +55,6 @@ static int64_t const kUpdateLayoutTimeout = 300 * NSEC_PER_MSEC;
     [self setupConstraints];
     [self tuneUserInputView];
     [self addHideKeyboardGestureRecognizer];
-    
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
     
     UIRefreshControl *refreshControl = [self addRefreshController];
     [self reloadChatList:refreshControl];
@@ -203,15 +201,14 @@ static int64_t const kUpdateLayoutTimeout = 300 * NSEC_PER_MSEC;
 }
 - (void)updateLayoutForTableView:(UITableView *)tableView {
     __weak __typeof(self) weakSelf = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, kUpdateLayoutTimeout), dispatch_get_main_queue(), ^{
-        [tableView layoutIfNeeded];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf scrollMessages:ScrollDirectionDown];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [tableView beginUpdates];
-                [tableView endUpdates];
-            });
-        });
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self animateConstraintsChangesDuration:0.1f withCompletion:^(BOOL finished) {
+            if (finished) {
+                [weakSelf.tableView beginUpdates];
+                [weakSelf.tableView endUpdates];
+                [weakSelf scrollMessages:ScrollDirectionDown];
+            }
+        }];
     });
 }
 - (void)reloadChatList:(UIRefreshControl *)refreshControl {
@@ -237,7 +234,7 @@ static int64_t const kUpdateLayoutTimeout = 300 * NSEC_PER_MSEC;
 - (NSString *)processTextToSend {
     NSString *trimmedText = [self.userInputTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     self.userInputTextView.text = @"";
-    [self animateConstraintsChangesWithCompletion:nil];
+    [self animateConstraintsChangesDuration:0.5f withCompletion:nil];
     [self updateSendButtonState];
 
     return trimmedText;
@@ -355,9 +352,9 @@ static int64_t const kUpdateLayoutTimeout = 300 * NSEC_PER_MSEC;
                               atScrollPosition:scrollPosition animated:YES];
     }
 }
-- (void)animateConstraintsChangesWithCompletion:(void (^)(BOOL))completion {
+- (void)animateConstraintsChangesDuration:(CGFloat)duration withCompletion:(void (^)(BOOL))completion {
     __weak __typeof(self) weakSelf = self;
-    [UIView animateWithDuration:0.5f
+    [UIView animateWithDuration:duration
                           delay:0.0f
          usingSpringWithDamping:0.7f
           initialSpringVelocity:0.8f
@@ -381,7 +378,7 @@ static int64_t const kUpdateLayoutTimeout = 300 * NSEC_PER_MSEC;
 
     if (animation) {
         __weak __typeof(self) weakSelf = self;
-        [self animateConstraintsChangesWithCompletion:^(BOOL finished) {
+        [self animateConstraintsChangesDuration:0.5f withCompletion:^(BOOL finished) {
             if (finished) {
                 [weakSelf scrollMessages:ScrollDirectionDown];
             }
