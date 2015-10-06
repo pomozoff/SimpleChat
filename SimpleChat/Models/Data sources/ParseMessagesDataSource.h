@@ -1,5 +1,5 @@
 //
-//  ParseDataSource.h
+//  ParseMessagesDataSource.h
 //  SimpleChat
 //
 //  Created by Anton Pomozov on 02.10.15.
@@ -8,11 +8,11 @@
 
 @import Foundation;
 
-#import "RemoteDataSource.h"
+#import "MessagesDataSource.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ParseDataSource : NSObject <RemoteDataSource>
+@interface ParseMessagesDataSource : NSObject <MessagesDataSource>
 
 @end
 

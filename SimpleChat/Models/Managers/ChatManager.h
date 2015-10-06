@@ -9,7 +9,7 @@
 @import Foundation;
 
 #import "ChatMessage.h"
-#import "RemoteDataSource.h"
+#import "MessagesDataSource.h"
 #import "Common.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -42,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ChatManager : NSObject <ChatDataSource, ChatHandler, MessageController>
 
 @property (nonatomic, strong) id <DataPresenter> dataPresenter;
-@property (nonatomic, strong) id <RemoteDataSource> remoteDataSource;
+@property (nonatomic, strong) id <MessagesDataSource> messagesDataSource;
 
 @end
 

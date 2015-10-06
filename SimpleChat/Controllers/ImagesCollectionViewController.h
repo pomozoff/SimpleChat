@@ -8,6 +8,10 @@
 
 @import UIKit;
 
+#import "ImagesCollectionManager.h"
+
 @interface ImagesCollectionViewController : UICollectionViewController
+
+@property (nonatomic, strong) id <ImagesCollectionDataSource> imagesCollectionDataSource;
 
 @end

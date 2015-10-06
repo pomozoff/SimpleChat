@@ -7,7 +7,7 @@
 //
 
 #import "SimpleChatAssembly.h"
-#import "ParseDataSource.h"
+#import "ParseMessagesDataSource.h"
 
 @implementation SimpleChatAssembly
 
@@ -24,14 +24,14 @@
 - (ChatManager *)chatManager {
     return [TyphoonDefinition withClass:[ChatManager class] configuration:^(TyphoonDefinition *definition) {
         [definition injectProperty:@selector(dataPresenter) with:[self chatTableViewController]];
-        [definition injectProperty:@selector(remoteDataSource) with:[self parseDataSource]];
+        [definition injectProperty:@selector(messagesDataSource) with:[self parseMessagesDataSource]];
     }];
 }
 
 #pragma mark - Private
 
-- (id <RemoteDataSource>)parseDataSource {
-    return [TyphoonDefinition withClass:[ParseDataSource class] configuration:^(TyphoonDefinition *definition) {
+- (id <MessagesDataSource>)parseMessagesDataSource {
+    return [TyphoonDefinition withClass:[ParseMessagesDataSource class] configuration:^(TyphoonDefinition *definition) {
         definition.scope = TyphoonScopeSingleton;
     }];
 }

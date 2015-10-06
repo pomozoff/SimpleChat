@@ -20,6 +20,9 @@ typedef enum : NSUInteger {
     CollectionChangeUpdate = 4
 } CollectionChangeType;
 
+typedef void (^CompletionHandler)(BOOL succeeded, NSError * _Nullable error);
+typedef void (^FetchImageCompletionHandler)(UIImage * _Nullable image, NSError * _Nullable error);
+
 @protocol DataPresenter <NSObject>
 
 @property (nonatomic, strong) NSBlockOperation *updateOperation;

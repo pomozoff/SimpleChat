@@ -47,16 +47,17 @@ static int64_t const kUpdateLayoutTimeout = 100 * NSEC_PER_MSEC;
 
     NSAssert(self == [(ChatManager *)self.chatHandler dataPresenter], @"Wrong Injection!");
     
+    self.imagesCollectionViewHeight = self.imagesCollectionViewHeightConstraint.constant;
+    self.previewImageHeight = self.previewImageHeightConstraint.constant;
+    
     [self tuneUserInputView];
-    [self addRefreshController];
     [self addHideKeyboardGestureRecognizer];
-    [self reloadChatList];
+    
+    UIRefreshControl *refreshControl = [self addRefreshController];
+    [self reloadChatList:refreshControl];
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    self.imagesCollectionViewHeight = self.imagesCollectionViewHeightConstraint.constant;
-    self.previewImageHeight = self.previewImageHeightConstraint.constant;
     
     [self triggerImagesCollectionViewWithAnimation:NO];
     [self triggerImagePreviewView];
@@ -86,7 +87,6 @@ static int64_t const kUpdateLayoutTimeout = 100 * NSEC_PER_MSEC;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSInteger rowsNumber = [self.chatDataSource numberOfRowsInSection:section];
-    self.chatIsEmptyLabel.hidden = rowsNumber > 0;
     return rowsNumber;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -153,6 +153,7 @@ static int64_t const kUpdateLayoutTimeout = 100 * NSEC_PER_MSEC;
 - (void)tableView:(nonnull UITableView *)tableView updateCell:(nonnull UITableViewCell *)cell atIndexPath:(nonnull NSIndexPath *)indexPath {
     ChatTableViewCell *chatCell = (ChatTableViewCell *)cell;
     id <ChatMessage> chatMessage = [self.chatDataSource chatMessageAtIndexPath:indexPath];
+    
     chatCell.chatMessage = chatMessage;
     [chatCell updateImage:nil];
     
@@ -177,9 +178,12 @@ static int64_t const kUpdateLayoutTimeout = 100 * NSEC_PER_MSEC;
     }
 }
 - (void)fetchMoreMessagesWithCompletion:(nullable CompletionHandler)handler {
+    __weak __typeof(self) weakSelf = self;
     [self.chatDataSource fetchMoreMessagesWithCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
-            [self reloadDataInSections:[NSIndexSet indexSetWithIndex:0]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf reloadDataInSections:[NSIndexSet indexSetWithIndex:0]];
+            });
         } else {
             NSLog(@"Failed to fetch more mesages: %@ %@", error, error.userInfo);
         }
@@ -188,28 +192,34 @@ static int64_t const kUpdateLayoutTimeout = 100 * NSEC_PER_MSEC;
         }
     }];
 }
-- (void)fetchtMoreMessagesWithScrollDown {
+- (void)updateLayoutForTableView:(UITableView *)tableView {
     __weak __typeof(self) weakSelf = self;
-    [self fetchMoreMessagesWithCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-        if (succeeded) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, kUpdateLayoutTimeout), dispatch_get_main_queue(), ^{
-                [weakSelf.tableView layoutIfNeeded];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [weakSelf scrollMessages:ScrollDirectionDown];
-                    [weakSelf.tableView beginUpdates];
-                    [weakSelf.tableView endUpdates];
-                });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, kUpdateLayoutTimeout), dispatch_get_main_queue(), ^{
+        [tableView layoutIfNeeded];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [tableView beginUpdates];
+            [tableView endUpdates];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf scrollMessages:ScrollDirectionDown];
             });
-        } else {
-            NSLog(@"Failed to fetch more mesages: %@ %@", error, error.userInfo);
-        }
-    }];
+        });
+    });
 }
-- (void)reloadChatList {
+- (void)reloadChatList:(UIRefreshControl *)refreshControl {
     __weak __typeof(self) weakSelf = self;
     [self.chatDataSource resetToNewestMessageWithCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
-            [weakSelf fetchtMoreMessagesWithScrollDown];
+            [refreshControl beginRefreshing];
+            [self fetchMoreMessagesWithCompletion:^(BOOL innerSucceeded, NSError * _Nullable innerError) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (innerSucceeded) {
+                        [self updateLayoutForTableView:weakSelf.tableView];
+                    } else {
+                        NSLog(@"Failed to fetch more mesages: %@ %@", innerError, innerError.userInfo);
+                    }
+                    [self finishRefreshing:refreshControl];
+                });
+            }];
         } else {
             NSLog(@"Failed to reset chat list to the newest message: %@ %@", error, error.userInfo);
         }
@@ -300,16 +310,17 @@ static int64_t const kUpdateLayoutTimeout = 100 * NSEC_PER_MSEC;
             NSLog(@"Failed to fetch more mesages: %@ %@", error, error.userInfo);
         }
         dispatch_async(dispatch_get_main_queue(), ^{
-            [refreshControl endRefreshing];
+            [self finishRefreshing:refreshControl];
         });
     }];
 }
-- (void)addRefreshController {
+- (UIRefreshControl *)addRefreshController {
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self
                        action:@selector(refreshControllTriggered:)
              forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:refreshControl];
+    return refreshControl;
 }
 - (void)updateUserInputTextViewState:(UITextView *)textView {
     CGRect rect = [textView.text boundingRectWithSize:CGSizeMake(textView.frame.size.width, CGFLOAT_MAX)
@@ -367,6 +378,15 @@ static int64_t const kUpdateLayoutTimeout = 100 * NSEC_PER_MSEC;
     if ((NSInteger)self.imagesCollectionViewHeightConstraint.constant == self.imagesCollectionViewHeight) {
         [self triggerImagesCollectionViewWithAnimation:YES];
     }
+}
+- (void)triggerEmptyChatMessage {
+    NSInteger sectionsNumber = [self.chatDataSource numberOfSections];
+    NSInteger rowsNumber = [self.chatDataSource numberOfRowsInSection:sectionsNumber - 1];
+    self.chatIsEmptyLabel.hidden = rowsNumber > 0;
+}
+- (void)finishRefreshing:(UIRefreshControl *)refreshControl {
+    [refreshControl endRefreshing];
+    [self triggerEmptyChatMessage];
 }
 
 @end

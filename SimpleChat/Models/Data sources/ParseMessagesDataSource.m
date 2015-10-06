@@ -1,5 +1,5 @@
 //
-//  ParseDataSource.m
+//  ParseMessagesDataSource.m
 //  SimpleChat
 //
 //  Created by Anton Pomozov on 02.10.15.
@@ -8,11 +8,10 @@
 
 @import Parse;
 
-#import "ParseDataSource.h"
+#import "ParseMessagesDataSource.h"
+#import "Common.h"
 
-typedef void (^FetchImageCompletionHandler)(UIImage * _Nullable image, NSError * _Nullable error);
-
-@interface ParseDataSource ()
+@interface ParseMessagesDataSource ()
 
 @property (nonatomic, strong) PFQuery *queryLocal;
 @property (nonatomic, strong) PFQuery *queryRemote;
@@ -20,13 +19,13 @@ typedef void (^FetchImageCompletionHandler)(UIImage * _Nullable image, NSError *
 
 @end
 
-@implementation ParseDataSource
+@implementation ParseMessagesDataSource
 
 #pragma mark - Constants
 
 static NSString *kSortKey = @"createdAt";
 static NSInteger const kFetchedLocalObjectsLimit = 20;
-static NSInteger const kFetchedRemoteObjectsLimit = 4;
+static NSInteger const kFetchedRemoteObjectsLimit = 10;
 
 #pragma mark - Properties
 
@@ -56,7 +55,7 @@ static NSInteger const kFetchedRemoteObjectsLimit = 4;
     return _images;
 }
 
-#pragma mark - Remote data source
+#pragma mark - Messages data source
 
 - (void)resetToNewestMessageWithCompletion:(CompletionHandler)handler {
     self.queryRemote.skip = 0;
@@ -101,10 +100,12 @@ static NSInteger const kFetchedRemoteObjectsLimit = 4;
                 [object fetch];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     chatMessage.messageId = object.objectId;
+                    handler(succeeded, error);
                 });
             });
+        } else {
+            handler(succeeded, error);
         }
-        handler(succeeded, error);
     }];
 }
 
@@ -157,6 +158,7 @@ static NSInteger const kFetchedRemoteObjectsLimit = 4;
             });
         } else {
             NSLog(@"Error: %@ %@", error, error.userInfo);
+            handler(NO, nil, error);
         }
     }];
 }

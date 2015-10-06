@@ -42,7 +42,7 @@
 }
 - (void)resetToNewestMessageWithCompletion:(CompletionHandler)handler {
     __weak __typeof(self) weakSelf = self;
-    [self.remoteDataSource resetToNewestMessageWithCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+    [self.messagesDataSource resetToNewestMessageWithCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             [weakSelf.messages removeAllObjects];
         } else {
@@ -53,15 +53,16 @@
 }
 - (void)fetchMoreMessagesWithCompletion:(CompletionHandler)handler {
     __weak __typeof(self) weakSelf = self;
-    [self.remoteDataSource fetchMoreMessagesWithCompletion:^(BOOL succeeded, NSArray <id <ChatMessage>> *messages, NSError * _Nullable error) {
+    [self.messagesDataSource fetchMoreMessagesWithCompletion:^(BOOL succeeded, NSArray <id <ChatMessage>> *messages, NSError * _Nullable error) {
         if (succeeded) {
-            dispatch_async(dispatch_get_main_queue(), ^{
+            if (messages.count > 0) {
                 [weakSelf mergeMessages:messages];
-            });
+            }
+            handler(messages.count > 0 ? YES : NO, error);
         } else {
             NSLog(@"Failed to fetch messages: %@ %@", error, error.userInfo);
+            handler(succeeded, error);
         }
-        handler(succeeded, error);
     }];
 }
 
@@ -84,7 +85,7 @@
 #pragma mark - Message controller
 
 - (void)fetchImageForChatMessage:(id <ChatMessage>)chatMessage withCompletion:(FetchImageCompletionHandler)handler {
-    [self.remoteDataSource fetchImageForChatMessage:chatMessage withCompletion:handler];
+    [self.messagesDataSource fetchImageForChatMessage:chatMessage withCompletion:handler];
 }
 
 #pragma mark - Private
@@ -102,7 +103,7 @@
     return chatMessage;
 }
 - (void)processNewMessage:(nonnull id <ChatMessage>)chatMessage withCompletion:(nonnull CompletionHandler)handler {
-    [self.remoteDataSource addChatMessage:chatMessage andCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+    [self.messagesDataSource addChatMessage:chatMessage andCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         handler(succeeded, error);
     }];
 

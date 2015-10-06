@@ -8,10 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		2661276B1BC2A5C200302DBA /* ImagesCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661276A1BC2A5C200302DBA /* ImagesCollectionViewController.m */; settings = {ASSET_TAGS = (); }; };
-		268995301BBE7C6C005122D1 /* ParseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2689952F1BBE7C6C005122D1 /* ParseDataSource.m */; settings = {ASSET_TAGS = (); }; };
+		2661276F1BC3DD0B00302DBA /* ImageItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661276D1BC3DD0B00302DBA /* ImageItem.m */; settings = {ASSET_TAGS = (); }; };
+		266127761BC3E20D00302DBA /* LocalImagesDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 266127741BC3E20D00302DBA /* LocalImagesDataSource.m */; settings = {ASSET_TAGS = (); }; };
+		266127791BC3E52B00302DBA /* ImageCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 266127771BC3E52B00302DBA /* ImageCollectionViewCell.h */; settings = {ASSET_TAGS = (); }; };
+		2661277A1BC3E52B00302DBA /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 266127781BC3E52B00302DBA /* ImageCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		268995301BBE7C6C005122D1 /* ParseMessagesDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2689952F1BBE7C6C005122D1 /* ParseMessagesDataSource.m */; settings = {ASSET_TAGS = (); }; };
 		268995391BBE911C005122D1 /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 268995371BBE911C005122D1 /* BaseTableViewController.m */; settings = {ASSET_TAGS = (); }; };
 		26A4450D1BC316780073DFBB /* ChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A4450C1BC316780073DFBB /* ChatManager.m */; settings = {ASSET_TAGS = (); }; };
-		26A445101BC316B60073DFBB /* CollectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A4450F1BC316B60073DFBB /* CollectionManager.m */; settings = {ASSET_TAGS = (); }; };
+		26A445101BC316B60073DFBB /* ImagesCollectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A4450F1BC316B60073DFBB /* ImagesCollectionManager.m */; settings = {ASSET_TAGS = (); }; };
 		26A445141BC319B60073DFBB /* Common.h in Headers */ = {isa = PBXBuildFile; fileRef = 26A445121BC3195E0073DFBB /* Common.h */; };
 		26EF7DEF1BBA95E60017D02E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7DEE1BBA95E60017D02E /* main.m */; };
 		26EF7DF21BBA95E60017D02E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7DF11BBA95E60017D02E /* AppDelegate.m */; };
@@ -74,15 +78,22 @@
 /* Begin PBXFileReference section */
 		266127691BC2A5C200302DBA /* ImagesCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagesCollectionViewController.h; sourceTree = "<group>"; };
 		2661276A1BC2A5C200302DBA /* ImagesCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagesCollectionViewController.m; sourceTree = "<group>"; };
-		2689952E1BBE7C6C005122D1 /* ParseDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseDataSource.h; sourceTree = "<group>"; };
-		2689952F1BBE7C6C005122D1 /* ParseDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseDataSource.m; sourceTree = "<group>"; };
-		268995311BBE7C9F005122D1 /* RemoteDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteDataSource.h; sourceTree = "<group>"; };
+		2661276C1BC3DD0B00302DBA /* ImageItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageItem.h; sourceTree = "<group>"; };
+		2661276D1BC3DD0B00302DBA /* ImageItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageItem.m; sourceTree = "<group>"; };
+		266127701BC3E0F000302DBA /* ImagesDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImagesDataSource.h; sourceTree = "<group>"; };
+		266127731BC3E20D00302DBA /* LocalImagesDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalImagesDataSource.h; sourceTree = "<group>"; };
+		266127741BC3E20D00302DBA /* LocalImagesDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalImagesDataSource.m; sourceTree = "<group>"; };
+		266127771BC3E52B00302DBA /* ImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCollectionViewCell.h; sourceTree = "<group>"; };
+		266127781BC3E52B00302DBA /* ImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionViewCell.m; sourceTree = "<group>"; };
+		2689952E1BBE7C6C005122D1 /* ParseMessagesDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseMessagesDataSource.h; sourceTree = "<group>"; };
+		2689952F1BBE7C6C005122D1 /* ParseMessagesDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseMessagesDataSource.m; sourceTree = "<group>"; };
+		268995311BBE7C9F005122D1 /* MessagesDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesDataSource.h; sourceTree = "<group>"; };
 		268995361BBE911C005122D1 /* BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewController.h; sourceTree = "<group>"; };
 		268995371BBE911C005122D1 /* BaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewController.m; sourceTree = "<group>"; };
 		26A4450B1BC316780073DFBB /* ChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatManager.h; sourceTree = "<group>"; };
 		26A4450C1BC316780073DFBB /* ChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatManager.m; sourceTree = "<group>"; };
-		26A4450E1BC316B60073DFBB /* CollectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionManager.h; sourceTree = "<group>"; };
-		26A4450F1BC316B60073DFBB /* CollectionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionManager.m; sourceTree = "<group>"; };
+		26A4450E1BC316B60073DFBB /* ImagesCollectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagesCollectionManager.h; sourceTree = "<group>"; };
+		26A4450F1BC316B60073DFBB /* ImagesCollectionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagesCollectionManager.m; sourceTree = "<group>"; };
 		26A445121BC3195E0073DFBB /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		26E9BEBD1BBD2F07005F1F9B /* PrivateData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivateData.h; sourceTree = "<group>"; };
 		26EF7DEA1BBA95E60017D02E /* SimpleChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -165,9 +176,12 @@
 		2689952D1BBE7C5D005122D1 /* Data sources */ = {
 			isa = PBXGroup;
 			children = (
-				268995311BBE7C9F005122D1 /* RemoteDataSource.h */,
-				2689952E1BBE7C6C005122D1 /* ParseDataSource.h */,
-				2689952F1BBE7C6C005122D1 /* ParseDataSource.m */,
+				268995311BBE7C9F005122D1 /* MessagesDataSource.h */,
+				2689952E1BBE7C6C005122D1 /* ParseMessagesDataSource.h */,
+				2689952F1BBE7C6C005122D1 /* ParseMessagesDataSource.m */,
+				266127701BC3E0F000302DBA /* ImagesDataSource.h */,
+				266127731BC3E20D00302DBA /* LocalImagesDataSource.h */,
+				266127741BC3E20D00302DBA /* LocalImagesDataSource.m */,
 			);
 			path = "Data sources";
 			sourceTree = "<group>";
@@ -196,8 +210,8 @@
 			children = (
 				26A4450B1BC316780073DFBB /* ChatManager.h */,
 				26A4450C1BC316780073DFBB /* ChatManager.m */,
-				26A4450E1BC316B60073DFBB /* CollectionManager.h */,
-				26A4450F1BC316B60073DFBB /* CollectionManager.m */,
+				26A4450E1BC316B60073DFBB /* ImagesCollectionManager.h */,
+				26A4450F1BC316B60073DFBB /* ImagesCollectionManager.m */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -338,6 +352,8 @@
 			children = (
 				26EF7E471BBABCEA0017D02E /* ChatMessage.h */,
 				26EF7E481BBABCEA0017D02E /* ChatMessage.m */,
+				2661276C1BC3DD0B00302DBA /* ImageItem.h */,
+				2661276D1BC3DD0B00302DBA /* ImageItem.m */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -358,6 +374,8 @@
 			children = (
 				26EF7E581BBAC8C70017D02E /* ChatTableViewCell.h */,
 				26EF7E591BBAC8C70017D02E /* ChatTableViewCell.m */,
+				266127771BC3E52B00302DBA /* ImageCollectionViewCell.h */,
+				266127781BC3E52B00302DBA /* ImageCollectionViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -370,6 +388,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				26A445141BC319B60073DFBB /* Common.h in Headers */,
+				266127791BC3E52B00302DBA /* ImageCollectionViewCell.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,11 +548,14 @@
 				26EF7E531BBAC7800017D02E /* ChatTableViewController.m in Sources */,
 				26EF7E491BBABCEA0017D02E /* ChatMessage.m in Sources */,
 				26EF7E5A1BBAC8C70017D02E /* ChatTableViewCell.m in Sources */,
+				2661276F1BC3DD0B00302DBA /* ImageItem.m in Sources */,
 				26EF7DEF1BBA95E60017D02E /* main.m in Sources */,
+				266127761BC3E20D00302DBA /* LocalImagesDataSource.m in Sources */,
 				268995391BBE911C005122D1 /* BaseTableViewController.m in Sources */,
+				2661277A1BC3E52B00302DBA /* ImageCollectionViewCell.m in Sources */,
 				26EF7E441BBABC9A0017D02E /* SimpleChatAssembly.m in Sources */,
-				268995301BBE7C6C005122D1 /* ParseDataSource.m in Sources */,
-				26A445101BC316B60073DFBB /* CollectionManager.m in Sources */,
+				268995301BBE7C6C005122D1 /* ParseMessagesDataSource.m in Sources */,
+				26A445101BC316B60073DFBB /* ImagesCollectionManager.m in Sources */,
 				2661276B1BC2A5C200302DBA /* ImagesCollectionViewController.m in Sources */,
 				26A4450D1BC316780073DFBB /* ChatManager.m in Sources */,
 			);

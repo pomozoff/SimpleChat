@@ -6,12 +6,13 @@
 //  Copyright © 2015 Akademon Ltd. All rights reserved.
 //
 
-@import Parse;
+@import UIKit;
+@import Foundation;
+@import CoreLocation;
+
+#import "Common.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
-typedef void (^CompletionHandler)(BOOL succeeded, NSError * _Nullable error);
-typedef void (^FetchImageCompletionHandler)(UIImage * _Nullable image, NSError * _Nullable error);
 
 @protocol ChatMessage <NSObject>
 

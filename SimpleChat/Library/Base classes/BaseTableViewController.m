@@ -30,49 +30,48 @@
 #pragma mark - Data presenter
 
 - (void)reloadDataInSections:(NSIndexSet *)indexSet {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-    });
+    NSAssert([NSThread isMainThread], @"Not in main thread!");
+    [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 - (void)willChangeContent {
     NSAssert([NSThread isMainThread], @"Not in main thread!");
     [self.tableView beginUpdates];
     self.updateOperation = [[NSBlockOperation alloc] init];
     
-    __weak UITableView *weakTableView = self.tableView;
+    __weak __typeof(self) weakSelf = self;
     self.updateOperation.completionBlock = ^{
         dispatch_async(dispatch_get_main_queue(), ^{
-            [weakTableView endUpdates];
+            [weakSelf.tableView endUpdates];
         });
     };
 }
 - (void)didChangeSectionatIndex:(NSUInteger)sectionIndex
                   forChangeType:(CollectionChangeType)type
 {
-    __weak UITableView *weakTableView = self.tableView;
+    __weak __typeof(self) weakSelf = self;
     switch(type) {
         case CollectionChangeInsert: {
             [self.updateOperation addExecutionBlock:^{
-                [weakTableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+                [weakSelf.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
             }];
             break;
         }
         case CollectionChangeDelete: {
             [self.updateOperation addExecutionBlock:^{
-                [weakTableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+                [weakSelf.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
             }];
             break;
         }
         case CollectionChangeMove: {
             [self.updateOperation addExecutionBlock:^{
-                [weakTableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-                [weakTableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+                [weakSelf.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+                [weakSelf.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
             }];
             break;
         }
         case CollectionChangeUpdate: {
             [self.updateOperation addExecutionBlock:^{
-                [weakTableView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+                [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
             }];
             break;
         }
@@ -85,31 +84,31 @@
           forChangeType:(CollectionChangeType)type
            newIndexPath:(NSIndexPath *)newIndexPath
 {
-    __weak UITableView *weakTableView = self.tableView;
+    __weak __typeof(self) weakSelf = self;
     switch(type) {
         case CollectionChangeInsert: {
             NSAssert(self.updateOperation, @"Update operation is nil!");
             [self.updateOperation addExecutionBlock:^{
-                [weakTableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [weakSelf.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             }];
             break;
         }
         case CollectionChangeDelete: {
             [self.updateOperation addExecutionBlock:^{
-                [weakTableView deleteRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [weakSelf.tableView deleteRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             }];
             break;
         }
         case CollectionChangeMove: {
             [self.updateOperation addExecutionBlock:^{
-                [weakTableView deleteRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-                [weakTableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [weakSelf.tableView deleteRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [weakSelf.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             }];
             break;
         }
         case CollectionChangeUpdate: {
             [self.updateOperation addExecutionBlock:^{
-                [weakTableView reloadRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [weakSelf.tableView reloadRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             }];
             break;
         }
