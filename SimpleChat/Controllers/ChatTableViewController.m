@@ -43,7 +43,7 @@ static NSString * const kImageName = @"cat";
 static NSString * const kImagePlaceholderName = @"placeholder";
 static NSString * const kMessageCellReuseIdentifier = @"Chat Message Cell";
 static NSUInteger const kPercentOfUserInputTextHeight = 10;
-static int64_t const kUpdateLayoutTimeout = 100 * NSEC_PER_MSEC;
+static int64_t const kUpdateLayoutTimeout = 300 * NSEC_PER_MSEC;
 
 #pragma mark - Life cycle
 
@@ -55,6 +55,8 @@ static int64_t const kUpdateLayoutTimeout = 100 * NSEC_PER_MSEC;
     [self setupConstraints];
     [self tuneUserInputView];
     [self addHideKeyboardGestureRecognizer];
+    
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
     
     UIRefreshControl *refreshControl = [self addRefreshController];
     [self reloadChatList:refreshControl];
