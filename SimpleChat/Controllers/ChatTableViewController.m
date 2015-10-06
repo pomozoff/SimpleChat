@@ -284,14 +284,11 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
     }
 }
 - (void)animateConstraintsChanges {
-    CGFloat damping = 0.7f;
-    CGFloat velocity = 0.8f;
-
     __weak __typeof(self) weakSelf = self;
-    [UIView animateWithDuration:0.3f
+    [UIView animateWithDuration:0.5f
                           delay:0.0f
-         usingSpringWithDamping:damping
-          initialSpringVelocity:velocity
+         usingSpringWithDamping:0.7f
+          initialSpringVelocity:0.8f
                         options:0
                      animations:^{
                          [weakSelf.view layoutIfNeeded];
