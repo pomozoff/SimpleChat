@@ -189,6 +189,7 @@ static NSUInteger const kPercentOfUserInputTextHeight = 10;
 - (NSString *)processTextToSend {
     NSString *trimmedText = [self.userInputTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     self.userInputTextView.text = @"";
+    [self animateConstraintsChanges];
     [self updateSendButtonState];
 
     return trimmedText;
