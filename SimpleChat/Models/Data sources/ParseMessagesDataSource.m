@@ -61,7 +61,7 @@ static NSInteger const kFetchedRemoteObjectsLimit = 10;
     self.queryRemote.skip = 0;
     handler(YES, nil);
 }
-- (void)fetchMoreMessagesWithCompletion:(FetchCompletionHandler)handler {
+- (void)fetchMoreMessagesWithCompletion:(FetchMessagesCompletionHandler)handler {
     [self fetchMessagesFromQuery:self.queryRemote withCompletion:handler];
 }
 - (void)fetchImageForChatMessage:(id <ChatMessage>)chatMessage withCompletion:(FetchImageCompletionHandler)handler {
@@ -147,7 +147,7 @@ static NSInteger const kFetchedRemoteObjectsLimit = 10;
         }
     }];
 }
-- (void)fetchMessagesFromQuery:(nonnull PFQuery *)query withCompletion:(FetchCompletionHandler)handler {
+- (void)fetchMessagesFromQuery:(nonnull PFQuery *)query withCompletion:(FetchMessagesCompletionHandler)handler {
     __weak __typeof(self) weakSelf = self;
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {

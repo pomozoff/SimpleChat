@@ -15,12 +15,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^FetchCompletionHandler)(BOOL succeeded, NSArray <id <ChatMessage>> * _Nullable messages, NSError * _Nullable error);
+typedef void (^FetchMessagesCompletionHandler)(BOOL succeeded, NSArray <id <ChatMessage>> * _Nullable messages, NSError * _Nullable error);
 
 @protocol MessagesDataSource <NSObject>
 
 - (void)resetToNewestMessageWithCompletion:(CompletionHandler)handler;
-- (void)fetchMoreMessagesWithCompletion:(FetchCompletionHandler)handler;
+- (void)fetchMoreMessagesWithCompletion:(FetchMessagesCompletionHandler)handler;
 - (void)addChatMessage:(id <ChatMessage>)chatMessage andCompletion:(CompletionHandler)handler;
 - (void)fetchImageForChatMessage:(id <ChatMessage>)chatMessage withCompletion:(FetchImageCompletionHandler)handler;
 

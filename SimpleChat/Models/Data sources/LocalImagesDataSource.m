@@ -13,7 +13,7 @@
 
 #pragma mark - Messages data source
 
-- (void)fetchImagesWithCompletion:(FetchCompletionHandler)handler {
+- (void)fetchImagesWithCompletion:(FetchImagesCompletionHandler)handler {
     
 }
 

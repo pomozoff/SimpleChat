@@ -15,11 +15,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^FetchCompletionHandler)(BOOL succeeded, NSArray <id <ImageItem>> *messages, NSError * _Nullable error);
+typedef void (^FetchImagesCompletionHandler)(BOOL succeeded, NSArray <id <ImageItem>> *messages, NSError * _Nullable error);
 
 @protocol ImagesDataSource <NSObject>
 
-- (void)fetchImagesWithCompletion:(FetchCompletionHandler)handler;
+- (void)fetchImagesWithCompletion:(FetchImagesCompletionHandler)handler;
 
 @end
 
