@@ -9,10 +9,6 @@
 #import "ImagesCollectionViewController.h"
 #import "ImageCollectionViewCell.h"
 
-@interface ImagesCollectionViewController ()
-
-@end
-
 @implementation ImagesCollectionViewController
 
 #pragma mark - Constants
@@ -24,6 +20,7 @@ static NSString * const reuseIdentifier = @"Collection Image Cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [self reloadImages];
 }
 - (void)didReceiveMemoryWarning {
@@ -35,7 +32,7 @@ static NSString * const reuseIdentifier = @"Collection Image Cell";
     [self.collectionView.collectionViewLayout invalidateLayout];
 }
 
-#pragma mark <UICollectionViewDataSource>
+#pragma mark - <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return [self.imagesCollectionDataSource numberOfSections];
@@ -81,4 +78,5 @@ static NSString * const reuseIdentifier = @"Collection Image Cell";
         }
     }];
 }
+
 @end

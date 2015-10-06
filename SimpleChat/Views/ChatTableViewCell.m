@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *messageTextLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *bubbleTail;
 @property (weak, nonatomic) IBOutlet UIImageView *chatImageView;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *gapBetweenImageAndTextConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *gapBetweenTextAndSuperviewConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *chatImageHeightConstraint;
