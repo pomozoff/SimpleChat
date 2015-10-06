@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Chat Table View Controller-->
@@ -43,17 +44,17 @@
                                                     </constraints>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cv8-cA-CYP">
-                                                    <rect key="frame" x="108" y="2" width="474" height="40"/>
+                                                    <rect key="frame" x="162" y="2" width="420" height="40"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BlI-pH-u3K">
-                                                            <rect key="frame" x="8" y="8" width="458" height="24"/>
+                                                            <rect key="frame" x="8" y="8" width="404" height="24"/>
                                                             <animations/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView opaque="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UDn-xI-zXY" userLabel="Chat Image View">
-                                                            <rect key="frame" x="8" y="32" width="458" height="0.0"/>
+                                                            <rect key="frame" x="8" y="32" width="404" height="0.0"/>
                                                             <animations/>
                                                             <color key="backgroundColor" red="0.896484375" green="0.063546637739999995" blue="0.027489839660000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
@@ -76,9 +77,9 @@
                                             </subviews>
                                             <animations/>
                                             <constraints>
-                                                <constraint firstItem="cv8-cA-CYP" firstAttribute="leading" secondItem="SBw-G6-Wyl" secondAttribute="leadingMargin" constant="100" id="99P-Fw-6sc"/>
                                                 <constraint firstItem="oq2-S3-Dqr" firstAttribute="bottom" secondItem="cv8-cA-CYP" secondAttribute="bottom" id="Gbi-m7-neo"/>
                                                 <constraint firstItem="cv8-cA-CYP" firstAttribute="top" secondItem="SBw-G6-Wyl" secondAttribute="topMargin" constant="-6" id="Lcz-F0-9k0"/>
+                                                <constraint firstItem="cv8-cA-CYP" firstAttribute="width" secondItem="SBw-G6-Wyl" secondAttribute="width" multiplier="0.7" id="NhB-lC-yKa"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="cv8-cA-CYP" secondAttribute="trailing" constant="10" id="YdU-7C-yYl"/>
                                                 <constraint firstItem="oq2-S3-Dqr" firstAttribute="leading" secondItem="cv8-cA-CYP" secondAttribute="trailing" constant="-16" id="foW-Li-V9v"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="cv8-cA-CYP" secondAttribute="bottom" constant="-6" id="tWT-E1-UAn"/>
