@@ -16,14 +16,19 @@ typedef enum : NSUInteger {
 
 @interface ChatTableViewController () <UITextViewDelegate, UIScrollViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextView *userInputTextView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomImagesConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *maxInputTextViewConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imagesCollectionViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *previewImageHeightConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *imagesCollectionViewHeightConstraint;
+
+@property (weak, nonatomic) IBOutlet UITextView *userInputTextView;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 @property (weak, nonatomic) IBOutlet UILabel *chatIsEmptyLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
+@property (strong, nonatomic) IBOutlet UIView *backgroundView;
+@property (strong, nonatomic) IBOutlet UIView *imagesCollectionView;
+
+
 
 @property (nonatomic, assign) CGFloat imagesCollectionViewHeight;
 @property (nonatomic, assign) CGFloat previewImageHeight;
@@ -47,9 +52,7 @@ static int64_t const kUpdateLayoutTimeout = 100 * NSEC_PER_MSEC;
 
     NSAssert(self == [(ChatManager *)self.chatHandler dataPresenter], @"Wrong Injection!");
     
-    self.imagesCollectionViewHeight = self.imagesCollectionViewHeightConstraint.constant;
-    self.previewImageHeight = self.previewImageHeightConstraint.constant;
-    
+    [self setupConstraints];
     [self tuneUserInputView];
     [self addHideKeyboardGestureRecognizer];
     
@@ -201,10 +204,10 @@ static int64_t const kUpdateLayoutTimeout = 100 * NSEC_PER_MSEC;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, kUpdateLayoutTimeout), dispatch_get_main_queue(), ^{
         [tableView layoutIfNeeded];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [tableView beginUpdates];
-            [tableView endUpdates];
+            [weakSelf scrollMessages:ScrollDirectionDown];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf scrollMessages:ScrollDirectionDown];
+                [tableView beginUpdates];
+                [tableView endUpdates];
             });
         });
     });
@@ -282,7 +285,7 @@ static int64_t const kUpdateLayoutTimeout = 100 * NSEC_PER_MSEC;
 - (void)addHideKeyboardGestureRecognizer {
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                           action:@selector(hideOpenedViews)];
-    [self.view addGestureRecognizer:tap];
+    [self.tableView addGestureRecognizer:tap];
 }
 - (void)hideOpenedViews {
     [self hideImagesCollectionView];
@@ -294,6 +297,9 @@ static int64_t const kUpdateLayoutTimeout = 100 * NSEC_PER_MSEC;
 
 #pragma mark - Private interface
 
+- (void)setupConstraints {
+    self.previewImageHeight = self.previewImageHeightConstraint.constant;
+};
 - (void)tuneUserInputView {
     self.userInputTextView.layer.borderWidth = 0.2f;
     self.userInputTextView.layer.borderColor = [[UIColor grayColor] CGColor];
@@ -359,10 +365,17 @@ static int64_t const kUpdateLayoutTimeout = 100 * NSEC_PER_MSEC;
                      }
                      completion:completion];
 }
+- (BOOL)isImagesCollectionViewVisible {
+    return [self.backgroundView.constraints containsObject:self.imagesCollectionViewHeightConstraint];
+}
 - (void)triggerImagesCollectionViewWithAnimation:(BOOL)animation {
-    self.imagesCollectionViewHeightConstraint.constant = (NSInteger)self.imagesCollectionViewHeightConstraint.constant == 0 ? self.imagesCollectionViewHeight : 0;
-    [self.view setNeedsUpdateConstraints];
     [self dismissKeyboard];
+    if ([self isImagesCollectionViewVisible]) {
+        [self.backgroundView removeConstraint:self.imagesCollectionViewHeightConstraint];
+    } else {
+        [self.backgroundView addConstraint:self.imagesCollectionViewHeightConstraint];
+    }
+    [self.view setNeedsUpdateConstraints];
 
     if (animation) {
         __weak __typeof(self) weakSelf = self;
@@ -379,7 +392,7 @@ static int64_t const kUpdateLayoutTimeout = 100 * NSEC_PER_MSEC;
     [self.view setNeedsUpdateConstraints];
 }
 - (void)hideImagesCollectionView {
-    if ((NSInteger)self.imagesCollectionViewHeightConstraint.constant == self.imagesCollectionViewHeight) {
+    if ([self isImagesCollectionViewVisible]) {
         [self triggerImagesCollectionViewWithAnimation:YES];
     }
 }

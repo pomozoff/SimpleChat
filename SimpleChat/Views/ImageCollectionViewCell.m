@@ -8,7 +8,17 @@
 
 #import "ImageCollectionViewCell.h"
 
+@interface ImageCollectionViewCell ()
+
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+
+@end
+
 @implementation ImageCollectionViewCell
+
+#pragma mark - Constants
+
+static NSString * const kImagePlaceholderName = @"placeholder";
 
 #pragma mark - Properties
 
@@ -19,7 +29,14 @@
 #pragma mark - Public
 
 - (void)updateImage:(nullable UIImage *)image {
-    
+    if (!image) {
+        image = [UIImage imageNamed:kImagePlaceholderName];
+    }
+    CGFloat scale = self.imageView.frame.size.width / image.size.width;
+    UIImage *scaledImage = [UIImage imageWithCGImage:[image CGImage]
+                                               scale:(image.scale / scale)
+                                         orientation:image.imageOrientation];
+    self.imageView.image = scaledImage;
 }
 
 @end

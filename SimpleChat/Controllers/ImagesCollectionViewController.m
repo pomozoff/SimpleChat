@@ -24,10 +24,6 @@ static NSString * const reuseIdentifier = @"Collection Image Cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Register cell classes
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
-
     [self reloadImages];
 }
 - (void)didReceiveMemoryWarning {
