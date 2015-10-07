@@ -28,8 +28,6 @@ typedef enum : NSUInteger {
 @property (strong, nonatomic) IBOutlet UIView *backgroundView;
 @property (strong, nonatomic) IBOutlet UIView *imagesCollectionView;
 
-
-
 @property (nonatomic, assign) CGFloat imagesCollectionViewHeight;
 @property (nonatomic, assign) CGFloat previewImageHeight;
 
