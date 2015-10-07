@@ -267,6 +267,7 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     UIViewAnimationOptions animationCurve = animationCurveRawNSN == nil ? UIViewAnimationOptionCurveEaseInOut : [animationCurveRawNSN unsignedLongValue];
     
     self.bottomImagesConstraint.constant = isShowing ? endFrame.size.height : 0.0f;
+    [self.view setNeedsUpdateConstraints];
     
     __weak __typeof(self) weakSelf = self;
     [UIView animateWithDuration:duration
