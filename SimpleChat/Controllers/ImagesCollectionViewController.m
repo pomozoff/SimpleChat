@@ -9,7 +9,7 @@
 #import "ImagesCollectionViewController.h"
 #import "ImageCollectionViewCell.h"
 
-@interface ImagesCollectionViewController ()
+@interface ImagesCollectionViewController () <UICollectionViewDelegateFlowLayout>
 
 @end
 
