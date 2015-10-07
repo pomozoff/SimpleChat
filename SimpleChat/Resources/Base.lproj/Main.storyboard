@@ -19,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background-default" translatesAutoresizingMaskIntoConstraints="NO" id="Suq-EI-lgg" userLabel="Background Image View">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Suq-EI-lgg" userLabel="Background Image View">
                                 <rect key="frame" x="0.0" y="20" width="600" height="580"/>
                                 <animations/>
                             </imageView>
@@ -221,6 +221,7 @@
                                     </button>
                                 </subviews>
                                 <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="IFx-cE-ves" firstAttribute="top" secondItem="9ky-ah-xkv" secondAttribute="bottom" priority="250" constant="8" id="4OH-YH-2Yf"/>
                                     <constraint firstItem="9ky-ah-xkv" firstAttribute="top" secondItem="e7w-bV-8JW" secondAttribute="top" priority="250" constant="8" id="4u5-ra-2jt"/>
@@ -254,7 +255,7 @@
                             </imageView>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="e7w-bV-8JW" firstAttribute="height" secondItem="Suq-EI-lgg" secondAttribute="height" multiplier="0.25" id="0Zc-cf-WIa"/>
                             <constraint firstItem="GVa-gb-Xkb" firstAttribute="leading" secondItem="naH-9S-jkP" secondAttribute="leadingMargin" constant="-20" id="3Kz-wF-iaz"/>
@@ -407,7 +408,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="background-default" width="480" height="750"/>
         <image name="bubble_tail" width="22" height="21"/>
         <image name="camera" width="24" height="18"/>
         <image name="geo" width="21" height="21"/>
