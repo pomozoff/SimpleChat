@@ -18,8 +18,9 @@ typedef enum : NSUInteger {
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomImagesConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *maxInputTextViewConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *previewImageHeightConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *previewImageHeightConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *imagesCollectionViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imagesCollectionViewWidthConstraint;
 
 @property (weak, nonatomic) IBOutlet UITextView *userInputTextView;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
@@ -27,9 +28,6 @@ typedef enum : NSUInteger {
 @property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
 @property (strong, nonatomic) IBOutlet UIView *backgroundView;
 @property (strong, nonatomic) IBOutlet UIView *imagesCollectionView;
-
-@property (nonatomic, assign) CGFloat imagesCollectionViewHeight;
-@property (nonatomic, assign) CGFloat previewImageHeight;
 
 @end
 
@@ -50,28 +48,26 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 
     NSAssert(self == [(ChatManager *)self.chatHandler dataPresenter], @"Wrong Injection!");
     
-    [self setupConstraints];
     [self tuneUserInputView];
     [self addHideKeyboardGestureRecognizer];
     
     UIRefreshControl *refreshControl = [self addRefreshController];
     [self reloadChatList:refreshControl];
 }
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    [self triggerImagesCollectionViewWithAnimation:NO];
-    [self triggerImagePreviewView];
-}
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
-    [self registerForKeyboardNotification];
-    [self updateSendButtonState];
+    [self setupConstraints];
 }
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self deregisterKeyboardNotifications];
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self registerForKeyboardNotification];
+    [self updateSendButtonState];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -79,6 +75,17 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 }
 - (BOOL)prefersStatusBarHidden {
     return NO;
+}
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    __weak __typeof(self) weakSelf = self;
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        if (weakSelf.imagesCollectionView.hidden) {
+            [weakSelf hideImagesCollectionViewWithAnimation:NO];
+        }
+    } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        [weakSelf scrollMessages:ScrollDirectionDown];
+    }];
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
 
 #pragma mark - Table view data source
@@ -110,7 +117,7 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     [self updateSendButtonState];
 }
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
-    [self hideImagesCollectionView];
+    [self hideImagesCollectionViewWithAnimation:YES];
     return YES;
 }
 
@@ -214,14 +221,14 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     [self.chatDataSource resetToNewestMessageWithCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
             [refreshControl beginRefreshing];
-            [self fetchMoreMessagesWithCompletion:^(BOOL innerSucceeded, NSError * _Nullable innerError) {
+            [weakSelf fetchMoreMessagesWithCompletion:^(BOOL innerSucceeded, NSError * _Nullable innerError) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (innerSucceeded) {
-                        [self updateLayoutForTableView:weakSelf.tableView];
+                        [weakSelf updateLayoutForTableView:weakSelf.tableView];
                     } else {
                         NSLog(@"Failed to fetch more mesages: %@ %@", innerError, innerError.userInfo);
                     }
-                    [self finishRefreshing:refreshControl];
+                    [weakSelf finishRefreshing:refreshControl];
                 });
             }];
         } else {
@@ -236,6 +243,9 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     [self updateSendButtonState];
 
     return trimmedText;
+}
+- (UIInterfaceOrientation)deviceOrientation {
+    return [[UIApplication sharedApplication] statusBarOrientation];
 }
 
 #pragma mark - Private keyboard
@@ -286,7 +296,7 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     [self.tableView addGestureRecognizer:tap];
 }
 - (void)hideOpenedViews {
-    [self hideImagesCollectionView];
+    [self hideImagesCollectionViewWithAnimation:YES];
     [self dismissKeyboard];
 }
 - (void)dismissKeyboard {
@@ -295,9 +305,6 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 
 #pragma mark - Private interface
 
-- (void)setupConstraints {
-    self.previewImageHeight = self.previewImageHeightConstraint.constant;
-};
 - (void)tuneUserInputView {
     self.userInputTextView.layer.borderWidth = 0.2f;
     self.userInputTextView.layer.borderColor = [[UIColor grayColor] CGColor];
@@ -351,6 +358,18 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
                               atScrollPosition:scrollPosition animated:YES];
     }
 }
+- (void)triggerEmptyChatMessage {
+    NSInteger sectionsNumber = [self.chatDataSource numberOfSections];
+    NSInteger rowsNumber = [self.chatDataSource numberOfRowsInSection:sectionsNumber - 1];
+    self.chatIsEmptyLabel.hidden = rowsNumber > 0;
+}
+- (void)finishRefreshing:(UIRefreshControl *)refreshControl {
+    [refreshControl endRefreshing];
+    [self triggerEmptyChatMessage];
+}
+
+#pragma mark - Private Constraints
+
 - (void)animateConstraintsChangesDuration:(CGFloat)duration withCompletion:(void (^)(BOOL))completion {
     __weak __typeof(self) weakSelf = self;
     [UIView animateWithDuration:duration
@@ -363,45 +382,69 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
                      }
                      completion:completion];
 }
-- (BOOL)isImagesCollectionViewVisible {
-    return [self.backgroundView.constraints containsObject:self.imagesCollectionViewHeightConstraint];
+- (void)animateConstraintDefault {
+    __weak __typeof(self) weakSelf = self;
+    [self animateConstraintsChangesDuration:0.2f withCompletion:^(BOOL finished) {
+        if (finished) {
+            [weakSelf scrollMessages:ScrollDirectionDown];
+        }
+    }];
+}
+- (BOOL)isConstraintVisible:(nonnull NSLayoutConstraint *)constraint {
+    return [self.backgroundView.constraints containsObject:constraint];
+}
+- (void)triggerConstraint:(nonnull NSLayoutConstraint *)constraint {
+    if ([self isConstraintVisible:constraint]) {
+        [self.backgroundView removeConstraint:constraint];
+    } else {
+        [self.backgroundView addConstraint:constraint];
+    }
+    [self.view setNeedsUpdateConstraints];
+}
+- (void)hideConstraint:(nonnull NSLayoutConstraint *)constraint {
+    if ([self isConstraintVisible:constraint]) {
+        [self.backgroundView removeConstraint:constraint];
+        [self.view setNeedsUpdateConstraints];
+    }
+}
+- (NSLayoutConstraint *)currentImagesCollectionViewConstraint {
+    UIInterfaceOrientation orientation = [self deviceOrientation];
+    return UIInterfaceOrientationIsPortrait(orientation) ? self.imagesCollectionViewHeightConstraint : self.imagesCollectionViewWidthConstraint;
 }
 - (void)triggerImagesCollectionViewWithAnimation:(BOOL)animation {
     [self dismissKeyboard];
-    if ([self isImagesCollectionViewVisible]) {
-        [self.backgroundView removeConstraint:self.imagesCollectionViewHeightConstraint];
-    } else {
-        [self.backgroundView addConstraint:self.imagesCollectionViewHeightConstraint];
-    }
-    [self.view setNeedsUpdateConstraints];
+
+    self.imagesCollectionView.hidden = !self.imagesCollectionView.hidden;
+
+    NSLayoutConstraint *constraint = [self currentImagesCollectionViewConstraint];
+    [self triggerConstraint:constraint];
 
     if (animation) {
-        __weak __typeof(self) weakSelf = self;
-        [self animateConstraintsChangesDuration:0.5f withCompletion:^(BOOL finished) {
-            if (finished) {
-                [weakSelf scrollMessages:ScrollDirectionDown];
-            }
-        }];
+        [self animateConstraintDefault];
     }
 }
 - (void)triggerImagePreviewView {
     self.previewImageView.hidden = !self.previewImageView.hidden;
-    self.previewImageHeightConstraint.constant = (NSInteger)self.previewImageHeightConstraint.constant == 0 ? self.imagesCollectionViewHeight : 0;
-    [self.view setNeedsUpdateConstraints];
+    
+    NSLayoutConstraint *constraint = self.previewImageHeightConstraint;
+    [self triggerConstraint:constraint];
 }
-- (void)hideImagesCollectionView {
-    if ([self isImagesCollectionViewVisible]) {
-        [self triggerImagesCollectionViewWithAnimation:YES];
+- (void)hideImagesCollectionViewWithAnimation:(BOOL)animation {
+    self.imagesCollectionView.hidden = YES;
+    [self hideConstraint:self.imagesCollectionViewHeightConstraint];
+    [self hideConstraint:self.imagesCollectionViewWidthConstraint];
+
+    if (animation) {
+        [self animateConstraintDefault];
     }
 }
-- (void)triggerEmptyChatMessage {
-    NSInteger sectionsNumber = [self.chatDataSource numberOfSections];
-    NSInteger rowsNumber = [self.chatDataSource numberOfRowsInSection:sectionsNumber - 1];
-    self.chatIsEmptyLabel.hidden = rowsNumber > 0;
+- (void)hideImagePreviewView {
+    self.previewImageView.hidden = YES;
+    [self hideConstraint:self.previewImageHeightConstraint];
 }
-- (void)finishRefreshing:(UIRefreshControl *)refreshControl {
-    [refreshControl endRefreshing];
-    [self triggerEmptyChatMessage];
+- (void)setupConstraints {
+    [self hideImagesCollectionViewWithAnimation:YES];
+    [self hideImagePreviewView];
 }
 
 @end
