@@ -9,6 +9,10 @@
 #import "ImagesCollectionViewController.h"
 #import "ImageCollectionViewCell.h"
 
+@interface ImagesCollectionViewController ()
+
+@end
+
 @implementation ImagesCollectionViewController
 
 #pragma mark - Constants
@@ -20,7 +24,7 @@ static NSString * const reuseIdentifier = @"Collection Image Cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     [self reloadImages];
 }
 - (void)didReceiveMemoryWarning {
@@ -28,8 +32,14 @@ static NSString * const reuseIdentifier = @"Collection Image Cell";
     // Dispose of any resources that can be recreated.
 }
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        [self setupCollectionLayout];
+        [self.collectionViewLayout invalidateLayout];
+    } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        self.collectionView.alwaysBounceHorizontal = !self.collectionView.alwaysBounceHorizontal;
+        self.collectionView.alwaysBounceVertical = !self.collectionView.alwaysBounceVertical;
+    }];
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    [self.collectionView.collectionViewLayout invalidateLayout];
 }
 
 #pragma mark - <UICollectionViewDataSource>
@@ -50,7 +60,8 @@ static NSString * const reuseIdentifier = @"Collection Image Cell";
 #pragma mark - <UICollectionViewDelegateFlowLayout>
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGSize cellSize = CGSizeMake(self.collectionView.bounds.size.height, self.collectionView.bounds.size.height);
+    CGFloat height = [self collectionViewCellHeight];
+    CGSize cellSize = CGSizeMake(height, height);
     return cellSize;
 }
 
@@ -77,6 +88,19 @@ static NSString * const reuseIdentifier = @"Collection Image Cell";
             NSLog(@"Failed to reload images: %@ %@", error, error.userInfo);
         }
     }];
+}
+- (UIInterfaceOrientation)deviceOrientation {
+    return [[UIApplication sharedApplication] statusBarOrientation];
+}
+- (void)setupCollectionLayout {
+    UIInterfaceOrientation orientation = [self deviceOrientation];
+    UICollectionViewScrollDirection direction = UIInterfaceOrientationIsPortrait(orientation) ? UICollectionViewScrollDirectionHorizontal : UICollectionViewScrollDirectionVertical;
+    ((UICollectionViewFlowLayout *)self.collectionViewLayout).scrollDirection = direction;
+    [self.collectionViewLayout invalidateLayout];
+}
+- (CGFloat)collectionViewCellHeight {
+    UIInterfaceOrientation orientation = [self deviceOrientation];
+    return orientation = UIInterfaceOrientationIsPortrait(orientation) ? self.collectionView.bounds.size.height : self.collectionView.bounds.size.width;
 }
 
 @end
