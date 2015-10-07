@@ -24,7 +24,6 @@ static NSString * const reuseIdentifier = @"Collection Image Cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     [self reloadImages];
 }
 - (void)didReceiveMemoryWarning {
@@ -34,8 +33,8 @@ static NSString * const reuseIdentifier = @"Collection Image Cell";
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         [self setupCollectionLayout];
-        [self.collectionViewLayout invalidateLayout];
     } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        [self.collectionViewLayout invalidateLayout];
         self.collectionView.alwaysBounceHorizontal = !self.collectionView.alwaysBounceHorizontal;
         self.collectionView.alwaysBounceVertical = !self.collectionView.alwaysBounceVertical;
     }];
@@ -59,7 +58,10 @@ static NSString * const reuseIdentifier = @"Collection Image Cell";
 
 #pragma mark - <UICollectionViewDelegateFlowLayout>
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (CGSize)collectionView:(UICollectionView *)collectionView
+                  layout:(UICollectionViewLayout*)collectionViewLayout
+  sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     CGFloat height = [self collectionViewCellHeight];
     CGSize cellSize = CGSizeMake(height, height);
     return cellSize;
@@ -78,13 +80,8 @@ static NSString * const reuseIdentifier = @"Collection Image Cell";
     [imageCell updateImage:imageItem.image];
 }
 - (void)reloadImages {
-    __weak __typeof(self) weakSelf = self;
     [self.imagesCollectionDataSource fetchImagesWithCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-        if (succeeded) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
-            });
-        } else {
+        if (!succeeded) {
             NSLog(@"Failed to reload images: %@ %@", error, error.userInfo);
         }
     }];

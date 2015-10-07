@@ -214,7 +214,7 @@
                                             <segue destination="wdi-cq-wUW" kind="embed" id="CVe-11-WZU"/>
                                         </connections>
                                     </containerView>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="249" verticalCompressionResistancePriority="200" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFx-cE-ves">
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="249" verticalCompressionResistancePriority="200" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFx-cE-ves">
                                         <rect key="frame" x="8" y="112" width="584" height="30"/>
                                         <animations/>
                                         <state key="normal" title="Gallery"/>
@@ -223,15 +223,13 @@
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="IFx-cE-ves" firstAttribute="top" secondItem="9ky-ah-xkv" secondAttribute="bottom" priority="250" constant="8" id="4OH-YH-2Yf"/>
+                                    <constraint firstItem="IFx-cE-ves" firstAttribute="top" secondItem="9ky-ah-xkv" secondAttribute="bottom" priority="250" constant="6" id="4OH-YH-2Yf"/>
                                     <constraint firstItem="9ky-ah-xkv" firstAttribute="top" secondItem="e7w-bV-8JW" secondAttribute="top" priority="250" constant="8" id="4u5-ra-2jt"/>
                                     <constraint firstItem="IFx-cE-ves" firstAttribute="trailing" secondItem="9ky-ah-xkv" secondAttribute="trailing" id="8hS-So-pjC"/>
-                                    <constraint firstItem="IFx-cE-ves" firstAttribute="trailing" secondItem="e7w-bV-8JW" secondAttribute="trailingMargin" id="9xe-Ug-sLf"/>
+                                    <constraint firstItem="IFx-cE-ves" firstAttribute="trailing" secondItem="e7w-bV-8JW" secondAttribute="trailing" id="9xe-Ug-sLf"/>
                                     <constraint firstAttribute="height" priority="750" id="AKe-Na-x4d"/>
-                                    <constraint firstItem="IFx-cE-ves" firstAttribute="leading" secondItem="e7w-bV-8JW" secondAttribute="leadingMargin" id="HWw-Gg-2D2"/>
+                                    <constraint firstItem="IFx-cE-ves" firstAttribute="leading" secondItem="e7w-bV-8JW" secondAttribute="leading" id="HWw-Gg-2D2"/>
                                     <constraint firstItem="IFx-cE-ves" firstAttribute="leading" secondItem="9ky-ah-xkv" secondAttribute="leading" id="TRB-67-kw0"/>
-                                    <constraint firstItem="9ky-ah-xkv" firstAttribute="leading" secondItem="e7w-bV-8JW" secondAttribute="leading" priority="250" constant="8" id="TZK-EH-vGF"/>
-                                    <constraint firstAttribute="trailing" secondItem="9ky-ah-xkv" secondAttribute="trailing" priority="250" constant="8" id="Xs4-wX-Vtj"/>
                                     <constraint firstAttribute="bottom" secondItem="IFx-cE-ves" secondAttribute="bottom" priority="250" constant="8" id="Z6e-D7-GiD"/>
                                 </constraints>
                                 <variation key="default">
@@ -245,7 +243,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ah-XR-M2Z" userLabel="Preview Image View">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ah-XR-M2Z" userLabel="Preview Image View">
                                 <rect key="frame" x="0.0" y="50" width="600" height="400"/>
                                 <animations/>
                                 <color key="backgroundColor" red="1" green="0.1884467018343684" blue="0.19169978753199868" alpha="1" colorSpace="calibratedRGB"/>
@@ -301,13 +299,13 @@
                                 <exclude reference="u3u-lu-8H9"/>
                                 <exclude reference="amw-fX-1WN"/>
                                 <exclude reference="lwB-C9-Mbx"/>
-                                <exclude reference="ve0-17-FAP"/>
                                 <exclude reference="0Zc-cf-WIa"/>
                                 <exclude reference="DG8-yb-D0F"/>
                                 <exclude reference="bzl-iP-dxx"/>
                                 <exclude reference="fkl-Y9-ZfQ"/>
                                 <exclude reference="qTM-8U-kNA"/>
                                 <exclude reference="xOg-HM-a4B"/>
+                                <exclude reference="ve0-17-FAP"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact">
@@ -316,10 +314,10 @@
                                 <include reference="Dy5-ft-jLN"/>
                                 <include reference="Oyy-tg-5pB"/>
                                 <include reference="amw-fX-1WN"/>
-                                <include reference="ve0-17-FAP"/>
                                 <include reference="bzl-iP-dxx"/>
                                 <include reference="fkl-Y9-ZfQ"/>
                                 <include reference="xOg-HM-a4B"/>
+                                <include reference="ve0-17-FAP"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular">
@@ -357,7 +355,7 @@
         <scene sceneID="JbB-XQ-Ylg">
             <objects>
                 <collectionViewController id="wdi-cq-wUW" customClass="ImagesCollectionViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" dataMode="prototypes" id="bG5-By-p4x">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" alwaysBounceHorizontal="YES" dataMode="prototypes" id="bG5-By-p4x">
                         <rect key="frame" x="0.0" y="0.0" width="584" height="96"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
@@ -386,10 +384,10 @@
                                 </view>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="bottomMargin" secondItem="Phg-an-XuY" secondAttribute="bottom" constant="-8" id="Mw8-J2-SiL"/>
-                                    <constraint firstItem="Phg-an-XuY" firstAttribute="top" secondItem="Mos-MZ-ZDS" secondAttribute="topMargin" constant="-8" id="Ygk-r5-CFj"/>
-                                    <constraint firstItem="Phg-an-XuY" firstAttribute="leading" secondItem="Mos-MZ-ZDS" secondAttribute="leadingMargin" constant="-8" id="a28-DD-tYv"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="Phg-an-XuY" secondAttribute="trailing" constant="-8" id="evi-2y-gW0"/>
+                                    <constraint firstAttribute="bottom" secondItem="Phg-an-XuY" secondAttribute="bottom" id="Mw8-J2-SiL"/>
+                                    <constraint firstItem="Phg-an-XuY" firstAttribute="top" secondItem="Mos-MZ-ZDS" secondAttribute="top" id="Ygk-r5-CFj"/>
+                                    <constraint firstItem="Phg-an-XuY" firstAttribute="leading" secondItem="Mos-MZ-ZDS" secondAttribute="leading" id="a28-DD-tYv"/>
+                                    <constraint firstAttribute="trailing" secondItem="Phg-an-XuY" secondAttribute="trailing" id="evi-2y-gW0"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="imageView" destination="Phg-an-XuY" id="nmE-oD-UP8"/>
@@ -404,7 +402,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YVr-zS-U9V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1033" y="1399.5"/>
+            <point key="canvasLocation" x="736" y="1117.5"/>
         </scene>
     </scenes>
     <resources>
