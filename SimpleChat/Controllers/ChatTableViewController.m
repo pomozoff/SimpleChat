@@ -16,7 +16,8 @@ typedef enum : NSUInteger {
 
 @interface ChatTableViewController () <UITextViewDelegate, UIScrollViewDelegate>
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomImagesConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imagesBottomConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarBottomConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *maxInputTextViewConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *previewImageHeightConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *imagesCollectionViewHeightConstraint;
@@ -274,7 +275,9 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     NSNumber *animationCurveRawNSN = info[UIKeyboardAnimationCurveUserInfoKey];
     UIViewAnimationOptions animationCurve = animationCurveRawNSN == nil ? UIViewAnimationOptionCurveEaseInOut : [animationCurveRawNSN unsignedLongValue];
     
-    self.bottomImagesConstraint.constant = isShowing ? endFrame.size.height : 0.0f;
+    self.imagesBottomConstraint.constant = isShowing ? endFrame.size.height : 0.0f;
+    self.toolbarBottomConstraint.constant = self.imagesBottomConstraint.constant;
+    
     [self.view setNeedsUpdateConstraints];
     
     __weak __typeof(self) weakSelf = self;

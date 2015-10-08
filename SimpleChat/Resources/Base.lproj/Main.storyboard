@@ -48,7 +48,6 @@
                                                         <imageView opaque="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UDn-xI-zXY" userLabel="Chat Image View">
                                                             <rect key="frame" x="8" y="32" width="404" height="0.0"/>
                                                             <animations/>
-                                                            <color key="backgroundColor" red="0.896484375" green="0.063546637739999995" blue="0.027489839660000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" priority="500" id="aek-wF-3Yo"/>
                                                             </constraints>
@@ -217,20 +216,33 @@
                                     <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="249" verticalCompressionResistancePriority="200" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFx-cE-ves">
                                         <rect key="frame" x="8" y="112" width="584" height="30"/>
                                         <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="ZED-91-076"/>
+                                        </constraints>
                                         <state key="normal" title="Gallery"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="ZED-91-076"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=compact">
+                                            <mask key="constraints">
+                                                <include reference="ZED-91-076"/>
+                                            </mask>
+                                        </variation>
                                     </button>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="IFx-cE-ves" firstAttribute="top" secondItem="9ky-ah-xkv" secondAttribute="bottom" priority="250" constant="6" id="4OH-YH-2Yf"/>
-                                    <constraint firstItem="9ky-ah-xkv" firstAttribute="top" secondItem="e7w-bV-8JW" secondAttribute="top" priority="250" constant="8" id="4u5-ra-2jt"/>
+                                    <constraint firstItem="IFx-cE-ves" firstAttribute="top" secondItem="9ky-ah-xkv" secondAttribute="bottom" id="4OH-YH-2Yf"/>
+                                    <constraint firstItem="9ky-ah-xkv" firstAttribute="top" secondItem="e7w-bV-8JW" secondAttribute="top" priority="250" id="4u5-ra-2jt"/>
                                     <constraint firstItem="IFx-cE-ves" firstAttribute="trailing" secondItem="9ky-ah-xkv" secondAttribute="trailing" id="8hS-So-pjC"/>
                                     <constraint firstItem="IFx-cE-ves" firstAttribute="trailing" secondItem="e7w-bV-8JW" secondAttribute="trailing" id="9xe-Ug-sLf"/>
                                     <constraint firstAttribute="height" priority="750" id="AKe-Na-x4d"/>
                                     <constraint firstItem="IFx-cE-ves" firstAttribute="leading" secondItem="e7w-bV-8JW" secondAttribute="leading" id="HWw-Gg-2D2"/>
                                     <constraint firstItem="IFx-cE-ves" firstAttribute="leading" secondItem="9ky-ah-xkv" secondAttribute="leading" id="TRB-67-kw0"/>
-                                    <constraint firstAttribute="bottom" secondItem="IFx-cE-ves" secondAttribute="bottom" priority="250" constant="8" id="Z6e-D7-GiD"/>
+                                    <constraint firstAttribute="bottom" secondItem="IFx-cE-ves" secondAttribute="bottom" priority="250" id="Z6e-D7-GiD"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -246,7 +258,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ah-XR-M2Z" userLabel="Preview Image View">
                                 <rect key="frame" x="0.0" y="50" width="600" height="400"/>
                                 <animations/>
-                                <color key="backgroundColor" red="1" green="0.1884467018343684" blue="0.19169978753199868" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="750" id="Axa-j0-3zc"/>
                                 </constraints>
@@ -336,6 +347,7 @@
                     <connections>
                         <outlet property="backgroundView" destination="naH-9S-jkP" id="7vG-jk-SGp"/>
                         <outlet property="chatIsEmptyLabel" destination="7FK-2X-8A5" id="sLr-Dw-eg7"/>
+                        <outlet property="imagesBottomConstraint" destination="Bkg-Qs-jOL" id="RnY-lx-qxx"/>
                         <outlet property="imagesCollectionView" destination="e7w-bV-8JW" id="r0x-Ps-1TT"/>
                         <outlet property="imagesCollectionViewHeightConstraint" destination="0Zc-cf-WIa" id="yGT-GM-ywC"/>
                         <outlet property="imagesCollectionViewWidthConstraint" destination="fkl-Y9-ZfQ" id="Qd1-Ol-Aw4"/>
@@ -344,12 +356,13 @@
                         <outlet property="previewImageView" destination="5ah-XR-M2Z" id="yzb-VP-jHn"/>
                         <outlet property="sendButton" destination="mXo-Re-U1I" id="yxx-zd-dsb"/>
                         <outlet property="tableView" destination="GVa-gb-Xkb" id="qBe-Lg-qWd"/>
+                        <outlet property="toolbarBottomConstraint" destination="ve0-17-FAP" id="VMi-L2-owF"/>
                         <outlet property="userInputTextView" destination="Oes-MW-wEK" id="eRj-2K-dKv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8rW-fn-8vL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="201" y="1011.75"/>
+            <point key="canvasLocation" x="201" y="1011"/>
         </scene>
         <!--Images Collection View Controller-->
         <scene sceneID="JbB-XQ-Ylg">
@@ -402,7 +415,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YVr-zS-U9V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="736" y="1117.5"/>
+            <point key="canvasLocation" x="914" y="1170.375"/>
         </scene>
     </scenes>
     <resources>
