@@ -387,7 +387,7 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 }
 - (void)animateConstraintDefault {
     __weak __typeof(self) weakSelf = self;
-    [self animateConstraintsChangesDuration:0.2f withCompletion:^(BOOL finished) {
+    [self animateConstraintsChangesDuration:0.5f withCompletion:^(BOOL finished) {
         if (finished) {
             [weakSelf scrollMessages:ScrollDirectionDown];
         }
