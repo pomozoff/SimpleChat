@@ -56,6 +56,13 @@ static NSString * const reuseIdentifier = @"Collection Image Cell";
     return cell;
 }
 
+#pragma mark - <UICollectionViewDelegate>
+
+- (void)collectionView:(UICollectionView * _Nonnull)collectionView didSelectItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath {
+    id <ImageItem> imageItem = [self.imagesCollectionDataSource imageAtIndexPath:indexPath];
+    [self.imageHandlerRouter didSelectImage:imageItem.image];
+}
+
 #pragma mark - <UICollectionViewDelegateFlowLayout>
 
 - (CGSize)collectionView:(UICollectionView *)collectionView

@@ -122,6 +122,12 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     return YES;
 }
 
+#pragma mark - Image processor
+
+- (void)processImage:(UIImage *)image {
+    [self.imagePresenter presentImage:image];
+}
+
 #pragma mark - Actions
 
 - (IBAction)sendMessage:(UIButton *)sender {

@@ -15,12 +15,12 @@
 #pragma mark - Public
 
 - (ChatTableViewController *)chatTableViewController {
-    return [TyphoonDefinition withClass:[ChatTableViewController class]
-                          configuration:^(TyphoonDefinition *definition) {
-                              [definition injectProperty:@selector(chatDataSource) with:[self chatManager]];
-                              [definition injectProperty:@selector(chatHandler) with:[self chatManager]];
-                              [definition injectProperty:@selector(messageContoller) with:[self chatManager]];
-                          }];
+    return [TyphoonDefinition withClass:[ChatTableViewController class] configuration:^(TyphoonDefinition *definition) {
+        [definition injectProperty:@selector(chatDataSource) with:[self chatManager]];
+        [definition injectProperty:@selector(chatHandler) with:[self chatManager]];
+        [definition injectProperty:@selector(messageContoller) with:[self chatManager]];
+        [definition injectProperty:@selector(imagePresenter) with:[self imageViewController]];
+    }];
 }
 - (ChatManager *)chatManager {
     return [TyphoonDefinition withClass:[ChatManager class] configuration:^(TyphoonDefinition *definition) {
@@ -30,16 +30,24 @@
 }
 
 - (ImagesCollectionViewController *)imagesCollectionViewController {
-    return [TyphoonDefinition withClass:[ImagesCollectionViewController class]
-                          configuration:^(TyphoonDefinition *definition) {
-                              [definition injectProperty:@selector(imagesCollectionDataSource) with:[self imagesCollectionManager]];
-                          }];
+    return [TyphoonDefinition withClass:[ImagesCollectionViewController class] configuration:^(TyphoonDefinition *definition) {
+        [definition injectProperty:@selector(imagesCollectionDataSource) with:[self imagesCollectionManager]];
+        [definition injectProperty:@selector(imageHandlerRouter) with:[self imageRouter]];
+    }];
 }
 - (ImagesCollectionManager *)imagesCollectionManager {
     return [TyphoonDefinition withClass:[ImagesCollectionManager class] configuration:^(TyphoonDefinition *definition) {
         [definition injectProperty:@selector(dataPresenter) with:[self imagesCollectionViewController]];
         [definition injectProperty:@selector(imagesDataSource) with:[self localImagesDataSource]];
     }];
+}
+- (ImageRouter *)imageRouter {
+    return [TyphoonDefinition withClass:[ImageRouter class] configuration:^(TyphoonDefinition *definition) {
+        [definition injectProperty:@selector(imageProcessor) with:[self chatTableViewController]];
+    }];
+}
+- (ImageViewController *)imageViewController {
+    return [TyphoonDefinition withClass:[ImageViewController class]];
 }
 
 #pragma mark - Private

@@ -12,6 +12,10 @@
 		266127761BC3E20D00302DBA /* LocalImagesDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 266127741BC3E20D00302DBA /* LocalImagesDataSource.m */; settings = {ASSET_TAGS = (); }; };
 		266127791BC3E52B00302DBA /* ImageCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 266127771BC3E52B00302DBA /* ImageCollectionViewCell.h */; settings = {ASSET_TAGS = (); }; };
 		2661277A1BC3E52B00302DBA /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 266127781BC3E52B00302DBA /* ImageCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		2675CFA31BC7CF2900B1CFEA /* ImageRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675CFA11BC7CF2900B1CFEA /* ImageRouter.h */; settings = {ASSET_TAGS = (); }; };
+		2675CFA41BC7CF2900B1CFEA /* ImageRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675CFA21BC7CF2900B1CFEA /* ImageRouter.m */; settings = {ASSET_TAGS = (); }; };
+		2675CFA71BC7E60C00B1CFEA /* ImageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675CFA51BC7E60C00B1CFEA /* ImageViewController.h */; settings = {ASSET_TAGS = (); }; };
+		2675CFA81BC7E60C00B1CFEA /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675CFA61BC7E60C00B1CFEA /* ImageViewController.m */; settings = {ASSET_TAGS = (); }; };
 		268995301BBE7C6C005122D1 /* ParseMessagesDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2689952F1BBE7C6C005122D1 /* ParseMessagesDataSource.m */; settings = {ASSET_TAGS = (); }; };
 		268995391BBE911C005122D1 /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 268995371BBE911C005122D1 /* BaseTableViewController.m */; settings = {ASSET_TAGS = (); }; };
 		26A4450D1BC316780073DFBB /* ChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A4450C1BC316780073DFBB /* ChatManager.m */; settings = {ASSET_TAGS = (); }; };
@@ -85,6 +89,10 @@
 		266127741BC3E20D00302DBA /* LocalImagesDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalImagesDataSource.m; sourceTree = "<group>"; };
 		266127771BC3E52B00302DBA /* ImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCollectionViewCell.h; sourceTree = "<group>"; };
 		266127781BC3E52B00302DBA /* ImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionViewCell.m; sourceTree = "<group>"; };
+		2675CFA11BC7CF2900B1CFEA /* ImageRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageRouter.h; sourceTree = "<group>"; };
+		2675CFA21BC7CF2900B1CFEA /* ImageRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageRouter.m; sourceTree = "<group>"; };
+		2675CFA51BC7E60C00B1CFEA /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
+		2675CFA61BC7E60C00B1CFEA /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
 		2689952E1BBE7C6C005122D1 /* ParseMessagesDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseMessagesDataSource.h; sourceTree = "<group>"; };
 		2689952F1BBE7C6C005122D1 /* ParseMessagesDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseMessagesDataSource.m; sourceTree = "<group>"; };
 		268995311BBE7C9F005122D1 /* MessagesDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesDataSource.h; sourceTree = "<group>"; };
@@ -173,6 +181,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2675CFA01BC7CF1400B1CFEA /* Routers */ = {
+			isa = PBXGroup;
+			children = (
+				2675CFA11BC7CF2900B1CFEA /* ImageRouter.h */,
+				2675CFA21BC7CF2900B1CFEA /* ImageRouter.m */,
+			);
+			path = Routers;
+			sourceTree = "<group>";
+		};
 		2689952D1BBE7C5D005122D1 /* Data sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -258,6 +275,7 @@
 				26EF7E571BBAC8B20017D02E /* Views */,
 				26EF7E501BBAC7650017D02E /* Controllers */,
 				26EF7E451BBABCAA0017D02E /* Models */,
+				2675CFA01BC7CF1400B1CFEA /* Routers */,
 				268995321BBE90D8005122D1 /* Library */,
 				26EF7E201BBA96100017D02E /* Application */,
 				26EF7E211BBA96100017D02E /* Resources */,
@@ -365,6 +383,8 @@
 				26EF7E521BBAC7800017D02E /* ChatTableViewController.m */,
 				266127691BC2A5C200302DBA /* ImagesCollectionViewController.h */,
 				2661276A1BC2A5C200302DBA /* ImagesCollectionViewController.m */,
+				2675CFA51BC7E60C00B1CFEA /* ImageViewController.h */,
+				2675CFA61BC7E60C00B1CFEA /* ImageViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -387,6 +407,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2675CFA31BC7CF2900B1CFEA /* ImageRouter.h in Headers */,
+				2675CFA71BC7E60C00B1CFEA /* ImageViewController.h in Headers */,
 				26A445141BC319B60073DFBB /* Common.h in Headers */,
 				266127791BC3E52B00302DBA /* ImageCollectionViewCell.h in Headers */,
 			);
@@ -546,6 +568,7 @@
 			files = (
 				26EF7DF21BBA95E60017D02E /* AppDelegate.m in Sources */,
 				26EF7E531BBAC7800017D02E /* ChatTableViewController.m in Sources */,
+				2675CFA81BC7E60C00B1CFEA /* ImageViewController.m in Sources */,
 				26EF7E491BBABCEA0017D02E /* ChatMessage.m in Sources */,
 				26EF7E5A1BBAC8C70017D02E /* ChatTableViewCell.m in Sources */,
 				2661276F1BC3DD0B00302DBA /* ImageItem.m in Sources */,
@@ -557,6 +580,7 @@
 				268995301BBE7C6C005122D1 /* ParseMessagesDataSource.m in Sources */,
 				26A445101BC316B60073DFBB /* ImagesCollectionManager.m in Sources */,
 				2661276B1BC2A5C200302DBA /* ImagesCollectionViewController.m in Sources */,
+				2675CFA41BC7CF2900B1CFEA /* ImageRouter.m in Sources */,
 				26A4450D1BC316780073DFBB /* ChatManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

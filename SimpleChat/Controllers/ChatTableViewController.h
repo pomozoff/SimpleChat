@@ -10,14 +10,16 @@
 
 #import "ChatManager.h"
 #import "BaseTableViewController.h"
+#import "ImageRouter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ChatTableViewController : BaseTableViewController <UITableViewDataSource, UITableViewDelegate>
+@interface ChatTableViewController : BaseTableViewController <UITableViewDataSource, UITableViewDelegate, ImageProcessor>
 
 @property (nonatomic, strong) id <ChatDataSource> chatDataSource;
 @property (nonatomic, strong) id <ChatHandler> chatHandler;
 @property (nonatomic, strong) id <MessageController> messageContoller;
+@property (nonatomic, strong) id <ImagePresenter> imagePresenter;
 
 @end
 

@@ -10,6 +10,7 @@
 
 #import "ChatTableViewController.h"
 #import "ImagesCollectionViewController.h"
+#import "ImageViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,6 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (ImagesCollectionViewController *)imagesCollectionViewController;
 - (ImagesCollectionManager *)imagesCollectionManager;
+
+- (ImageRouter *)imageRouter;
+- (ImageViewController *)imageViewController;
 
 @end
 
