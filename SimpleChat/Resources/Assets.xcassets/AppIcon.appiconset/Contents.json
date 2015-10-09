@@ -155,6 +155,7 @@
     {
       "size" : "44x44",
       "idiom" : "watch",
+      "filename" : "Icon-44@2x.png",
       "scale" : "2x",
       "role" : "longLook",
       "subtype" : "42mm"
@@ -162,6 +163,7 @@
     {
       "size" : "86x86",
       "idiom" : "watch",
+      "filename" : "Icon-86@2x.png",
       "scale" : "2x",
       "role" : "quickLook",
       "subtype" : "38mm"
@@ -169,13 +171,10 @@
     {
       "size" : "98x98",
       "idiom" : "watch",
+      "filename" : "Icon-98@2x.png",
       "scale" : "2x",
       "role" : "quickLook",
       "subtype" : "42mm"
-    },
-    {
-      "filename" : "Icon-76@3x.png",
-      "unassigned" : true
     }
   ],
   "info" : {
