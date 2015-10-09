@@ -261,16 +261,6 @@
                                 <constraints>
                                     <constraint firstAttribute="height" priority="750" id="Dhl-ua-KqW"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="Dhl-ua-KqW"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular">
-                                    <mask key="constraints">
-                                        <include reference="Dhl-ua-KqW"/>
-                                    </mask>
-                                </variation>
                                 <connections>
                                     <segue destination="Jft-3o-xOM" kind="embed" id="SdI-4M-hp3"/>
                                 </connections>
@@ -315,9 +305,6 @@
                             <constraint firstItem="suS-fy-QHt" firstAttribute="top" secondItem="2aq-46-pPy" secondAttribute="bottom" id="yIZ-vu-esU"/>
                         </constraints>
                         <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="2aq-46-pPy"/>
-                            </mask>
                             <mask key="constraints">
                                 <exclude reference="UqD-SK-Qsj"/>
                                 <exclude reference="nnx-SO-ZUQ"/>
@@ -326,9 +313,6 @@
                                 <exclude reference="u3u-lu-8H9"/>
                                 <exclude reference="amw-fX-1WN"/>
                                 <exclude reference="lwB-C9-Mbx"/>
-                                <exclude reference="6Dd-2S-cZV"/>
-                                <exclude reference="TGj-sA-usZ"/>
-                                <exclude reference="pE1-Pi-25X"/>
                                 <exclude reference="0Zc-cf-WIa"/>
                                 <exclude reference="DG8-yb-D0F"/>
                                 <exclude reference="bzl-iP-dxx"/>
@@ -336,7 +320,6 @@
                                 <exclude reference="qTM-8U-kNA"/>
                                 <exclude reference="xOg-HM-a4B"/>
                                 <exclude reference="ve0-17-FAP"/>
-                                <exclude reference="yIZ-vu-esU"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact">
@@ -351,21 +334,14 @@
                             </mask>
                         </variation>
                         <variation key="heightClass=regular">
-                            <mask key="subviews">
-                                <include reference="2aq-46-pPy"/>
-                            </mask>
                             <mask key="constraints">
                                 <include reference="nnx-SO-ZUQ"/>
                                 <include reference="d7L-OL-Vgc"/>
                                 <include reference="u3u-lu-8H9"/>
                                 <include reference="lwB-C9-Mbx"/>
-                                <include reference="6Dd-2S-cZV"/>
-                                <include reference="TGj-sA-usZ"/>
-                                <include reference="pE1-Pi-25X"/>
                                 <include reference="0Zc-cf-WIa"/>
                                 <include reference="DG8-yb-D0F"/>
                                 <include reference="qTM-8U-kNA"/>
-                                <include reference="yIZ-vu-esU"/>
                             </mask>
                         </variation>
                     </view>
@@ -373,13 +349,13 @@
                     <connections>
                         <outlet property="backgroundView" destination="naH-9S-jkP" id="7vG-jk-SGp"/>
                         <outlet property="chatIsEmptyLabel" destination="7FK-2X-8A5" id="sLr-Dw-eg7"/>
+                        <outlet property="imagePreviewContainerHeightConstraint" destination="6Dd-2S-cZV" id="y57-TQ-fCw"/>
+                        <outlet property="imagePreviewContainerView" destination="2aq-46-pPy" id="Dab-6T-s19"/>
                         <outlet property="imagesBottomConstraint" destination="Bkg-Qs-jOL" id="RnY-lx-qxx"/>
                         <outlet property="imagesCollectionView" destination="e7w-bV-8JW" id="r0x-Ps-1TT"/>
                         <outlet property="imagesCollectionViewHeightConstraint" destination="0Zc-cf-WIa" id="yGT-GM-ywC"/>
                         <outlet property="imagesCollectionViewWidthConstraint" destination="fkl-Y9-ZfQ" id="Qd1-Ol-Aw4"/>
                         <outlet property="maxInputTextViewConstraint" destination="ceM-so-rAp" id="YNe-K7-kps"/>
-                        <outlet property="previewImageHeightConstraint" destination="6Dd-2S-cZV" id="1w2-q1-uxm"/>
-                        <outlet property="previewImageView" destination="5ah-XR-M2Z" id="yzb-VP-jHn"/>
                         <outlet property="sendButton" destination="mXo-Re-U1I" id="yxx-zd-dsb"/>
                         <outlet property="tableView" destination="GVa-gb-Xkb" id="qBe-Lg-qWd"/>
                         <outlet property="toolbarBottomConstraint" destination="ve0-17-FAP" id="VMi-L2-owF"/>
@@ -453,6 +429,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ah-XR-M2Z" userLabel="Preview Image View">
                                 <rect key="frame" x="0.0" y="50" width="600" height="400"/>
                                 <animations/>
+                                <color key="backgroundColor" red="1" green="0.98154384139999995" blue="0.59994728050000001" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
                         </subviews>
                         <animations/>
@@ -463,29 +440,10 @@
                             <constraint firstAttribute="trailing" secondItem="5ah-XR-M2Z" secondAttribute="trailing" id="waR-zG-um7"/>
                             <constraint firstItem="5ah-XR-M2Z" firstAttribute="leading" secondItem="ar2-mi-6LR" secondAttribute="leading" id="yto-Cy-O5s"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="5ah-XR-M2Z"/>
-                            </mask>
-                            <mask key="constraints">
-                                <exclude reference="Ag2-TD-rG4"/>
-                                <exclude reference="e3X-yX-UeW"/>
-                                <exclude reference="waR-zG-um7"/>
-                                <exclude reference="yto-Cy-O5s"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular">
-                            <mask key="subviews">
-                                <include reference="5ah-XR-M2Z"/>
-                            </mask>
-                            <mask key="constraints">
-                                <include reference="Ag2-TD-rG4"/>
-                                <include reference="e3X-yX-UeW"/>
-                                <include reference="waR-zG-um7"/>
-                                <include reference="yto-Cy-O5s"/>
-                            </mask>
-                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="imageView" destination="5ah-XR-M2Z" id="3ae-Cy-viE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eKk-eE-YQL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

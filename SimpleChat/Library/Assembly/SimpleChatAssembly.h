@@ -22,9 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (ImagesCollectionViewController *)imagesCollectionViewController;
 - (ImagesCollectionManager *)imagesCollectionManager;
 
-- (ImageRouter *)imageRouter;
-- (ImageViewController *)imageViewController;
-
 @end
 
 NS_ASSUME_NONNULL_END

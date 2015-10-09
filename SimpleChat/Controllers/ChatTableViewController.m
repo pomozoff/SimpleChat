@@ -16,19 +16,21 @@ typedef enum : NSUInteger {
 
 @interface ChatTableViewController () <UITextViewDelegate, UIScrollViewDelegate>
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imagesBottomConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarBottomConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *maxInputTextViewConstraint;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *previewImageHeightConstraint;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *imagesCollectionViewHeightConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imagesCollectionViewWidthConstraint;
-
 @property (weak, nonatomic) IBOutlet UITextView *userInputTextView;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 @property (weak, nonatomic) IBOutlet UILabel *chatIsEmptyLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
+
+@property (strong, nonatomic) IBOutlet UIView *imagePreviewContainerView;
 @property (strong, nonatomic) IBOutlet UIView *backgroundView;
 @property (strong, nonatomic) IBOutlet UIView *imagesCollectionView;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imagesBottomConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarBottomConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *maxInputTextViewConstraint;
+
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *imagePreviewContainerHeightConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *imagesCollectionViewHeightConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *imagesCollectionViewWidthConstraint;
 
 @end
 
@@ -46,19 +48,15 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    NSAssert(self == [(ChatManager *)self.chatHandler dataPresenter], @"Wrong Injection!");
     
     [self tuneUserInputView];
     [self addHideKeyboardGestureRecognizer];
-    
-    UIRefreshControl *refreshControl = [self addRefreshController];
-    [self reloadChatList:refreshControl];
+    [self reloadChatList:[self addRefreshController]];
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
-    [self setupConstraints];
+    [self hideAllPanesWithAnimation:NO];
 }
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
@@ -82,6 +80,9 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         if (weakSelf.imagesCollectionView.hidden) {
             [weakSelf hideImagesCollectionViewWithAnimation:NO];
+        }
+        if (weakSelf.imagePreviewContainerView.hidden) {
+            [weakSelf hideImagePreviewViewWithAnimation:NO];
         }
     } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         [weakSelf scrollMessages:ScrollDirectionDown];
@@ -118,7 +119,7 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     [self updateSendButtonState];
 }
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
-    [self hideImagesCollectionViewWithAnimation:YES];
+    [self hideAllPanesWithAnimation:YES];
     return YES;
 }
 
@@ -126,6 +127,7 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 
 - (void)processImage:(UIImage *)image {
     [self.imagePresenter presentImage:image];
+    [self triggerImagePreviewViewWithAnimation:YES];
 }
 
 #pragma mark - Actions
@@ -305,7 +307,7 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     [self.tableView addGestureRecognizer:tap];
 }
 - (void)hideOpenedViews {
-    [self hideImagesCollectionViewWithAnimation:YES];
+    [self hidePanesOnTapWithAnimation:YES];
     [self dismissKeyboard];
 }
 - (void)dismissKeyboard {
@@ -420,23 +422,26 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     UIInterfaceOrientation orientation = [self deviceOrientation];
     return UIInterfaceOrientationIsPortrait(orientation) ? self.imagesCollectionViewHeightConstraint : self.imagesCollectionViewWidthConstraint;
 }
-- (void)triggerImagesCollectionViewWithAnimation:(BOOL)animation {
+- (void)triggerView:(UIView *)view withConstraint:(NSArray <NSLayoutConstraint *> *)constraints andAnimation:(BOOL)animation {
     [self dismissKeyboard];
-
-    self.imagesCollectionView.hidden = !self.imagesCollectionView.hidden;
-
-    NSLayoutConstraint *constraint = [self currentImagesCollectionViewConstraint];
-    [self triggerConstraint:constraint];
-
+    
+    view.hidden = !view.hidden;
+    for (NSLayoutConstraint *constraint in constraints) {
+        [self triggerConstraint:constraint];
+    }
     if (animation) {
         [self animateConstraintDefault];
     }
 }
-- (void)triggerImagePreviewView {
-    self.previewImageView.hidden = !self.previewImageView.hidden;
-    
-    NSLayoutConstraint *constraint = self.previewImageHeightConstraint;
-    [self triggerConstraint:constraint];
+- (void)triggerImagesCollectionViewWithAnimation:(BOOL)animation {
+    [self triggerView:self.imagesCollectionView
+       withConstraint:@[[self currentImagesCollectionViewConstraint]]
+         andAnimation:animation];
+}
+- (void)triggerImagePreviewViewWithAnimation:(BOOL)animation {
+    [self triggerView:self.imagePreviewContainerView
+       withConstraint:@[self.imagePreviewContainerHeightConstraint]
+         andAnimation:animation];
 }
 - (void)hideImagesCollectionViewWithAnimation:(BOOL)animation {
     self.imagesCollectionView.hidden = YES;
@@ -447,13 +452,24 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
         [self animateConstraintDefault];
     }
 }
-- (void)hideImagePreviewView {
-    self.previewImageView.hidden = YES;
-    [self hideConstraint:self.previewImageHeightConstraint];
+- (void)hideImagePreviewViewWithAnimation:(BOOL)animation {
+    self.imagePreviewContainerView.hidden = YES;
+    [self hideConstraint:self.imagePreviewContainerHeightConstraint];
+    
+    if (animation) {
+        [self animateConstraintDefault];
+    }
 }
-- (void)setupConstraints {
-    [self hideImagesCollectionViewWithAnimation:YES];
-    [self hideImagePreviewView];
+- (void)hideAllPanesWithAnimation:(BOOL)animation {
+    [self hideImagesCollectionViewWithAnimation:animation];
+    [self hideImagePreviewViewWithAnimation:animation];
+}
+- (void)hidePanesOnTapWithAnimation:(BOOL)animation {
+    UIInterfaceOrientation orientation = [self deviceOrientation];
+    if (UIInterfaceOrientationIsPortrait(orientation)) {
+        [self hideImagesCollectionViewWithAnimation:animation];
+    }
+    [self hideImagePreviewViewWithAnimation:animation];
 }
 
 @end
