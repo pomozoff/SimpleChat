@@ -19,7 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) id <ChatDataSource> chatDataSource;
 @property (nonatomic, strong) id <ChatHandler> chatHandler;
 @property (nonatomic, strong) id <MessageController> messageContoller;
-@property (nonatomic, strong) id <ImagePresenter> imagePresenter;
 
 @end
 

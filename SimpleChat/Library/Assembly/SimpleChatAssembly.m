@@ -19,7 +19,6 @@
         [definition injectProperty:@selector(chatDataSource) with:[self chatManager]];
         [definition injectProperty:@selector(chatHandler) with:[self chatManager]];
         [definition injectProperty:@selector(messageContoller) with:[self chatManager]];
-        [definition injectProperty:@selector(imagePresenter) with:[self imageViewController]];
 
         definition.scope = TyphoonScopeLazySingleton;
     }];
@@ -58,11 +57,6 @@
 }
 - (id <ImagesDataSource>)localImagesDataSource {
     return [TyphoonDefinition withClass:[LocalImagesDataSource class] configuration:^(TyphoonDefinition *definition) {
-        definition.scope = TyphoonScopeLazySingleton;
-    }];
-}
-- (id <ImagePresenter>)imageViewController {
-    return [TyphoonDefinition withClass:[ImageViewController class] configuration:^(TyphoonDefinition *definition) {
         definition.scope = TyphoonScopeLazySingleton;
     }];
 }

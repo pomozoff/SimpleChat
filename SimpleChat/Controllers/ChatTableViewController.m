@@ -32,6 +32,8 @@ typedef enum : NSUInteger {
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *imagesCollectionViewHeightConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *imagesCollectionViewWidthConstraint;
 
+@property (nonatomic, strong) id <ImagePresenter> imagePresenter;
+
 @end
 
 @implementation ChatTableViewController
@@ -41,6 +43,7 @@ typedef enum : NSUInteger {
 static NSString * const kImageName = @"cat";
 static NSString * const kImagePlaceholderName = @"placeholder";
 static NSString * const kMessageCellReuseIdentifier = @"Chat Message Cell";
+static NSString * const kImageSegueName = @"Image Embedded Segue";
 static NSUInteger const kPercentOfUserInputTextHeight = 10;
 static UILayoutPriority const kMaxConstraintPriority = 900;
 static UILayoutPriority const kMinConstraintPriority = 200;
@@ -80,18 +83,18 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     __weak __typeof(self) weakSelf = self;
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-        /*
-        if (weakSelf.imagesCollectionView.hidden) {
-            [weakSelf hideImagesCollectionViewWithAnimation:NO];
-        }
-        if (weakSelf.imagePreviewContainerView.hidden) {
-            [weakSelf hideImagePreviewViewWithAnimation:NO];
-        }
-        */
+        [self.view layoutIfNeeded];
     } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-        [weakSelf scrollMessages:ScrollDirectionDown];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf scrollMessages:ScrollDirectionDown];
+        });
     }];
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:kImageSegueName]) {
+        self.imagePresenter = segue.destinationViewController;
+    }
 }
 
 #pragma mark - Table view data source

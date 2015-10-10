@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="jNt-2b-EQ4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="jNt-2b-EQ4">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -43,9 +44,6 @@
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
-                                                            <variation key="heightClass=compact" misplaced="YES">
-                                                                <rect key="frame" x="8" y="8" width="299" height="24"/>
-                                                            </variation>
                                                         </label>
                                                         <imageView opaque="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UDn-xI-zXY" userLabel="Chat Image View">
                                                             <rect key="frame" x="8" y="32" width="404" height="0.0"/>
@@ -53,9 +51,6 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" priority="500" id="aek-wF-3Yo"/>
                                                             </constraints>
-                                                            <variation key="heightClass=compact" misplaced="YES">
-                                                                <rect key="frame" x="8" y="32" width="299" height="0.0"/>
-                                                            </variation>
                                                         </imageView>
                                                     </subviews>
                                                     <animations/>
@@ -120,7 +115,7 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvg-o4-R3K" userLabel="User Input View">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dvg-o4-R3K" userLabel="User Input View">
                                 <rect key="frame" x="0.0" y="359" width="600" height="47"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mXo-Re-U1I">
@@ -208,7 +203,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="2j4-L4-hp0"/>
                                 </items>
                             </toolbar>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="e7w-bV-8JW" userLabel="Images Collection View">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e7w-bV-8JW" userLabel="Images Collection View">
                                 <rect key="frame" x="0.0" y="450" width="600" height="150"/>
                                 <subviews>
                                     <containerView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9ky-ah-xkv">
@@ -218,7 +213,7 @@
                                             <segue destination="wdi-cq-wUW" kind="embed" id="CVe-11-WZU"/>
                                         </connections>
                                     </containerView>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="150" verticalCompressionResistancePriority="150" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFx-cE-ves">
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="150" verticalCompressionResistancePriority="150" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFx-cE-ves">
                                         <rect key="frame" x="8" y="112" width="584" height="30"/>
                                         <animations/>
                                         <constraints>
@@ -269,7 +264,7 @@
                                     <constraint firstAttribute="height" priority="750" id="Dhl-ua-KqW"/>
                                 </constraints>
                                 <connections>
-                                    <segue destination="Jft-3o-xOM" kind="embed" id="SdI-4M-hp3"/>
+                                    <segue destination="Jft-3o-xOM" kind="embed" identifier="Image Embedded Segue" id="SdI-4M-hp3"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -278,7 +273,7 @@
                         <constraints>
                             <constraint firstItem="e7w-bV-8JW" firstAttribute="height" secondItem="Suq-EI-lgg" secondAttribute="height" multiplier="0.25" priority="900" id="0Zc-cf-WIa"/>
                             <constraint firstItem="GVa-gb-Xkb" firstAttribute="leading" secondItem="naH-9S-jkP" secondAttribute="leadingMargin" constant="-20" id="3Kz-wF-iaz"/>
-                            <constraint firstItem="2aq-46-pPy" firstAttribute="height" secondItem="Suq-EI-lgg" secondAttribute="height" multiplier="0.6" priority="900" id="6Dd-2S-cZV"/>
+                            <constraint firstItem="2aq-46-pPy" firstAttribute="height" secondItem="Suq-EI-lgg" secondAttribute="height" multiplier="0.7" priority="900" id="6Dd-2S-cZV"/>
                             <constraint firstItem="7FK-2X-8A5" firstAttribute="leading" secondItem="GVa-gb-Xkb" secondAttribute="leading" id="7LF-9h-nFs"/>
                             <constraint firstItem="GVa-gb-Xkb" firstAttribute="top" secondItem="Yhs-tB-jhH" secondAttribute="bottom" id="9AP-0b-Su7"/>
                             <constraint firstItem="dvg-o4-R3K" firstAttribute="top" secondItem="GVa-gb-Xkb" secondAttribute="bottom" id="9pP-qU-V0B"/>
@@ -390,13 +385,13 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Collection Image Cell" id="Mos-MZ-ZDS" customClass="ImageCollectionViewCell">
-                                <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                <rect key="frame" x="0.0" y="0.0" width="140" height="140"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="140" height="140"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="Phg-an-XuY">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="Phg-an-XuY">
                                             <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                             <animations/>
                                         </imageView>
@@ -434,11 +429,11 @@
                         <viewControllerLayoutGuide type="top" id="sGu-x3-pWz"/>
                         <viewControllerLayoutGuide type="bottom" id="tJL-tM-Lqd"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ar2-mi-6LR">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="ar2-mi-6LR">
                         <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ah-XR-M2Z" userLabel="Preview Image View">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ah-XR-M2Z" userLabel="Preview Image View">
                                 <rect key="frame" x="0.0" y="50" width="600" height="400"/>
                                 <animations/>
                             </imageView>
@@ -458,7 +453,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eKk-eE-YQL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="292" y="1641.75"/>
+            <point key="canvasLocation" x="234" y="1741.5"/>
         </scene>
     </scenes>
     <resources>
