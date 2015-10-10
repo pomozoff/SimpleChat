@@ -403,10 +403,10 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
                      }
                      completion:completion];
 }
-- (void)animateConstraintDefault {
+- (void)animateConstraintDefaultWithScroll:(BOOL)needsToScroll {
     __weak __typeof(self) weakSelf = self;
     [self animateConstraintsChangesDuration:0.5f withCompletion:^(BOOL finished) {
-        if (finished) {
+        if (finished && needsToScroll) {
             [weakSelf scrollMessages:ScrollDirectionDown];
         }
     }];
@@ -422,38 +422,49 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     }
     [self.view setNeedsUpdateConstraints];
 }
-- (void)triggerView:(UIView *)view withConstraint:(NSArray <NSLayoutConstraint *> *)constraints andAnimation:(BOOL)animation {
+- (void)triggerView:(UIView *)view withConstraint:(NSArray <NSLayoutConstraint *> *)constraints withScroll:(BOOL)needsToScroll andAnimation:(BOOL)animation {
     [self dismissKeyboard];
     
     for (NSLayoutConstraint *constraint in constraints) {
         [self triggerConstraint:constraint];
     }
     if (animation) {
-        [self animateConstraintDefault];
+        [self animateConstraintDefaultWithScroll:needsToScroll];
     }
 }
 - (void)triggerImagesCollectionViewWithAnimation:(BOOL)animation {
+    BOOL needsToScroll = UIInterfaceOrientationIsPortrait([self deviceOrientation]);
+    
     [self triggerView:self.imagesCollectionView
        withConstraint:@[self.imagesCollectionViewHeightConstraint, self.imagesCollectionViewWidthConstraint]
+     withScroll:needsToScroll
          andAnimation:animation];
+
+    BOOL isHiding = !([self isConstraintPrioritized:self.imagesCollectionViewHeightConstraint] || [self isConstraintPrioritized:self.imagesCollectionViewWidthConstraint]);
 }
 - (void)triggerImagePreviewViewWithAnimation:(BOOL)animation {
+    BOOL needsToScroll = UIInterfaceOrientationIsPortrait([self deviceOrientation]);
+    
     [self triggerView:self.imagePreviewContainerView
        withConstraint:@[self.imagePreviewContainerHeightConstraint]
+           withScroll:needsToScroll
          andAnimation:animation];
 }
 - (void)hideImagesCollectionViewWithAnimation:(BOOL)animation {
     self.imagesCollectionViewHeightConstraint.priority = kMinConstraintPriority;
     self.imagesCollectionViewWidthConstraint.priority = kMinConstraintPriority;
+    
 
     if (animation) {
-        [self animateConstraintDefault];
+        BOOL needsToScroll = UIInterfaceOrientationIsPortrait([self deviceOrientation]);
+        [self animateConstraintDefaultWithScroll:needsToScroll];
     }
 }
 - (void)hideImagePreviewViewWithAnimation:(BOOL)animation {
     self.imagePreviewContainerHeightConstraint.priority = kMinConstraintPriority;
     if (animation) {
-        [self animateConstraintDefault];
+        BOOL needsToScroll = UIInterfaceOrientationIsPortrait([self deviceOrientation]);
+        [self animateConstraintDefaultWithScroll:(needsToScroll)];
     }
 }
 - (void)hideAllPanesWithAnimation:(BOOL)animation {
@@ -464,8 +475,7 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     if ([self isConstraintPrioritized:self.imagePreviewContainerHeightConstraint]) {
         [self hideImagePreviewViewWithAnimation:animation];
     } else {
-        UIInterfaceOrientation orientation = [self deviceOrientation];
-        if (UIInterfaceOrientationIsPortrait(orientation)) {
+        if (UIInterfaceOrientationIsPortrait([self deviceOrientation])) {
             [self hideImagesCollectionViewWithAnimation:animation];
         }
     }
