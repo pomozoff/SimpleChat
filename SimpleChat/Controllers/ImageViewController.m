@@ -18,8 +18,18 @@
 
 #pragma mark - Life cycle
 
+- (instancetype)init {
+    self = [super init];
+    NSLog(@"Init self = %@", self);
+    return self;
+}
+- (void)awakeFromNib {
+    NSLog(@"Awake self = %@", self);
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"View did load self = %@", self);
     // Do any additional setup after loading the view.
 }
 - (void)didReceiveMemoryWarning {
@@ -30,6 +40,7 @@
 #pragma mark - Image presenter
 
 - (void)presentImage:(UIImage *)image {
+    NSLog(@"Present self = %@", self);
     self.imageView.image = image;
 }
 

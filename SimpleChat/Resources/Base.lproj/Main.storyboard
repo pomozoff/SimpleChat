@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="jNt-2b-EQ4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="jNt-2b-EQ4">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -44,6 +43,9 @@
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
+                                                            <variation key="heightClass=compact" misplaced="YES">
+                                                                <rect key="frame" x="8" y="8" width="299" height="24"/>
+                                                            </variation>
                                                         </label>
                                                         <imageView opaque="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UDn-xI-zXY" userLabel="Chat Image View">
                                                             <rect key="frame" x="8" y="32" width="404" height="0.0"/>
@@ -51,6 +53,9 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" priority="500" id="aek-wF-3Yo"/>
                                                             </constraints>
+                                                            <variation key="heightClass=compact" misplaced="YES">
+                                                                <rect key="frame" x="8" y="32" width="299" height="0.0"/>
+                                                            </variation>
                                                         </imageView>
                                                     </subviews>
                                                     <animations/>
@@ -115,7 +120,7 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dvg-o4-R3K" userLabel="User Input View">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvg-o4-R3K" userLabel="User Input View">
                                 <rect key="frame" x="0.0" y="359" width="600" height="47"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mXo-Re-U1I">
@@ -191,7 +196,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="YZI-yx-jve"/>
                                     <barButtonItem image="images" id="TWs-R0-Lvo" userLabel="Images Button">
                                         <connections>
-                                            <action selector="selectImageFromGallery:" destination="jNt-2b-EQ4" id="4io-yt-SKN"/>
+                                            <action selector="selectImageFromList:" destination="jNt-2b-EQ4" id="Kbq-Xh-wOx"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="GBs-99-8G6"/>
@@ -203,7 +208,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="2j4-L4-hp0"/>
                                 </items>
                             </toolbar>
-                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="250" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e7w-bV-8JW" userLabel="Images Collection View">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="e7w-bV-8JW" userLabel="Images Collection View">
                                 <rect key="frame" x="0.0" y="450" width="600" height="150"/>
                                 <subviews>
                                     <containerView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9ky-ah-xkv">
@@ -213,7 +218,7 @@
                                             <segue destination="wdi-cq-wUW" kind="embed" id="CVe-11-WZU"/>
                                         </connections>
                                     </containerView>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="249" verticalCompressionResistancePriority="200" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFx-cE-ves">
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="150" verticalCompressionResistancePriority="150" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFx-cE-ves">
                                         <rect key="frame" x="8" y="112" width="584" height="30"/>
                                         <animations/>
                                         <constraints>
@@ -230,10 +235,12 @@
                                                 <include reference="ZED-91-076"/>
                                             </mask>
                                         </variation>
+                                        <connections>
+                                            <action selector="selectImageFromGallery:" destination="jNt-2b-EQ4" eventType="touchUpInside" id="tbr-WP-0Uv"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="IFx-cE-ves" firstAttribute="top" secondItem="9ky-ah-xkv" secondAttribute="bottom" id="4OH-YH-2Yf"/>
                                     <constraint firstItem="9ky-ah-xkv" firstAttribute="top" secondItem="e7w-bV-8JW" secondAttribute="top" priority="250" id="4u5-ra-2jt"/>
@@ -269,9 +276,9 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="e7w-bV-8JW" firstAttribute="height" secondItem="Suq-EI-lgg" secondAttribute="height" multiplier="0.25" id="0Zc-cf-WIa"/>
+                            <constraint firstItem="e7w-bV-8JW" firstAttribute="height" secondItem="Suq-EI-lgg" secondAttribute="height" multiplier="0.25" priority="900" id="0Zc-cf-WIa"/>
                             <constraint firstItem="GVa-gb-Xkb" firstAttribute="leading" secondItem="naH-9S-jkP" secondAttribute="leadingMargin" constant="-20" id="3Kz-wF-iaz"/>
-                            <constraint firstItem="2aq-46-pPy" firstAttribute="height" secondItem="Suq-EI-lgg" secondAttribute="height" multiplier="0.6" id="6Dd-2S-cZV"/>
+                            <constraint firstItem="2aq-46-pPy" firstAttribute="height" secondItem="Suq-EI-lgg" secondAttribute="height" multiplier="0.6" priority="900" id="6Dd-2S-cZV"/>
                             <constraint firstItem="7FK-2X-8A5" firstAttribute="leading" secondItem="GVa-gb-Xkb" secondAttribute="leading" id="7LF-9h-nFs"/>
                             <constraint firstItem="GVa-gb-Xkb" firstAttribute="top" secondItem="Yhs-tB-jhH" secondAttribute="bottom" id="9AP-0b-Su7"/>
                             <constraint firstItem="dvg-o4-R3K" firstAttribute="top" secondItem="GVa-gb-Xkb" secondAttribute="bottom" id="9pP-qU-V0B"/>
@@ -280,7 +287,7 @@
                             <constraint firstItem="e7w-bV-8JW" firstAttribute="top" secondItem="fUv-XU-4x4" secondAttribute="bottom" id="DG8-yb-D0F"/>
                             <constraint firstItem="Suq-EI-lgg" firstAttribute="top" secondItem="Yhs-tB-jhH" secondAttribute="bottom" id="JeS-Qk-3jy"/>
                             <constraint firstItem="dvg-o4-R3K" firstAttribute="leading" secondItem="GVa-gb-Xkb" secondAttribute="leading" id="L8G-EF-EuD"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="e7w-bV-8JW" secondAttribute="trailing" constant="-20" id="N5O-w9-DW1"/>
+                            <constraint firstAttribute="trailing" secondItem="e7w-bV-8JW" secondAttribute="trailing" id="N5O-w9-DW1"/>
                             <constraint firstItem="7FK-2X-8A5" firstAttribute="centerY" secondItem="naH-9S-jkP" secondAttribute="centerY" id="Oyy-tg-5pB"/>
                             <constraint firstItem="2aq-46-pPy" firstAttribute="leading" secondItem="GVa-gb-Xkb" secondAttribute="leading" id="TGj-sA-usZ"/>
                             <constraint firstItem="fUv-XU-4x4" firstAttribute="leading" secondItem="GVa-gb-Xkb" secondAttribute="leading" id="U3E-DI-MQ8"/>
@@ -290,14 +297,14 @@
                             <constraint firstItem="e7w-bV-8JW" firstAttribute="leading" secondItem="Suq-EI-lgg" secondAttribute="trailing" priority="750" id="bzl-iP-dxx"/>
                             <constraint firstItem="7FK-2X-8A5" firstAttribute="centerX" secondItem="naH-9S-jkP" secondAttribute="centerX" id="d7L-OL-Vgc"/>
                             <constraint firstItem="dvg-o4-R3K" firstAttribute="trailing" secondItem="GVa-gb-Xkb" secondAttribute="trailing" id="dmQ-Lr-Obc"/>
-                            <constraint firstItem="e7w-bV-8JW" firstAttribute="width" secondItem="Suq-EI-lgg" secondAttribute="width" multiplier="0.25" id="fkl-Y9-ZfQ"/>
+                            <constraint firstItem="e7w-bV-8JW" firstAttribute="width" secondItem="Suq-EI-lgg" secondAttribute="width" multiplier="0.2" priority="900" id="fkl-Y9-ZfQ"/>
                             <constraint firstItem="fUv-XU-4x4" firstAttribute="top" secondItem="dvg-o4-R3K" secondAttribute="bottom" id="lwB-C9-Mbx"/>
                             <constraint firstItem="7FK-2X-8A5" firstAttribute="trailing" secondItem="GVa-gb-Xkb" secondAttribute="trailing" id="ndI-MG-SPT"/>
                             <constraint firstAttribute="trailingMargin" secondItem="GVa-gb-Xkb" secondAttribute="trailing" constant="-20" id="nnx-SO-ZUQ"/>
                             <constraint firstItem="7FK-2X-8A5" firstAttribute="trailing" secondItem="GVa-gb-Xkb" secondAttribute="trailing" id="oHg-a7-Zg6"/>
                             <constraint firstItem="suS-fy-QHt" firstAttribute="top" secondItem="Suq-EI-lgg" secondAttribute="bottom" id="oz2-Rf-Qc9"/>
                             <constraint firstItem="2aq-46-pPy" firstAttribute="trailing" secondItem="GVa-gb-Xkb" secondAttribute="trailing" id="pE1-Pi-25X"/>
-                            <constraint firstItem="e7w-bV-8JW" firstAttribute="leading" secondItem="naH-9S-jkP" secondAttribute="leadingMargin" constant="-20" id="qTM-8U-kNA"/>
+                            <constraint firstItem="e7w-bV-8JW" firstAttribute="leading" secondItem="naH-9S-jkP" secondAttribute="leading" id="qTM-8U-kNA"/>
                             <constraint firstItem="7FK-2X-8A5" firstAttribute="centerY" secondItem="naH-9S-jkP" secondAttribute="centerY" id="u3u-lu-8H9"/>
                             <constraint firstItem="suS-fy-QHt" firstAttribute="top" secondItem="fUv-XU-4x4" secondAttribute="bottom" id="ve0-17-FAP"/>
                             <constraint firstItem="e7w-bV-8JW" firstAttribute="top" secondItem="Yhs-tB-jhH" secondAttribute="bottom" id="xOg-HM-a4B"/>
@@ -376,7 +383,7 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="2" id="sOR-41-ID1">
-                            <size key="itemSize" width="80" height="80"/>
+                            <size key="itemSize" width="140" height="140"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -386,7 +393,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="140" height="140"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="Phg-an-XuY">
@@ -417,7 +424,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YVr-zS-U9V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="914" y="1170.375"/>
+            <point key="canvasLocation" x="914" y="1170"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="Zj5-xs-v9H">
@@ -434,7 +441,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ah-XR-M2Z" userLabel="Preview Image View">
                                 <rect key="frame" x="0.0" y="50" width="600" height="400"/>
                                 <animations/>
-                                <color key="backgroundColor" red="1" green="0.98154384139999995" blue="0.59994728050000001" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
                         </subviews>
                         <animations/>

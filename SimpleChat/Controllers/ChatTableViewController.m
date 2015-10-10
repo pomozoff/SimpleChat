@@ -42,6 +42,8 @@ static NSString * const kImageName = @"cat";
 static NSString * const kImagePlaceholderName = @"placeholder";
 static NSString * const kMessageCellReuseIdentifier = @"Chat Message Cell";
 static NSUInteger const kPercentOfUserInputTextHeight = 10;
+static UILayoutPriority const kMaxConstraintPriority = 900;
+static UILayoutPriority const kMinConstraintPriority = 200;
 static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 
 #pragma mark - Life cycle
@@ -78,12 +80,14 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     __weak __typeof(self) weakSelf = self;
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        /*
         if (weakSelf.imagesCollectionView.hidden) {
             [weakSelf hideImagesCollectionViewWithAnimation:NO];
         }
         if (weakSelf.imagePreviewContainerView.hidden) {
             [weakSelf hideImagePreviewViewWithAnimation:NO];
         }
+        */
     } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         [weakSelf scrollMessages:ScrollDirectionDown];
     }];
@@ -165,8 +169,11 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
                            });
                        }];
 }
-- (IBAction)selectImageFromGallery:(UIBarButtonItem *)sender {
+- (IBAction)selectImageFromList:(UIBarButtonItem *)sender {
     [self triggerImagesCollectionViewWithAnimation:YES];
+}
+- (IBAction)selectImageFromGallery:(UIButton *)sender {
+    NSLog(@"Gallery");
 }
 
 #pragma mark - Private common
@@ -401,31 +408,20 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
         }
     }];
 }
-- (BOOL)isConstraintVisible:(nonnull NSLayoutConstraint *)constraint {
-    return [self.backgroundView.constraints containsObject:constraint];
+- (BOOL)isConstraintPrioritized:(nonnull NSLayoutConstraint *)constraint {
+    return constraint.priority >= kMaxConstraintPriority;
 }
 - (void)triggerConstraint:(nonnull NSLayoutConstraint *)constraint {
-    if ([self isConstraintVisible:constraint]) {
-        [self.backgroundView removeConstraint:constraint];
+    if ([self isConstraintPrioritized:constraint]) {
+        constraint.priority = kMinConstraintPriority;
     } else {
-        [self.backgroundView addConstraint:constraint];
+        constraint.priority = kMaxConstraintPriority;
     }
     [self.view setNeedsUpdateConstraints];
-}
-- (void)hideConstraint:(nonnull NSLayoutConstraint *)constraint {
-    if ([self isConstraintVisible:constraint]) {
-        [self.backgroundView removeConstraint:constraint];
-        [self.view setNeedsUpdateConstraints];
-    }
-}
-- (NSLayoutConstraint *)currentImagesCollectionViewConstraint {
-    UIInterfaceOrientation orientation = [self deviceOrientation];
-    return UIInterfaceOrientationIsPortrait(orientation) ? self.imagesCollectionViewHeightConstraint : self.imagesCollectionViewWidthConstraint;
 }
 - (void)triggerView:(UIView *)view withConstraint:(NSArray <NSLayoutConstraint *> *)constraints andAnimation:(BOOL)animation {
     [self dismissKeyboard];
     
-    view.hidden = !view.hidden;
     for (NSLayoutConstraint *constraint in constraints) {
         [self triggerConstraint:constraint];
     }
@@ -435,7 +431,7 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 }
 - (void)triggerImagesCollectionViewWithAnimation:(BOOL)animation {
     [self triggerView:self.imagesCollectionView
-       withConstraint:@[[self currentImagesCollectionViewConstraint]]
+       withConstraint:@[self.imagesCollectionViewHeightConstraint, self.imagesCollectionViewWidthConstraint]
          andAnimation:animation];
 }
 - (void)triggerImagePreviewViewWithAnimation:(BOOL)animation {
@@ -444,18 +440,15 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
          andAnimation:animation];
 }
 - (void)hideImagesCollectionViewWithAnimation:(BOOL)animation {
-    self.imagesCollectionView.hidden = YES;
-    [self hideConstraint:self.imagesCollectionViewHeightConstraint];
-    [self hideConstraint:self.imagesCollectionViewWidthConstraint];
+    self.imagesCollectionViewHeightConstraint.priority = kMinConstraintPriority;
+    self.imagesCollectionViewWidthConstraint.priority = kMinConstraintPriority;
 
     if (animation) {
         [self animateConstraintDefault];
     }
 }
 - (void)hideImagePreviewViewWithAnimation:(BOOL)animation {
-    self.imagePreviewContainerView.hidden = YES;
-    [self hideConstraint:self.imagePreviewContainerHeightConstraint];
-    
+    self.imagePreviewContainerHeightConstraint.priority = kMinConstraintPriority;
     if (animation) {
         [self animateConstraintDefault];
     }
@@ -465,11 +458,14 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     [self hideImagePreviewViewWithAnimation:animation];
 }
 - (void)hidePanesOnTapWithAnimation:(BOOL)animation {
-    UIInterfaceOrientation orientation = [self deviceOrientation];
-    if (UIInterfaceOrientationIsPortrait(orientation)) {
-        [self hideImagesCollectionViewWithAnimation:animation];
+    if ([self isConstraintPrioritized:self.imagePreviewContainerHeightConstraint]) {
+        [self hideImagePreviewViewWithAnimation:animation];
+    } else {
+        UIInterfaceOrientation orientation = [self deviceOrientation];
+        if (UIInterfaceOrientationIsPortrait(orientation)) {
+            [self hideImagesCollectionViewWithAnimation:animation];
+        }
     }
-    [self hideImagePreviewViewWithAnimation:animation];
 }
 
 @end

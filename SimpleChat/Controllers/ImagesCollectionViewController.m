@@ -31,6 +31,7 @@ static NSString * const reuseIdentifier = @"Collection Image Cell";
     // Dispose of any resources that can be recreated.
 }
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         [self setupCollectionLayout];
     } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
@@ -38,7 +39,6 @@ static NSString * const reuseIdentifier = @"Collection Image Cell";
         self.collectionView.alwaysBounceHorizontal = !self.collectionView.alwaysBounceHorizontal;
         self.collectionView.alwaysBounceVertical = !self.collectionView.alwaysBounceVertical;
     }];
-    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
 
 #pragma mark - <UICollectionViewDataSource>
@@ -88,7 +88,9 @@ static NSString * const reuseIdentifier = @"Collection Image Cell";
 }
 - (void)reloadImages {
     [self.imagesCollectionDataSource fetchImagesWithCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-        if (!succeeded) {
+        if (succeeded) {
+            [self.collectionViewLayout invalidateLayout];
+        } else {
             NSLog(@"Failed to reload images: %@ %@", error, error.userInfo);
         }
     }];
