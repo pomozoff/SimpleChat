@@ -255,7 +255,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2aq-46-pPy" userLabel="Preview Image Container View">
+                            <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2aq-46-pPy" userLabel="Preview Image Container View">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <animations/>
                                 <constraints>
@@ -423,7 +423,12 @@
         <scene sceneID="Zj5-xs-v9H">
             <objects>
                 <viewController id="Jft-3o-xOM" customClass="ImageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="sGu-x3-pWz"/>
+                        <viewControllerLayoutGuide type="bottom" id="tJL-tM-Lqd"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ar2-mi-6LR">
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5ah-XR-M2Z" userLabel="Preview Image View">
