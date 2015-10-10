@@ -350,10 +350,13 @@
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="backgroundView" destination="naH-9S-jkP" id="7vG-jk-SGp"/>
+                        <outlet property="cameraButton" destination="0Pq-El-nc5" id="XvV-b4-shy"/>
                         <outlet property="chatIsEmptyLabel" destination="7FK-2X-8A5" id="sLr-Dw-eg7"/>
+                        <outlet property="geoButton" destination="UBQ-9I-73u" id="Fal-2O-7Nk"/>
                         <outlet property="imagePreviewContainerHeightConstraint" destination="6Dd-2S-cZV" id="y57-TQ-fCw"/>
                         <outlet property="imagePreviewContainerView" destination="2aq-46-pPy" id="Dab-6T-s19"/>
                         <outlet property="imagesBottomConstraint" destination="Bkg-Qs-jOL" id="RnY-lx-qxx"/>
+                        <outlet property="imagesButton" destination="TWs-R0-Lvo" id="tfb-08-Bwq"/>
                         <outlet property="imagesCollectionView" destination="e7w-bV-8JW" id="r0x-Ps-1TT"/>
                         <outlet property="imagesCollectionViewHeightConstraint" destination="0Zc-cf-WIa" id="yGT-GM-ywC"/>
                         <outlet property="imagesCollectionViewWidthConstraint" destination="fkl-Y9-ZfQ" id="Qd1-Ol-Aw4"/>

@@ -20,6 +20,10 @@ typedef enum : NSUInteger {
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 @property (weak, nonatomic) IBOutlet UILabel *chatIsEmptyLabel;
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *cameraButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *imagesButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *geoButton;
+
 @property (strong, nonatomic) IBOutlet UIView *imagePreviewContainerView;
 @property (strong, nonatomic) IBOutlet UIView *backgroundView;
 @property (strong, nonatomic) IBOutlet UIView *imagesCollectionView;
@@ -441,6 +445,8 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
          andAnimation:animation];
 
     BOOL isHiding = !([self isConstraintPrioritized:self.imagesCollectionViewHeightConstraint] || [self isConstraintPrioritized:self.imagesCollectionViewWidthConstraint]);
+    self.cameraButton.enabled = isHiding;
+    self.geoButton.enabled = isHiding;
 }
 - (void)triggerImagePreviewViewWithAnimation:(BOOL)animation {
     BOOL needsToScroll = UIInterfaceOrientationIsPortrait([self deviceOrientation]);
@@ -454,6 +460,8 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     self.imagesCollectionViewHeightConstraint.priority = kMinConstraintPriority;
     self.imagesCollectionViewWidthConstraint.priority = kMinConstraintPriority;
     
+    self.cameraButton.enabled = YES;
+    self.geoButton.enabled = YES;
 
     if (animation) {
         BOOL needsToScroll = UIInterfaceOrientationIsPortrait([self deviceOrientation]);
