@@ -407,8 +407,8 @@
                                     <rect key="frame" x="0.0" y="0.0" width="140" height="140"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="Phg-an-XuY">
-                                            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="Phg-an-XuY">
+                                            <rect key="frame" x="0.0" y="0.0" width="140" height="140"/>
                                             <animations/>
                                         </imageView>
                                     </subviews>
@@ -450,38 +450,47 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EGC-Jc-bIa" userLabel="Full Screen Button">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <rect key="frame" x="16" y="85" width="23" height="23"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="EGC-Jc-bIa" secondAttribute="height" multiplier="1:1" id="WT8-ZC-goh"/>
                                 </constraints>
                                 <state key="normal" image="camera_interface_fullscreen"/>
+                                <connections>
+                                    <action selector="toggleFullscreen:" destination="Jft-3o-xOM" eventType="touchUpInside" id="wrY-Ib-Qu6"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q2t-cb-LN1" userLabel="Send Button">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <rect key="frame" x="100" y="68" width="40" height="40"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Q2t-cb-LN1" secondAttribute="height" multiplier="1:1" id="WIq-RJ-bcX"/>
                                 </constraints>
                                 <state key="normal" image="send"/>
+                                <connections>
+                                    <action selector="sendButton:" destination="Jft-3o-xOM" eventType="touchUpInside" id="32f-DM-fvf"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Yr-Jk-V9p">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Yr-Jk-V9p" userLabel="Switch Camera Button">
+                                <rect key="frame" x="194" y="78" width="30" height="30"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="7Yr-Jk-V9p" secondAttribute="height" multiplier="1:1" id="czO-ex-9Ze"/>
                                 </constraints>
                                 <state key="normal" image="camera_interface_switch"/>
+                                <connections>
+                                    <action selector="switchCameraButton:" destination="Jft-3o-xOM" eventType="touchUpInside" id="Ztw-Rc-x3L"/>
+                                </connections>
                             </button>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="tJL-tM-Lqd" firstAttribute="top" secondItem="Q2t-cb-LN1" secondAttribute="bottom" constant="20" id="3qv-nV-crd"/>
                             <constraint firstItem="EGC-Jc-bIa" firstAttribute="leading" secondItem="ar2-mi-6LR" secondAttribute="leadingMargin" id="QoN-dc-tuu"/>
-                            <constraint firstItem="tJL-tM-Lqd" firstAttribute="top" secondItem="EGC-Jc-bIa" secondAttribute="bottom" constant="20" id="RtW-lJ-qTJ"/>
+                            <constraint firstItem="Q2t-cb-LN1" firstAttribute="bottom" secondItem="7Yr-Jk-V9p" secondAttribute="bottom" id="VRE-em-Ccr"/>
                             <constraint firstItem="Q2t-cb-LN1" firstAttribute="bottom" secondItem="EGC-Jc-bIa" secondAttribute="bottom" id="W8c-Hc-WXX"/>
                             <constraint firstItem="7Yr-Jk-V9p" firstAttribute="trailing" secondItem="ar2-mi-6LR" secondAttribute="trailingMargin" id="X2E-f3-D5C"/>
-                            <constraint firstItem="tJL-tM-Lqd" firstAttribute="top" secondItem="7Yr-Jk-V9p" secondAttribute="bottom" constant="20" id="bKH-yo-25N"/>
                             <constraint firstItem="Q2t-cb-LN1" firstAttribute="centerX" secondItem="ar2-mi-6LR" secondAttribute="centerX" id="q8v-Vi-JaR"/>
                         </constraints>
                     </view>
