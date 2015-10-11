@@ -456,16 +456,6 @@
                                     <constraint firstAttribute="width" secondItem="EGC-Jc-bIa" secondAttribute="height" multiplier="1:1" id="WT8-ZC-goh"/>
                                 </constraints>
                                 <state key="normal" image="camera_interface_fullscreen"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="WT8-ZC-goh"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular">
-                                    <mask key="constraints">
-                                        <include reference="WT8-ZC-goh"/>
-                                    </mask>
-                                </variation>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q2t-cb-LN1" userLabel="Send Button">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
@@ -474,20 +464,13 @@
                                     <constraint firstAttribute="width" secondItem="Q2t-cb-LN1" secondAttribute="height" multiplier="1:1" id="WIq-RJ-bcX"/>
                                 </constraints>
                                 <state key="normal" image="send"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="WIq-RJ-bcX"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular">
-                                    <mask key="constraints">
-                                        <include reference="WIq-RJ-bcX"/>
-                                    </mask>
-                                </variation>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Yr-Jk-V9p">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="7Yr-Jk-V9p" secondAttribute="height" multiplier="1:1" id="czO-ex-9Ze"/>
+                                </constraints>
                                 <state key="normal" image="camera_interface_switch"/>
                             </button>
                         </subviews>
@@ -501,36 +484,6 @@
                             <constraint firstItem="tJL-tM-Lqd" firstAttribute="top" secondItem="7Yr-Jk-V9p" secondAttribute="bottom" constant="20" id="bKH-yo-25N"/>
                             <constraint firstItem="Q2t-cb-LN1" firstAttribute="centerX" secondItem="ar2-mi-6LR" secondAttribute="centerX" id="q8v-Vi-JaR"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="EGC-Jc-bIa"/>
-                                <exclude reference="Q2t-cb-LN1"/>
-                                <exclude reference="7Yr-Jk-V9p"/>
-                            </mask>
-                            <mask key="constraints">
-                                <exclude reference="RtW-lJ-qTJ"/>
-                                <exclude reference="bKH-yo-25N"/>
-                                <exclude reference="X2E-f3-D5C"/>
-                                <exclude reference="QoN-dc-tuu"/>
-                                <exclude reference="W8c-Hc-WXX"/>
-                                <exclude reference="q8v-Vi-JaR"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular">
-                            <mask key="subviews">
-                                <include reference="EGC-Jc-bIa"/>
-                                <include reference="Q2t-cb-LN1"/>
-                                <include reference="7Yr-Jk-V9p"/>
-                            </mask>
-                            <mask key="constraints">
-                                <include reference="RtW-lJ-qTJ"/>
-                                <include reference="bKH-yo-25N"/>
-                                <include reference="X2E-f3-D5C"/>
-                                <include reference="QoN-dc-tuu"/>
-                                <include reference="W8c-Hc-WXX"/>
-                                <include reference="q8v-Vi-JaR"/>
-                            </mask>
-                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eKk-eE-YQL" userLabel="First Responder" sceneMemberID="firstResponder"/>
