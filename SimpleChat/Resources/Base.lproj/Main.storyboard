@@ -71,7 +71,7 @@
                                                         <constraint firstItem="BlI-pH-u3K" firstAttribute="top" secondItem="cv8-cA-CYP" secondAttribute="top" constant="8" id="xR3-Y9-ysI"/>
                                                     </constraints>
                                                 </view>
-                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bubble_tail" translatesAutoresizingMaskIntoConstraints="NO" id="oq2-S3-Dqr">
+                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="bubble_tail" translatesAutoresizingMaskIntoConstraints="NO" id="oq2-S3-Dqr">
                                                     <rect key="frame" x="566" y="20" width="22" height="22"/>
                                                     <animations/>
                                                     <constraints>
@@ -508,12 +508,12 @@
                                 <exclude reference="7Yr-Jk-V9p"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="QoN-dc-tuu"/>
-                                <exclude reference="W8c-Hc-WXX"/>
-                                <exclude reference="q8v-Vi-JaR"/>
                                 <exclude reference="RtW-lJ-qTJ"/>
                                 <exclude reference="bKH-yo-25N"/>
                                 <exclude reference="X2E-f3-D5C"/>
+                                <exclude reference="QoN-dc-tuu"/>
+                                <exclude reference="W8c-Hc-WXX"/>
+                                <exclude reference="q8v-Vi-JaR"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular">
@@ -523,12 +523,12 @@
                                 <include reference="7Yr-Jk-V9p"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="QoN-dc-tuu"/>
-                                <include reference="W8c-Hc-WXX"/>
-                                <include reference="q8v-Vi-JaR"/>
                                 <include reference="RtW-lJ-qTJ"/>
                                 <include reference="bKH-yo-25N"/>
                                 <include reference="X2E-f3-D5C"/>
+                                <include reference="QoN-dc-tuu"/>
+                                <include reference="W8c-Hc-WXX"/>
+                                <include reference="q8v-Vi-JaR"/>
                             </mask>
                         </variation>
                     </view>
