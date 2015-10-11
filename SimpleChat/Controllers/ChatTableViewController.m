@@ -8,6 +8,7 @@
 
 #import "ChatTableViewController.h"
 #import "ChatTableViewCell.h"
+#import "CameraRouter.h"
 
 typedef enum : NSUInteger {
     ScrollDirectionUp = 1,
@@ -24,7 +25,7 @@ typedef enum : NSUInteger {
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *imagesButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *geoButton;
 
-@property (strong, nonatomic) IBOutlet UIView *imagePreviewContainerView;
+@property (strong, nonatomic) IBOutlet UIView *cameraPreviewContainerView;
 @property (strong, nonatomic) IBOutlet UIView *backgroundView;
 @property (strong, nonatomic) IBOutlet UIView *imagesCollectionView;
 
@@ -32,11 +33,12 @@ typedef enum : NSUInteger {
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarBottomConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *maxInputTextViewConstraint;
 
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *imagePreviewContainerHeightConstraint;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *cameraPreviewContainerHeightConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *imagesCollectionViewHeightConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *imagesCollectionViewWidthConstraint;
 
-@property (nonatomic, strong) id <ImagePresenter> imagePresenter;
+//@property (nonatomic, strong) id <ImagePresenter> imagePresenter;
+@property (nonatomic, strong) id <CameraPresenter> cameraPresenter;
 
 @end
 
@@ -44,9 +46,9 @@ typedef enum : NSUInteger {
 
 #pragma mark - Constants
 
-static NSString * const kImageName = @"cat";
 static NSString * const kImagePlaceholderName = @"placeholder";
 static NSString * const kMessageCellReuseIdentifier = @"Chat Message Cell";
+static NSString * const kCameraSegueName = @"Camera Embedded Segue";
 static NSString * const kImageSegueName = @"Image Embedded Segue";
 static NSUInteger const kPercentOfUserInputTextHeight = 10;
 static UILayoutPriority const kMaxConstraintPriority = 900;
@@ -87,7 +89,9 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     __weak __typeof(self) weakSelf = self;
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-        [self.view layoutIfNeeded];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.view layoutIfNeeded];
+        });
     } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf scrollMessages:ScrollDirectionDown];
@@ -96,8 +100,8 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:kImageSegueName]) {
-        self.imagePresenter = segue.destinationViewController;
+    if ([segue.identifier isEqualToString:kCameraSegueName]) {
+        self.cameraPresenter = segue.destinationViewController;
     }
 }
 
@@ -137,8 +141,19 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 #pragma mark - Image processor
 
 - (void)processImage:(UIImage *)image {
-    [self.imagePresenter presentImage:image];
-    [self triggerImagePreviewViewWithAnimation:YES];
+    NSString *trimmedText = [self processTextToSend];
+    __weak __typeof(self) weakSelf = self;
+    [self.chatHandler sendTextMessage:trimmedText
+                             andImage:image
+                       withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                           dispatch_async(dispatch_get_main_queue(), ^{
+                               if (succeeded) {
+                                   [weakSelf scrollMessages:ScrollDirectionDown];
+                               } else {
+                                   NSLog(@"Failed to send message with image: %@ %@", error, error.userInfo);
+                               }
+                           });
+                       }];
 }
 
 #pragma mark - Actions
@@ -161,26 +176,15 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 }
 - (IBAction)makePhoto:(UIBarButtonItem *)sender {
 }
-- (IBAction)sendImage:(UIBarButtonItem *)sender {
-    NSString *trimmedText = [self processTextToSend];
-    __weak __typeof(self) weakSelf = self;
-    [self.chatHandler sendTextMessage:trimmedText
-                             andImage:[UIImage imageNamed:kImageName]
-                       withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-                           dispatch_async(dispatch_get_main_queue(), ^{
-                               if (succeeded) {
-                                   [weakSelf scrollMessages:ScrollDirectionDown];
-                               } else {
-                                   NSLog(@"Failed to send message with image: %@ %@", error, error.userInfo);
-                               }
-                           });
-                       }];
-}
 - (IBAction)selectImageFromList:(UIBarButtonItem *)sender {
     [self triggerImagesCollectionViewWithAnimation:YES];
 }
 - (IBAction)selectImageFromGallery:(UIButton *)sender {
     NSLog(@"Gallery");
+}
+- (IBAction)switchCameraOn:(UIBarButtonItem *)sender {
+    [self.cameraPresenter showCamera];
+    [self triggerCameraPreviewViewWithAnimation:YES];
 }
 
 #pragma mark - Private common
@@ -307,12 +311,16 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
                           delay:0.0f
                         options:animationCurve
                      animations: ^{
-                         [weakSelf.view layoutIfNeeded];
+                         dispatch_async(dispatch_get_main_queue(), ^{
+                             [weakSelf.view layoutIfNeeded];
+                         });
                      }
                      completion:^(BOOL finished) {
-                         if (finished) {
-                             [weakSelf scrollMessages:ScrollDirectionDown];
-                         }
+                         dispatch_async(dispatch_get_main_queue(), ^{
+                             if (finished) {
+                                 [weakSelf scrollMessages:ScrollDirectionDown];
+                             }
+                         });
                      }];
 }
 - (void)addHideKeyboardGestureRecognizer {
@@ -379,8 +387,10 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     if (sectionsNumber > 0 && rowsNumber > 0) {
         NSInteger rowIndex = scrollDirection == ScrollDirectionUp ? 0 : rowsNumber - 1;
         UITableViewScrollPosition scrollPosition = scrollDirection == ScrollDirectionUp ? UITableViewScrollPositionTop : UITableViewScrollPositionBottom;
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:rowIndex inSection:sectionsNumber - 1]
-                              atScrollPosition:scrollPosition animated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:rowIndex inSection:sectionsNumber - 1]
+                                  atScrollPosition:scrollPosition animated:YES];
+        });
     }
 }
 - (void)triggerEmptyChatMessage {
@@ -411,7 +421,9 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     __weak __typeof(self) weakSelf = self;
     [self animateConstraintsChangesDuration:0.5f withCompletion:^(BOOL finished) {
         if (finished && needsToScroll) {
-            [weakSelf scrollMessages:ScrollDirectionDown];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf scrollMessages:ScrollDirectionDown];
+            });
         }
     }];
 }
@@ -448,11 +460,11 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     self.cameraButton.enabled = isHiding;
     self.geoButton.enabled = isHiding;
 }
-- (void)triggerImagePreviewViewWithAnimation:(BOOL)animation {
+- (void)triggerCameraPreviewViewWithAnimation:(BOOL)animation {
     BOOL needsToScroll = UIInterfaceOrientationIsPortrait([self deviceOrientation]);
     
-    [self triggerView:self.imagePreviewContainerView
-       withConstraint:@[self.imagePreviewContainerHeightConstraint]
+    [self triggerView:self.cameraPreviewContainerView
+       withConstraint:@[self.cameraPreviewContainerHeightConstraint]
            withScroll:needsToScroll
          andAnimation:animation];
 }
@@ -468,8 +480,8 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
         [self animateConstraintDefaultWithScroll:needsToScroll];
     }
 }
-- (void)hideImagePreviewViewWithAnimation:(BOOL)animation {
-    self.imagePreviewContainerHeightConstraint.priority = kMinConstraintPriority;
+- (void)hideCameraPreviewViewWithAnimation:(BOOL)animation {
+    self.cameraPreviewContainerHeightConstraint.priority = kMinConstraintPriority;
     if (animation) {
         BOOL needsToScroll = UIInterfaceOrientationIsPortrait([self deviceOrientation]);
         [self animateConstraintDefaultWithScroll:(needsToScroll)];
@@ -477,11 +489,12 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 }
 - (void)hideAllPanesWithAnimation:(BOOL)animation {
     [self hideImagesCollectionViewWithAnimation:animation];
-    [self hideImagePreviewViewWithAnimation:animation];
+    [self hideCameraPreviewViewWithAnimation:animation];
 }
 - (void)hidePanesOnTapWithAnimation:(BOOL)animation {
-    if ([self isConstraintPrioritized:self.imagePreviewContainerHeightConstraint]) {
-        [self hideImagePreviewViewWithAnimation:animation];
+    if ([self isConstraintPrioritized:self.cameraPreviewContainerHeightConstraint]) {
+        [self hideCameraPreviewViewWithAnimation:animation];
+        [self.cameraPresenter stopCamera];
     } else {
         if (UIInterfaceOrientationIsPortrait([self deviceOrientation])) {
             [self hideImagesCollectionViewWithAnimation:animation];

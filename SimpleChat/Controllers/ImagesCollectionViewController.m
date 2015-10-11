@@ -89,7 +89,7 @@ static NSString * const reuseIdentifier = @"Collection Image Cell";
 - (void)reloadImages {
     [self.imagesCollectionDataSource fetchImagesWithCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (succeeded) {
-            [self.collectionViewLayout invalidateLayout];
+            [self setupCollectionLayout];
         } else {
             NSLog(@"Failed to reload images: %@ %@", error, error.userInfo);
         }

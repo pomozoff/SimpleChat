@@ -21,6 +21,11 @@
 		26A4450D1BC316780073DFBB /* ChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A4450C1BC316780073DFBB /* ChatManager.m */; settings = {ASSET_TAGS = (); }; };
 		26A445101BC316B60073DFBB /* ImagesCollectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A4450F1BC316B60073DFBB /* ImagesCollectionManager.m */; settings = {ASSET_TAGS = (); }; };
 		26A445141BC319B60073DFBB /* Common.h in Headers */ = {isa = PBXBuildFile; fileRef = 26A445121BC3195E0073DFBB /* Common.h */; };
+		26C47D1B1BCA5DD9003339D7 /* CameraRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 26C47D191BCA5DD9003339D7 /* CameraRouter.h */; settings = {ASSET_TAGS = (); }; };
+		26C47D1C1BCA5DD9003339D7 /* CameraRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 26C47D1A1BCA5DD9003339D7 /* CameraRouter.m */; settings = {ASSET_TAGS = (); }; };
+		26C47D1F1BCA5ED5003339D7 /* CameraViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 26C47D1D1BCA5ED5003339D7 /* CameraViewController.h */; settings = {ASSET_TAGS = (); }; };
+		26C47D201BCA5ED5003339D7 /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26C47D1E1BCA5ED5003339D7 /* CameraViewController.m */; settings = {ASSET_TAGS = (); }; };
+		26C47D221BCA95FC003339D7 /* cats.json in Resources */ = {isa = PBXBuildFile; fileRef = 26C47D211BCA95FB003339D7 /* cats.json */; settings = {ASSET_TAGS = (); }; };
 		26EF7DEF1BBA95E60017D02E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7DEE1BBA95E60017D02E /* main.m */; };
 		26EF7DF21BBA95E60017D02E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 26EF7DF11BBA95E60017D02E /* AppDelegate.m */; };
 		26EF7DF81BBA95E60017D02E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26EF7DF61BBA95E60017D02E /* Main.storyboard */; };
@@ -103,6 +108,11 @@
 		26A4450E1BC316B60073DFBB /* ImagesCollectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagesCollectionManager.h; sourceTree = "<group>"; };
 		26A4450F1BC316B60073DFBB /* ImagesCollectionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagesCollectionManager.m; sourceTree = "<group>"; };
 		26A445121BC3195E0073DFBB /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		26C47D191BCA5DD9003339D7 /* CameraRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraRouter.h; sourceTree = "<group>"; };
+		26C47D1A1BCA5DD9003339D7 /* CameraRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraRouter.m; sourceTree = "<group>"; };
+		26C47D1D1BCA5ED5003339D7 /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
+		26C47D1E1BCA5ED5003339D7 /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
+		26C47D211BCA95FB003339D7 /* cats.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cats.json; sourceTree = "<group>"; };
 		26E9BEBD1BBD2F07005F1F9B /* PrivateData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivateData.h; sourceTree = "<group>"; };
 		26EF7DEA1BBA95E60017D02E /* SimpleChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26EF7DEE1BBA95E60017D02E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -186,6 +196,8 @@
 			children = (
 				2675CFA11BC7CF2900B1CFEA /* ImageRouter.h */,
 				2675CFA21BC7CF2900B1CFEA /* ImageRouter.m */,
+				26C47D191BCA5DD9003339D7 /* CameraRouter.h */,
+				26C47D1A1BCA5DD9003339D7 /* CameraRouter.m */,
 			);
 			path = Routers;
 			sourceTree = "<group>";
@@ -321,6 +333,7 @@
 				26EF7DF61BBA95E60017D02E /* Main.storyboard */,
 				26EF7DF91BBA95E60017D02E /* Assets.xcassets */,
 				26EF7DFB1BBA95E60017D02E /* LaunchScreen.storyboard */,
+				26C47D211BCA95FB003339D7 /* cats.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -385,6 +398,8 @@
 				2661276A1BC2A5C200302DBA /* ImagesCollectionViewController.m */,
 				2675CFA51BC7E60C00B1CFEA /* ImageViewController.h */,
 				2675CFA61BC7E60C00B1CFEA /* ImageViewController.m */,
+				26C47D1D1BCA5ED5003339D7 /* CameraViewController.h */,
+				26C47D1E1BCA5ED5003339D7 /* CameraViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -408,6 +423,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2675CFA31BC7CF2900B1CFEA /* ImageRouter.h in Headers */,
+				26C47D1B1BCA5DD9003339D7 /* CameraRouter.h in Headers */,
+				26C47D1F1BCA5ED5003339D7 /* CameraViewController.h in Headers */,
 				2675CFA71BC7E60C00B1CFEA /* ImageViewController.h in Headers */,
 				26A445141BC319B60073DFBB /* Common.h in Headers */,
 				266127791BC3E52B00302DBA /* ImageCollectionViewCell.h in Headers */,
@@ -523,6 +540,7 @@
 			files = (
 				26EF7DFD1BBA95E60017D02E /* LaunchScreen.storyboard in Resources */,
 				26EF7E231BBA993B0017D02E /* Warnings.xcconfig in Resources */,
+				26C47D221BCA95FC003339D7 /* cats.json in Resources */,
 				26EF7DFA1BBA95E60017D02E /* Assets.xcassets in Resources */,
 				26EF7DF81BBA95E60017D02E /* Main.storyboard in Resources */,
 			);
@@ -578,8 +596,10 @@
 				2661277A1BC3E52B00302DBA /* ImageCollectionViewCell.m in Sources */,
 				26EF7E441BBABC9A0017D02E /* SimpleChatAssembly.m in Sources */,
 				268995301BBE7C6C005122D1 /* ParseMessagesDataSource.m in Sources */,
+				26C47D1C1BCA5DD9003339D7 /* CameraRouter.m in Sources */,
 				26A445101BC316B60073DFBB /* ImagesCollectionManager.m in Sources */,
 				2661276B1BC2A5C200302DBA /* ImagesCollectionViewController.m in Sources */,
+				26C47D201BCA5ED5003339D7 /* CameraViewController.m in Sources */,
 				2675CFA41BC7CF2900B1CFEA /* ImageRouter.m in Sources */,
 				26A4450D1BC316780073DFBB /* ChatManager.m in Sources */,
 			);

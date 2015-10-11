@@ -11,12 +11,26 @@
 #import "LocalImagesDataSource.h"
 #import "Common.h"
 
+@interface LocalImagesDataSource ()
+
+@property (nonatomic, strong) NSArray *cats;
+
+@end
+
 @implementation LocalImagesDataSource
 
 #pragma mark - Constants
 
-static NSString * const kImageName = @"cat";
-static NSString * const kImage2Name = @"cat2";
+static NSString * const kCatsFileName = @"cats";
+
+#pragma mark - Properties
+
+- (NSArray *)cats {
+    if (!_cats) {
+        _cats = [self loadJsonWithCats];
+    }
+    return _cats;
+}
 
 #pragma mark - Messages data source
 
@@ -25,12 +39,11 @@ static NSString * const kImage2Name = @"cat2";
     if ([self hasPermissions]) {
 
     } else {
-        id <ImageItem> imageItem = [[ImageItem alloc] init];
-        imageItem.image = [UIImage imageNamed:kImageName];
-        [imageItems addObject:imageItem];
-        imageItem = [[ImageItem alloc] init];
-        imageItem.image = [UIImage imageNamed:kImage2Name];
-        [imageItems addObject:imageItem];
+        for (NSDictionary *cat in self.cats) {
+            id <ImageItem> imageItem = [[ImageItem alloc] init];
+            imageItem.image = [UIImage imageNamed:cat[@"name"]];
+            [imageItems addObject:imageItem];
+        }
     }
     handler(YES, [imageItems copy], nil);
 }
@@ -40,6 +53,11 @@ static NSString * const kImage2Name = @"cat2";
 - (BOOL)hasPermissions {
     return [PHPhotoLibrary authorizationStatus] == PHAuthorizationStatusAuthorized;
 }
-//- (NSArray <id <ImageItem>> *)imageItems
+- (NSArray *)loadJsonWithCats {
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:kCatsFileName ofType:@"json"];
+    NSData *data = [NSData dataWithContentsOfFile:filePath];
+    NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+    return jsonDictionary[@"cats"];
+}
 
 @end
