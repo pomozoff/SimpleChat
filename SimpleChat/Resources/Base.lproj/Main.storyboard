@@ -39,14 +39,14 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cv8-cA-CYP">
                                                     <rect key="frame" x="162" y="2" width="420" height="40"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BlI-pH-u3K">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BlI-pH-u3K">
                                                             <rect key="frame" x="8" y="8" width="404" height="24"/>
                                                             <animations/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView opaque="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UDn-xI-zXY" userLabel="Chat Image View">
+                                                        <imageView opaque="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UDn-xI-zXY" userLabel="Chat Image View">
                                                             <rect key="frame" x="8" y="32" width="404" height="0.0"/>
                                                             <animations/>
                                                             <constraints>
@@ -96,9 +96,9 @@
                                                             <exclude reference="ULB-fB-XfZ"/>
                                                         </mask>
                                                         <mask key="constraints">
-                                                            <exclude reference="ReO-LY-J2d"/>
                                                             <exclude reference="ghQ-rz-Wou"/>
                                                             <exclude reference="tmO-9e-2mH"/>
+                                                            <exclude reference="ReO-LY-J2d"/>
                                                         </mask>
                                                     </variation>
                                                     <variation key="heightClass=regular">
@@ -106,9 +106,9 @@
                                                             <include reference="ULB-fB-XfZ"/>
                                                         </mask>
                                                         <mask key="constraints">
-                                                            <include reference="ReO-LY-J2d"/>
                                                             <include reference="ghQ-rz-Wou"/>
                                                             <include reference="tmO-9e-2mH"/>
+                                                            <include reference="ReO-LY-J2d"/>
                                                         </mask>
                                                     </variation>
                                                 </view>
@@ -367,9 +367,9 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="cRW-ik-3AJ"/>
                                 <exclude reference="UqD-SK-Qsj"/>
                                 <exclude reference="nnx-SO-ZUQ"/>
-                                <exclude reference="cRW-ik-3AJ"/>
                                 <exclude reference="Oyy-tg-5pB"/>
                                 <exclude reference="d7L-OL-Vgc"/>
                                 <exclude reference="u3u-lu-8H9"/>
@@ -397,8 +397,8 @@
                         </variation>
                         <variation key="heightClass=regular">
                             <mask key="constraints">
-                                <include reference="nnx-SO-ZUQ"/>
                                 <include reference="cRW-ik-3AJ"/>
+                                <include reference="nnx-SO-ZUQ"/>
                                 <include reference="d7L-OL-Vgc"/>
                                 <include reference="u3u-lu-8H9"/>
                                 <include reference="lwB-C9-Mbx"/>
