@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL hasTail;
 
 - (void)updateImage:(nullable UIImage *)image;
+- (void)updateLocation;
 
 @end
 

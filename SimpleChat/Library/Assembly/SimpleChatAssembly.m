@@ -9,6 +9,7 @@
 #import "SimpleChatAssembly.h"
 #import "ParseMessagesDataSource.h"
 #import "LocalImagesDataSource.h"
+#import "LocationManager.h"
 
 @implementation SimpleChatAssembly
 
@@ -19,6 +20,7 @@
         [definition injectProperty:@selector(chatDataSource) with:[self chatManager]];
         [definition injectProperty:@selector(chatHandler) with:[self chatManager]];
         [definition injectProperty:@selector(messageContoller) with:[self chatManager]];
+        [definition injectProperty:@selector(locationManager) with:[self locationManager]];
 
         definition.scope = TyphoonScopeLazySingleton;
     }];
@@ -64,6 +66,12 @@
     return [TyphoonDefinition withClass:[ImageRouter class] configuration:^(TyphoonDefinition *definition) {
         [definition injectProperty:@selector(imageProcessor) with:[self chatTableViewController]];
         
+        definition.scope = TyphoonScopeLazySingleton;
+    }];
+}
+- (id <LocationManager>)locationManager {
+    return [TyphoonDefinition withClass:[LocationManager class] configuration:^(TyphoonDefinition *definition) {
+        [definition injectProperty:@selector(locationManager) with:[[CLLocationManager alloc] init]];
         definition.scope = TyphoonScopeLazySingleton;
     }];
 }

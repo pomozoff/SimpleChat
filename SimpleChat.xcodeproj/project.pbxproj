@@ -16,6 +16,8 @@
 		2675CFA41BC7CF2900B1CFEA /* ImageRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675CFA21BC7CF2900B1CFEA /* ImageRouter.m */; settings = {ASSET_TAGS = (); }; };
 		2675CFA71BC7E60C00B1CFEA /* ImageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675CFA51BC7E60C00B1CFEA /* ImageViewController.h */; settings = {ASSET_TAGS = (); }; };
 		2675CFA81BC7E60C00B1CFEA /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675CFA61BC7E60C00B1CFEA /* ImageViewController.m */; settings = {ASSET_TAGS = (); }; };
+		2675CFAB1BCBF6D800B1CFEA /* LocationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675CFA91BCBF6D800B1CFEA /* LocationManager.h */; settings = {ASSET_TAGS = (); }; };
+		2675CFAC1BCBF6D800B1CFEA /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675CFAA1BCBF6D800B1CFEA /* LocationManager.m */; settings = {ASSET_TAGS = (); }; };
 		268995301BBE7C6C005122D1 /* ParseMessagesDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2689952F1BBE7C6C005122D1 /* ParseMessagesDataSource.m */; settings = {ASSET_TAGS = (); }; };
 		268995391BBE911C005122D1 /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 268995371BBE911C005122D1 /* BaseTableViewController.m */; settings = {ASSET_TAGS = (); }; };
 		26A4450D1BC316780073DFBB /* ChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A4450C1BC316780073DFBB /* ChatManager.m */; settings = {ASSET_TAGS = (); }; };
@@ -42,7 +44,6 @@
 		26EF7E341BBABB9C0017D02E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26EF7E331BBABB9C0017D02E /* CoreLocation.framework */; };
 		26EF7E361BBABBA30017D02E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26EF7E351BBABBA30017D02E /* QuartzCore.framework */; };
 		26EF7E381BBABBAA0017D02E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26EF7E371BBABBAA0017D02E /* Security.framework */; };
-		26EF7E3A1BBABBB20017D02E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26EF7E391BBABBB20017D02E /* StoreKit.framework */; };
 		26EF7E3C1BBABBB80017D02E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26EF7E3B1BBABBB80017D02E /* SystemConfiguration.framework */; };
 		26EF7E3E1BBABBC70017D02E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 26EF7E3D1BBABBC70017D02E /* libz.tbd */; };
 		26EF7E401BBABBD30017D02E /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 26EF7E3F1BBABBD30017D02E /* libsqlite3.tbd */; };
@@ -98,6 +99,8 @@
 		2675CFA21BC7CF2900B1CFEA /* ImageRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageRouter.m; sourceTree = "<group>"; };
 		2675CFA51BC7E60C00B1CFEA /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
 		2675CFA61BC7E60C00B1CFEA /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
+		2675CFA91BCBF6D800B1CFEA /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
+		2675CFAA1BCBF6D800B1CFEA /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		2689952E1BBE7C6C005122D1 /* ParseMessagesDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseMessagesDataSource.h; sourceTree = "<group>"; };
 		2689952F1BBE7C6C005122D1 /* ParseMessagesDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseMessagesDataSource.m; sourceTree = "<group>"; };
 		268995311BBE7C9F005122D1 /* MessagesDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagesDataSource.h; sourceTree = "<group>"; };
@@ -137,7 +140,6 @@
 		26EF7E331BBABB9C0017D02E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		26EF7E351BBABBA30017D02E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		26EF7E371BBABBAA0017D02E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		26EF7E391BBABBB20017D02E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		26EF7E3B1BBABBB80017D02E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		26EF7E3D1BBABBC70017D02E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		26EF7E3F1BBABBD30017D02E /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -161,7 +163,6 @@
 				26EF7E401BBABBD30017D02E /* libsqlite3.tbd in Frameworks */,
 				26EF7E3E1BBABBC70017D02E /* libz.tbd in Frameworks */,
 				26EF7E3C1BBABBB80017D02E /* SystemConfiguration.framework in Frameworks */,
-				26EF7E3A1BBABBB20017D02E /* StoreKit.framework in Frameworks */,
 				26EF7E381BBABBAA0017D02E /* Security.framework in Frameworks */,
 				26EF7E361BBABBA30017D02E /* QuartzCore.framework in Frameworks */,
 				26EF7E341BBABB9C0017D02E /* CoreLocation.framework in Frameworks */,
@@ -241,6 +242,8 @@
 				26A4450C1BC316780073DFBB /* ChatManager.m */,
 				26A4450E1BC316B60073DFBB /* ImagesCollectionManager.h */,
 				26A4450F1BC316B60073DFBB /* ImagesCollectionManager.m */,
+				2675CFA91BCBF6D800B1CFEA /* LocationManager.h */,
+				2675CFAA1BCBF6D800B1CFEA /* LocationManager.m */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -344,7 +347,6 @@
 				26EF7E3F1BBABBD30017D02E /* libsqlite3.tbd */,
 				26EF7E3D1BBABBC70017D02E /* libz.tbd */,
 				26EF7E3B1BBABBB80017D02E /* SystemConfiguration.framework */,
-				26EF7E391BBABBB20017D02E /* StoreKit.framework */,
 				26EF7E371BBABBAA0017D02E /* Security.framework */,
 				26EF7E351BBABBA30017D02E /* QuartzCore.framework */,
 				26EF7E331BBABB9C0017D02E /* CoreLocation.framework */,
@@ -426,6 +428,7 @@
 				26C47D1B1BCA5DD9003339D7 /* CameraRouter.h in Headers */,
 				26C47D1F1BCA5ED5003339D7 /* CameraViewController.h in Headers */,
 				2675CFA71BC7E60C00B1CFEA /* ImageViewController.h in Headers */,
+				2675CFAB1BCBF6D800B1CFEA /* LocationManager.h in Headers */,
 				26A445141BC319B60073DFBB /* Common.h in Headers */,
 				266127791BC3E52B00302DBA /* ImageCollectionViewCell.h in Headers */,
 			);
@@ -502,6 +505,14 @@
 					26EF7DE91BBA95E60017D02E = {
 						CreatedOnToolsVersion = 7.0.1;
 						DevelopmentTeam = Y24464MUL3;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+						};
 					};
 					26EF7E021BBA95E60017D02E = {
 						CreatedOnToolsVersion = 7.0.1;
@@ -596,6 +607,7 @@
 				2661277A1BC3E52B00302DBA /* ImageCollectionViewCell.m in Sources */,
 				26EF7E441BBABC9A0017D02E /* SimpleChatAssembly.m in Sources */,
 				268995301BBE7C6C005122D1 /* ParseMessagesDataSource.m in Sources */,
+				2675CFAC1BCBF6D800B1CFEA /* LocationManager.m in Sources */,
 				26C47D1C1BCA5DD9003339D7 /* CameraRouter.m in Sources */,
 				26A445101BC316B60073DFBB /* ImagesCollectionManager.m in Sources */,
 				2661276B1BC2A5C200302DBA /* ImagesCollectionViewController.m in Sources */,
@@ -746,6 +758,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -756,6 +769,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.akademon.SimpleChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -763,7 +777,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -774,6 +789,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.akademon.SimpleChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

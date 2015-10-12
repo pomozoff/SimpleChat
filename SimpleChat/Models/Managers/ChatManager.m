@@ -78,8 +78,12 @@
     chatMessage.image = image;
     [self processNewMessage:chatMessage withCompletion:handler];
 }
-- (void)sendTextMessage:(NSString *)text andCurrentLocationWithCompletion:(CompletionHandler)handler {
-    
+- (void)sendTextMessage:(NSString *)text andCLocation:(CLLocationCoordinate2D)coordinate withCompletion:(CompletionHandler)handler {
+    id <ChatMessage> chatMessage = [self addNewMessageWithText:text];
+    chatMessage.hasLocation = YES;
+    chatMessage.latitude = coordinate.latitude;
+    chatMessage.longitude = coordinate.longitude;
+    [self processNewMessage:chatMessage withCompletion:handler];
 }
 
 #pragma mark - Message controller

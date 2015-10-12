@@ -147,7 +147,8 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 #pragma mark - Image processor
 
 - (void)processImage:(UIImage *)image {
-    [self sendImage:image];
+    NSString *trimmedText = [self processTextToSend];
+    [self sendText:trimmedText withImage:image];
     [self hideImagesCollectionViewWithAnimation:YES];
 }
 
@@ -162,7 +163,8 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     [self animateConstraintDefaultWithScroll:NO];
 }
 - (void)sendPhoto:(UIImage *)image {
-    [self sendImage:image];
+    NSString *trimmedText = [self processTextToSend];
+    [self sendText:trimmedText withImage:image];
     [self hideCameraPreviewViewWithAnimation:YES];
 }
 
@@ -170,19 +172,11 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 
 - (IBAction)sendMessage:(UIButton *)sender {
     NSString *trimmedText = [self processTextToSend];
-    __weak __typeof(self) weakSelf = self;
-    [self.chatHandler sendTextMessage:trimmedText
-                       withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-                           dispatch_async(dispatch_get_main_queue(), ^{
-                               if (succeeded) {
-                                   [weakSelf scrollMessages:ScrollDirectionDown];
-                               } else {
-                                   NSLog(@"Failed to send message: %@ %@", error, error.userInfo);
-                               }
-                           });
-                       }];
+    [self sendText:trimmedText withImage:nil];
 }
 - (IBAction)sendLocation:(UIBarButtonItem *)sender {
+    NSString *trimmedText = [self processTextToSend];
+    [self sendText: trimmedText withCoordinate:[self.locationManager currentCoordinate]];
 }
 - (IBAction)makePhoto:(UIBarButtonItem *)sender {
 }
@@ -208,6 +202,9 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     
     if (chatMessage.hasImage) {
         [self tableView:tableView updateImageInCell:chatCell atIndexPath:indexPath];
+    }
+    if (chatMessage.hasLocation) {
+        [chatCell updateLocation];
     }
     chatCell.hasTail = [self.chatDataSource isLastMessage:indexPath];
 }
@@ -284,22 +281,34 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 - (UIInterfaceOrientation)deviceOrientation {
     return [[UIApplication sharedApplication] statusBarOrientation];
 }
-- (void)sendImage:(UIImage *)image {
-    NSString *trimmedText = [self processTextToSend];
+- (void)sendText:(NSString *)text withImage:(UIImage *)image {
     __weak __typeof(self) weakSelf = self;
-    [self.chatHandler sendTextMessage:trimmedText
+    [self.chatHandler sendTextMessage:text
                              andImage:image
                        withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                            dispatch_async(dispatch_get_main_queue(), ^{
                                if (succeeded) {
                                    [weakSelf scrollMessages:ScrollDirectionDown];
                                } else {
-                                   NSLog(@"Failed to send message with image: %@ %@", error, error.userInfo);
+                                   NSLog(@"Failed to send text: %@ with image: %@, error: %@, %@", text, image, error, error.userInfo);
                                }
                            });
                        }];
 }
-
+- (void)sendText:(NSString *)text withCoordinate:(CLLocationCoordinate2D)coordinate {
+    __weak __typeof(self) weakSelf = self;
+    [self.chatHandler sendTextMessage:text
+                         andCLocation:coordinate
+                       withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                           dispatch_async(dispatch_get_main_queue(), ^{
+                               if (succeeded) {
+                                   [weakSelf scrollMessages:ScrollDirectionDown];
+                               } else {
+                                   NSLog(@"Failed to send text: %@ with coordinate, error: %@, %@", text, error, error.userInfo);
+                               }
+                           });
+                       }];
+}
 
 #pragma mark - Private keyboard
 

@@ -53,30 +53,62 @@
                                                                 <constraint firstAttribute="height" priority="500" id="aek-wF-3Yo"/>
                                                             </constraints>
                                                         </imageView>
+                                                        <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ULB-fB-XfZ">
+                                                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                                            <animations/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="ULB-fB-XfZ" secondAttribute="height" multiplier="1:1" priority="200" id="JUi-0G-CMF"/>
+                                                                <constraint firstAttribute="height" priority="800" id="qc3-QR-bBG"/>
+                                                            </constraints>
+                                                            <variation key="default">
+                                                                <mask key="constraints">
+                                                                    <exclude reference="JUi-0G-CMF"/>
+                                                                    <exclude reference="qc3-QR-bBG"/>
+                                                                </mask>
+                                                            </variation>
+                                                            <variation key="heightClass=regular">
+                                                                <mask key="constraints">
+                                                                    <include reference="JUi-0G-CMF"/>
+                                                                    <include reference="qc3-QR-bBG"/>
+                                                                </mask>
+                                                            </variation>
+                                                        </mapView>
                                                     </subviews>
                                                     <animations/>
                                                     <color key="backgroundColor" red="0.043137254899999998" green="0.47058823529999999" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstItem="UDn-xI-zXY" firstAttribute="trailing" secondItem="BlI-pH-u3K" secondAttribute="trailing" id="9Hn-H8-CcZ"/>
-                                                        <constraint firstAttribute="trailing" secondItem="UDn-xI-zXY" secondAttribute="trailing" constant="8" id="DhH-xC-fxX"/>
                                                         <constraint firstItem="BlI-pH-u3K" firstAttribute="leading" secondItem="cv8-cA-CYP" secondAttribute="leading" constant="8" id="RLg-dn-T3X">
                                                             <variation key="heightClass=compact" constant="8"/>
                                                         </constraint>
-                                                        <constraint firstItem="UDn-xI-zXY" firstAttribute="leading" secondItem="BlI-pH-u3K" secondAttribute="leading" id="kB6-Qc-M8v">
-                                                            <variation key="heightClass=compact" constant="0.0"/>
-                                                        </constraint>
+                                                        <constraint firstAttribute="trailing" secondItem="BlI-pH-u3K" secondAttribute="trailing" constant="8" id="ReO-LY-J2d"/>
+                                                        <constraint firstItem="ULB-fB-XfZ" firstAttribute="leading" secondItem="BlI-pH-u3K" secondAttribute="leading" id="agF-nf-vTy"/>
+                                                        <constraint firstAttribute="bottom" secondItem="ULB-fB-XfZ" secondAttribute="bottom" priority="750" constant="8" id="ghQ-rz-Wou"/>
+                                                        <constraint firstItem="ULB-fB-XfZ" firstAttribute="trailing" secondItem="BlI-pH-u3K" secondAttribute="trailing" id="hEF-GY-zUU"/>
+                                                        <constraint firstItem="UDn-xI-zXY" firstAttribute="leading" secondItem="BlI-pH-u3K" secondAttribute="leading" id="kB6-Qc-M8v"/>
                                                         <constraint firstAttribute="bottom" secondItem="UDn-xI-zXY" secondAttribute="bottom" constant="8" id="r66-vu-5C6"/>
+                                                        <constraint firstItem="ULB-fB-XfZ" firstAttribute="top" secondItem="BlI-pH-u3K" secondAttribute="bottom" priority="900" id="tmO-9e-2mH"/>
                                                         <constraint firstItem="UDn-xI-zXY" firstAttribute="top" secondItem="BlI-pH-u3K" secondAttribute="bottom" priority="900" id="wUi-R9-07e"/>
                                                         <constraint firstItem="BlI-pH-u3K" firstAttribute="top" secondItem="cv8-cA-CYP" secondAttribute="top" constant="8" id="xR3-Y9-ysI"/>
                                                     </constraints>
                                                     <variation key="default">
+                                                        <mask key="subviews">
+                                                            <exclude reference="ULB-fB-XfZ"/>
+                                                        </mask>
                                                         <mask key="constraints">
-                                                            <exclude reference="DhH-xC-fxX"/>
+                                                            <exclude reference="ReO-LY-J2d"/>
+                                                            <exclude reference="ghQ-rz-Wou"/>
+                                                            <exclude reference="tmO-9e-2mH"/>
                                                         </mask>
                                                     </variation>
                                                     <variation key="heightClass=regular">
+                                                        <mask key="subviews">
+                                                            <include reference="ULB-fB-XfZ"/>
+                                                        </mask>
                                                         <mask key="constraints">
-                                                            <include reference="DhH-xC-fxX"/>
+                                                            <include reference="ReO-LY-J2d"/>
+                                                            <include reference="ghQ-rz-Wou"/>
+                                                            <include reference="tmO-9e-2mH"/>
                                                         </mask>
                                                     </variation>
                                                 </view>
@@ -120,7 +152,11 @@
                                             <outlet property="chatImageHeightConstraint" destination="aek-wF-3Yo" id="WC6-3h-kNT"/>
                                             <outlet property="chatImageView" destination="UDn-xI-zXY" id="HVT-Ct-Zoy"/>
                                             <outlet property="gapBetweenImageAndTextConstraint" destination="wUi-R9-07e" id="HTz-9S-IjL"/>
+                                            <outlet property="gapBetweenMapAndTextConstraint" destination="tmO-9e-2mH" id="TNe-eX-2Ea"/>
                                             <outlet property="gapBetweenTextAndSuperviewConstraint" destination="xR3-Y9-ysI" id="aSH-IK-RGw"/>
+                                            <outlet property="mapAspectRatioConstraint" destination="JUi-0G-CMF" id="Pkx-A8-9k0"/>
+                                            <outlet property="mapHeightConstraint" destination="qc3-QR-bBG" id="fBT-8W-YWo"/>
+                                            <outlet property="mapView" destination="ULB-fB-XfZ" id="9t8-f7-B11"/>
                                             <outlet property="messageTextLabel" destination="BlI-pH-u3K" id="nVb-H2-biD"/>
                                         </connections>
                                     </tableViewCell>
