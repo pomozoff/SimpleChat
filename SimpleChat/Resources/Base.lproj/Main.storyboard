@@ -500,7 +500,7 @@
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="tJL-tM-Lqd" firstAttribute="top" secondItem="Q2t-cb-LN1" secondAttribute="bottom" constant="20" id="3qv-nV-crd">
-                                <variation key="heightClass=regular" constant="10"/>
+                                <variation key="heightClass=regular" constant="20"/>
                             </constraint>
                             <constraint firstItem="EGC-Jc-bIa" firstAttribute="leading" secondItem="ar2-mi-6LR" secondAttribute="leadingMargin" id="QoN-dc-tuu"/>
                             <constraint firstItem="Q2t-cb-LN1" firstAttribute="bottom" secondItem="7Yr-Jk-V9p" secondAttribute="bottom" id="VRE-em-Ccr"/>
@@ -526,11 +526,11 @@
     <resources>
         <image name="bubble_tail" width="22" height="21"/>
         <image name="camera" width="24" height="18"/>
-        <image name="camera_interface_fullscreen" width="46" height="46"/>
-        <image name="camera_interface_switch" width="60" height="48"/>
+        <image name="camera_interface_fullscreen" width="23" height="23"/>
+        <image name="camera_interface_switch" width="30" height="24"/>
         <image name="geo" width="21" height="21"/>
         <image name="images" width="22" height="22"/>
         <image name="placeholder" width="300" height="300"/>
-        <image name="send" width="80" height="80"/>
+        <image name="send" width="40" height="40"/>
     </resources>
 </document>
