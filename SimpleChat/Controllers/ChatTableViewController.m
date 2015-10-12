@@ -298,7 +298,7 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 - (void)sendText:(NSString *)text withCoordinate:(CLLocationCoordinate2D)coordinate {
     __weak __typeof(self) weakSelf = self;
     [self.chatHandler sendTextMessage:text
-                         andCLocation:coordinate
+                          andLocation:coordinate
                        withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                            dispatch_async(dispatch_get_main_queue(), ^{
                                if (succeeded) {

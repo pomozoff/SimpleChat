@@ -78,7 +78,7 @@
     chatMessage.image = image;
     [self processNewMessage:chatMessage withCompletion:handler];
 }
-- (void)sendTextMessage:(NSString *)text andCLocation:(CLLocationCoordinate2D)coordinate withCompletion:(CompletionHandler)handler {
+- (void)sendTextMessage:(NSString *)text andLocation:(CLLocationCoordinate2D)coordinate withCompletion:(CompletionHandler)handler {
     id <ChatMessage> chatMessage = [self addNewMessageWithText:text];
     chatMessage.hasLocation = YES;
     chatMessage.latitude = coordinate.latitude;
