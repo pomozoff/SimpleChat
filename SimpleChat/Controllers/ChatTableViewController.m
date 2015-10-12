@@ -200,11 +200,14 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     chatCell.chatMessage = chatMessage;
     [chatCell updateImage:nil];
     
-    if (chatMessage.hasImage) {
-        [self tableView:tableView updateImageInCell:chatCell atIndexPath:indexPath];
-    }
-    if (chatMessage.hasLocation) {
-        [chatCell updateLocation];
+    if (chatMessage.hasImage || chatMessage.hasLocation) {
+        [chatCell showProgress];
+        if (chatMessage.hasImage) {
+            [self tableView:tableView updateImageInCell:chatCell atIndexPath:indexPath];
+        }
+        if (chatMessage.hasLocation) {
+            [self tableView:tableView updateImageLocationInCell:chatCell atIndexPath:indexPath];
+        }
     }
     chatCell.hasTail = [self.chatDataSource isLastMessage:indexPath];
 }
@@ -212,11 +215,32 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     id <ChatMessage> chatMessage = chatCell.chatMessage;
     if (chatMessage.image) {
         [chatCell updateImage:chatMessage.image];
+        [chatCell hideProgress];
     } else {
         [self.messageContoller fetchImageForChatMessage:chatMessage withCompletion:^(UIImage * _Nullable image, NSError * _Nullable error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 ChatTableViewCell *oldChatCell = [tableView cellForRowAtIndexPath:indexPath];
-                [oldChatCell updateImage:chatMessage.image];
+                [oldChatCell hideProgress];
+                [oldChatCell updateImage:image];
+                [tableView layoutIfNeeded];
+            });
+        }];
+        [chatCell updateImage:[UIImage imageNamed:kImagePlaceholderName]];
+    }
+}
+- (void)tableView:(nonnull UITableView *)tableView updateImageLocationInCell:(nonnull ChatTableViewCell *)chatCell atIndexPath:(nonnull NSIndexPath *)indexPath {
+    id <ChatMessage> chatMessage = chatCell.chatMessage;
+    if (chatMessage.image) {
+        [chatCell updateImage:chatMessage.image];
+        [chatCell hideProgress];
+    } else {
+        [self.messageContoller makeImageLocationForChatMessage:chatMessage
+                                                       forSize:chatCell.locationPreviewSize
+                                                withCompletion:^(UIImage * _Nullable image, NSError * _Nullable error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                ChatTableViewCell *oldChatCell = [tableView cellForRowAtIndexPath:indexPath];
+                [oldChatCell hideProgress];
+                [oldChatCell updateImage:image];
                 [tableView layoutIfNeeded];
             });
         }];

@@ -10,6 +10,7 @@
 
 #import "ChatMessage.h"
 #import "MessagesDataSource.h"
+#import "LocationDataSource.h"
 #import "Common.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -36,13 +37,15 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol MessageController <NSObject>
 
 - (void)fetchImageForChatMessage:(id <ChatMessage>)chatMessage withCompletion:(FetchImageCompletionHandler)handler;
+- (void)makeImageLocationForChatMessage:(id <ChatMessage>)chatMessage forSize:(CGSize)size withCompletion:(FetchImageCompletionHandler)handler;
 
 @end
 
-@interface ChatManager : NSObject <ChatDataSource, ChatHandler, MessageController>
+@interface ChatManager : NSObject <ChatDataSource, ChatHandler, MessageController, LocationDataSource>
 
 @property (nonatomic, strong) id <DataPresenter> dataPresenter;
 @property (nonatomic, strong) id <MessagesDataSource> messagesDataSource;
+@property (nonatomic, strong) id <LocationDataSource> locationDataSource;
 
 @end
 

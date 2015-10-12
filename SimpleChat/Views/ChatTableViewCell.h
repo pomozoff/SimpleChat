@@ -16,9 +16,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, nullable) id <ChatMessage> chatMessage;
 @property (nonatomic, assign) BOOL hasTail;
+@property (nonatomic, assign) CGSize locationPreviewSize;
 
 - (void)updateImage:(nullable UIImage *)image;
-- (void)updateLocation;
+- (void)showProgress;
+- (void)hideProgress;
+//- (void)updateLocation;
 
 @end
 

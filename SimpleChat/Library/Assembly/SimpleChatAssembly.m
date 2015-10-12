@@ -29,6 +29,7 @@
     return [TyphoonDefinition withClass:[ChatManager class] configuration:^(TyphoonDefinition *definition) {
         [definition injectProperty:@selector(dataPresenter) with:[self chatTableViewController]];
         [definition injectProperty:@selector(messagesDataSource) with:[self parseMessagesDataSource]];
+        [definition injectProperty:@selector(locationDataSource) with:[self locationDataSource]];
 
         definition.scope = TyphoonScopeLazySingleton;
     }];
@@ -54,6 +55,11 @@
 
 - (id <MessagesDataSource>)parseMessagesDataSource {
     return [TyphoonDefinition withClass:[ParseMessagesDataSource class] configuration:^(TyphoonDefinition *definition) {
+        definition.scope = TyphoonScopeLazySingleton;
+    }];
+}
+- (id <LocationDataSource>)locationDataSource {
+    return [TyphoonDefinition withClass:[LocationDataSource class] configuration:^(TyphoonDefinition *definition) {
         definition.scope = TyphoonScopeLazySingleton;
     }];
 }

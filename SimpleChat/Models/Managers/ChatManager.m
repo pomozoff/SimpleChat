@@ -91,6 +91,9 @@
 - (void)fetchImageForChatMessage:(id <ChatMessage>)chatMessage withCompletion:(FetchImageCompletionHandler)handler {
     [self.messagesDataSource fetchImageForChatMessage:chatMessage withCompletion:handler];
 }
+- (void)makeImageLocationForChatMessage:(id <ChatMessage>)chatMessage forSize:(CGSize)size withCompletion:(FetchImageCompletionHandler)handler {
+    [self.locationDataSource makeImageLocationForChatMessage:chatMessage forSize:(CGSize)size withCompletion:handler];
+}
 
 #pragma mark - Private
 

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2644B1AC1BCC64EF006CA608 /* LocationDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 2644B1AA1BCC64EF006CA608 /* LocationDataSource.h */; settings = {ASSET_TAGS = (); }; };
+		2644B1AD1BCC64EF006CA608 /* LocationDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 2644B1AB1BCC64EF006CA608 /* LocationDataSource.m */; settings = {ASSET_TAGS = (); }; };
 		2661276B1BC2A5C200302DBA /* ImagesCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661276A1BC2A5C200302DBA /* ImagesCollectionViewController.m */; settings = {ASSET_TAGS = (); }; };
 		2661276F1BC3DD0B00302DBA /* ImageItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2661276D1BC3DD0B00302DBA /* ImageItem.m */; settings = {ASSET_TAGS = (); }; };
 		266127761BC3E20D00302DBA /* LocalImagesDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 266127741BC3E20D00302DBA /* LocalImagesDataSource.m */; settings = {ASSET_TAGS = (); }; };
@@ -86,6 +88,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2644B1AA1BCC64EF006CA608 /* LocationDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationDataSource.h; sourceTree = "<group>"; };
+		2644B1AB1BCC64EF006CA608 /* LocationDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDataSource.m; sourceTree = "<group>"; };
 		266127691BC2A5C200302DBA /* ImagesCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagesCollectionViewController.h; sourceTree = "<group>"; };
 		2661276A1BC2A5C200302DBA /* ImagesCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagesCollectionViewController.m; sourceTree = "<group>"; };
 		2661276C1BC3DD0B00302DBA /* ImageItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageItem.h; sourceTree = "<group>"; };
@@ -212,6 +216,8 @@
 				266127701BC3E0F000302DBA /* ImagesDataSource.h */,
 				266127731BC3E20D00302DBA /* LocalImagesDataSource.h */,
 				266127741BC3E20D00302DBA /* LocalImagesDataSource.m */,
+				2644B1AA1BCC64EF006CA608 /* LocationDataSource.h */,
+				2644B1AB1BCC64EF006CA608 /* LocationDataSource.m */,
 			);
 			path = "Data sources";
 			sourceTree = "<group>";
@@ -430,6 +436,7 @@
 				2675CFA71BC7E60C00B1CFEA /* ImageViewController.h in Headers */,
 				2675CFAB1BCBF6D800B1CFEA /* LocationManager.h in Headers */,
 				26A445141BC319B60073DFBB /* Common.h in Headers */,
+				2644B1AC1BCC64EF006CA608 /* LocationDataSource.h in Headers */,
 				266127791BC3E52B00302DBA /* ImageCollectionViewCell.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -610,6 +617,7 @@
 				2675CFAC1BCBF6D800B1CFEA /* LocationManager.m in Sources */,
 				26C47D1C1BCA5DD9003339D7 /* CameraRouter.m in Sources */,
 				26A445101BC316B60073DFBB /* ImagesCollectionManager.m in Sources */,
+				2644B1AD1BCC64EF006CA608 /* LocationDataSource.m in Sources */,
 				2661276B1BC2A5C200302DBA /* ImagesCollectionViewController.m in Sources */,
 				26C47D201BCA5ED5003339D7 /* CameraViewController.m in Sources */,
 				2675CFA41BC7CF2900B1CFEA /* ImageRouter.m in Sources */,
