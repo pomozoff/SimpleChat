@@ -17,6 +17,7 @@
 @property (nonatomic, strong) AVCaptureSession *session;
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
+
 @property (nonatomic, copy) NSString *toggleFullscreenCurrentImageName;
 
 @end
@@ -47,11 +48,8 @@ static NSString * const kSwitchToPreviewImageName = @"fullscreen_close";
     
     self.toggleFullscreenCurrentImageName = kSwitchToFullscreenImageName;
     
-    // Device
-    AVCaptureDevice *camera = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    
     // Input
-    [self addVideoInput:camera];
+    [self switchCameraToDesiredPosition:AVCaptureDevicePositionBack];
     
     // Output
     AVCaptureVideoDataOutput *output = [[AVCaptureVideoDataOutput alloc] init];
@@ -92,7 +90,11 @@ static NSString * const kSwitchToPreviewImageName = @"fullscreen_close";
     [self.cameraProcessor sendPhoto:self.image];
 }
 - (IBAction)switchCameraButton:(UIButton *)sender {
-    [self switchCamera];
+    AVCaptureInput *currentCameraInput = [self.session.inputs firstObject];
+    AVCaptureDevicePosition currentCameraPosition = ((AVCaptureDeviceInput *)currentCameraInput).device.position;
+    AVCaptureDevicePosition desiredPosition = currentCameraPosition == AVCaptureDevicePositionFront ? AVCaptureDevicePositionBack : AVCaptureDevicePositionFront;
+    
+    [self switchCameraToDesiredPosition:desiredPosition];
 }
 
 #pragma mark - <AVCaptureVideoDataOutputSampleBufferDelegate>
@@ -111,28 +113,46 @@ static NSString * const kSwitchToPreviewImageName = @"fullscreen_close";
     AVCaptureDevicePosition nextCameraPosition = currentCameraPosition == AVCaptureDevicePositionFront ? AVCaptureDevicePositionBack : AVCaptureDevicePositionFront;
     return [self cameraWithPosition:nextCameraPosition];
 }
-- (void)addVideoInput:(AVCaptureDevice *)camera {
+- (AVCaptureDeviceInput *)videoInputForDevice:(AVCaptureDevice *)device {
     NSError *error = nil;
-    AVCaptureDeviceInput *newVideoInput = [AVCaptureDeviceInput deviceInputWithDevice:camera error:&error];
-    if (!newVideoInput || error) {
+    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
+    if (!input || error) {
         NSLog(@"Error creating capture device input: %@", error.localizedDescription);
-    } else {
-        if ([self.session canAddInput:newVideoInput]) {
-            [self.session addInput:newVideoInput];
-        } else {
-            NSLog(@"Can't add device input to a session: %@", error.localizedDescription);
+    }
+    return input;
+}
+- (void)switchCameraToDesiredPosition:(AVCaptureDevicePosition)desiredPosition {
+    NSArray <AVCaptureDevice *> *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+    for (AVCaptureDevice *device in devices) {
+        if (device.position == desiredPosition) {
+            AVCaptureDeviceInput *input = [self videoInputForDevice:device];
+            [self replaceVideoInput:input forDevice:device];
+            
+            [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut
+                             animations:^(void) {
+                                 self.view.transform = CGAffineTransformMakeScale(0.5f, 0.5f);
+                                 self.view.transform = CGAffineTransformMakeScale(1.0f, 1.0f);
+                             }
+                             completion:nil];
+            break;
         }
     }
 }
-- (void)switchCamera {
+- (void)replaceVideoInput:(AVCaptureInput *)input forDevice:(AVCaptureDevice *)device {
+    [device lockForConfiguration:nil];
     [self.session beginConfiguration];
     
-    AVCaptureInput *currentCameraInput = [self.session.inputs firstObject];
-    [self.session removeInput:currentCameraInput];
-    AVCaptureDevice *newCamera = [self nextCamera:currentCameraInput];
-    
-    [self addVideoInput:newCamera];
+    for (AVCaptureInput *oldInput in self.session.inputs) {
+        [self.session removeInput:oldInput];
+    }
+    if ([self.session canAddInput:input]) {
+        [self.session addInput:input];
+    } else {
+        NSLog(@"Can't add device input to a session: %@", self.session);
+    }
+
     [self.session commitConfiguration];
+    [device unlockForConfiguration];
 }
 - (AVCaptureDevice *)cameraWithPosition:(AVCaptureDevicePosition)position {
     NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
