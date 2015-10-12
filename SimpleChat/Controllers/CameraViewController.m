@@ -12,14 +12,25 @@
 
 @interface CameraViewController () <AVCaptureVideoDataOutputSampleBufferDelegate>
 
+@property (weak, nonatomic) IBOutlet UIButton *toggleFullscreenButton;
+
 @property (nonatomic, strong) AVCaptureSession *session;
 @property (nonatomic, strong) UIImage *image;
+@property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
+@property (nonatomic, copy) NSString *toggleFullscreenCurrentImageName;
 
 @end
 
 @implementation CameraViewController
 
+#pragma mark - Constants
+
+static NSString * const kSwitchToFullscreenImageName = @"camera_interface_fullscreen";
+static NSString * const kSwitchToPreviewImageName = @"fullscreen_close";
+
 #pragma mark - Properties
+
+@synthesize cameraProcessor = _cameraProcessor;
 
 - (AVCaptureSession *)session {
     if (!_session) {
@@ -33,6 +44,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.toggleFullscreenCurrentImageName = kSwitchToFullscreenImageName;
     
     // Device
     AVCaptureDevice *camera = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
@@ -49,10 +62,9 @@
     [output setSampleBufferDelegate:self queue:queue];
     
     // Preview layer
-    AVCaptureVideoPreviewLayer *previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
-    previewLayer.frame = self.view.bounds;
-    previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-    [self.view.layer addSublayer:previewLayer];
+    self.previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
+    self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    [self.view.layer addSublayer:self.previewLayer];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -62,6 +74,7 @@
 #pragma mark - Camera presenter
 
 - (void)showCamera {
+    self.previewLayer.frame = self.view.bounds;
     [self.session startRunning];
 }
 - (void)stopCamera {
@@ -71,8 +84,12 @@
 #pragma mark - Action
 
 - (IBAction)toggleFullscreen:(UIButton *)sender {
+    [self switchFullscreenButtons];
+    [self.cameraProcessor toggleFullscreen];
+    self.previewLayer.frame = self.view.bounds;
 }
 - (IBAction)sendButton:(UIButton *)sender {
+    [self.cameraProcessor sendPhoto:self.image];
 }
 - (IBAction)switchCameraButton:(UIButton *)sender {
     [self switchCamera];
@@ -141,13 +158,17 @@
     CGColorSpaceRelease(colorSpace);
     
     CGImageRef cgImage = CGBitmapContextCreateImage(cgContext);
-    UIImage* image = [UIImage imageWithCGImage:cgImage scale:1.0f
-                                   orientation:UIImageOrientationRight];
+    UIImage *image = [UIImage imageWithCGImage:cgImage scale:1.0f orientation:UIImageOrientationRight];
     CGImageRelease(cgImage);
     CGContextRelease(cgContext);
     
     CVPixelBufferUnlockBaseAddress(buffer, 0);
     return image;
+}
+- (void)switchFullscreenButtons {
+    self.toggleFullscreenCurrentImageName = [self.toggleFullscreenCurrentImageName isEqualToString:kSwitchToFullscreenImageName] ? kSwitchToPreviewImageName : kSwitchToFullscreenImageName;
+    UIImage *image = [UIImage imageNamed:self.toggleFullscreenCurrentImageName];
+    [self.toggleFullscreenButton setImage:image forState:UIControlStateNormal];
 }
 
 @end

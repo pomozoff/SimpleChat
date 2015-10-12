@@ -17,7 +17,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@protocol CameraProcessor <NSObject>
+
+- (void)toggleFullscreen;
+- (void)sendPhoto:(UIImage *)image;
+
+@end
+
 @protocol CameraPresenter <NSObject>
+
+@property (nonatomic, strong) id <CameraProcessor> cameraProcessor;
 
 - (void)showCamera;
 - (void)stopCamera;

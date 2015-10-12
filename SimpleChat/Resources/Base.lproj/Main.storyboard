@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -59,17 +58,27 @@
                                                     <color key="backgroundColor" red="0.043137254899999998" green="0.47058823529999999" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstItem="UDn-xI-zXY" firstAttribute="trailing" secondItem="BlI-pH-u3K" secondAttribute="trailing" id="9Hn-H8-CcZ"/>
+                                                        <constraint firstAttribute="trailing" secondItem="UDn-xI-zXY" secondAttribute="trailing" constant="8" id="DhH-xC-fxX"/>
                                                         <constraint firstItem="BlI-pH-u3K" firstAttribute="leading" secondItem="cv8-cA-CYP" secondAttribute="leading" constant="8" id="RLg-dn-T3X">
                                                             <variation key="heightClass=compact" constant="8"/>
                                                         </constraint>
-                                                        <constraint firstAttribute="trailing" secondItem="BlI-pH-u3K" secondAttribute="trailing" constant="8" id="fqN-vR-hsH"/>
                                                         <constraint firstItem="UDn-xI-zXY" firstAttribute="leading" secondItem="BlI-pH-u3K" secondAttribute="leading" id="kB6-Qc-M8v">
                                                             <variation key="heightClass=compact" constant="0.0"/>
                                                         </constraint>
                                                         <constraint firstAttribute="bottom" secondItem="UDn-xI-zXY" secondAttribute="bottom" constant="8" id="r66-vu-5C6"/>
-                                                        <constraint firstItem="UDn-xI-zXY" firstAttribute="top" secondItem="BlI-pH-u3K" secondAttribute="bottom" id="wUi-R9-07e"/>
+                                                        <constraint firstItem="UDn-xI-zXY" firstAttribute="top" secondItem="BlI-pH-u3K" secondAttribute="bottom" priority="900" id="wUi-R9-07e"/>
                                                         <constraint firstItem="BlI-pH-u3K" firstAttribute="top" secondItem="cv8-cA-CYP" secondAttribute="top" constant="8" id="xR3-Y9-ysI"/>
                                                     </constraints>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="DhH-xC-fxX"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular">
+                                                        <mask key="constraints">
+                                                            <include reference="DhH-xC-fxX"/>
+                                                        </mask>
+                                                    </variation>
                                                 </view>
                                                 <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="bubble_tail" translatesAutoresizingMaskIntoConstraints="NO" id="oq2-S3-Dqr">
                                                     <rect key="frame" x="566" y="20" width="22" height="22"/>
@@ -270,7 +279,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2aq-46-pPy" userLabel="Preview Image Container View">
+                            <containerView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="150" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2aq-46-pPy" userLabel="Preview Image Container View">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <animations/>
                                 <constraints>
@@ -303,6 +312,7 @@
                             <constraint firstAttribute="trailing" secondItem="Suq-EI-lgg" secondAttribute="trailing" id="aJi-rh-atB"/>
                             <constraint firstItem="fUv-XU-4x4" firstAttribute="top" secondItem="dvg-o4-R3K" secondAttribute="bottom" id="amw-fX-1WN"/>
                             <constraint firstItem="e7w-bV-8JW" firstAttribute="leading" secondItem="Suq-EI-lgg" secondAttribute="trailing" priority="750" id="bzl-iP-dxx"/>
+                            <constraint firstItem="2aq-46-pPy" firstAttribute="height" secondItem="naH-9S-jkP" secondAttribute="height" priority="100" id="cRW-ik-3AJ"/>
                             <constraint firstItem="7FK-2X-8A5" firstAttribute="centerX" secondItem="naH-9S-jkP" secondAttribute="centerX" id="d7L-OL-Vgc"/>
                             <constraint firstItem="dvg-o4-R3K" firstAttribute="trailing" secondItem="GVa-gb-Xkb" secondAttribute="trailing" id="dmQ-Lr-Obc"/>
                             <constraint firstItem="e7w-bV-8JW" firstAttribute="width" secondItem="Suq-EI-lgg" secondAttribute="width" multiplier="0.2" priority="900" id="fkl-Y9-ZfQ"/>
@@ -323,6 +333,7 @@
                             <mask key="constraints">
                                 <exclude reference="UqD-SK-Qsj"/>
                                 <exclude reference="nnx-SO-ZUQ"/>
+                                <exclude reference="cRW-ik-3AJ"/>
                                 <exclude reference="Oyy-tg-5pB"/>
                                 <exclude reference="d7L-OL-Vgc"/>
                                 <exclude reference="u3u-lu-8H9"/>
@@ -351,6 +362,7 @@
                         <variation key="heightClass=regular">
                             <mask key="constraints">
                                 <include reference="nnx-SO-ZUQ"/>
+                                <include reference="cRW-ik-3AJ"/>
                                 <include reference="d7L-OL-Vgc"/>
                                 <include reference="u3u-lu-8H9"/>
                                 <include reference="lwB-C9-Mbx"/>
@@ -366,6 +378,7 @@
                         <outlet property="cameraButton" destination="0Pq-El-nc5" id="XvV-b4-shy"/>
                         <outlet property="cameraPreviewContainerHeightConstraint" destination="6Dd-2S-cZV" id="xOA-NI-dxt"/>
                         <outlet property="cameraPreviewContainerView" destination="2aq-46-pPy" id="HdH-lK-I2b"/>
+                        <outlet property="cameraPreviewFullscreenConstraint" destination="cRW-ik-3AJ" id="C98-gw-JOX"/>
                         <outlet property="chatIsEmptyLabel" destination="7FK-2X-8A5" id="sLr-Dw-eg7"/>
                         <outlet property="geoButton" destination="UBQ-9I-73u" id="Fal-2O-7Nk"/>
                         <outlet property="imagesBottomConstraint" destination="Bkg-Qs-jOL" id="RnY-lx-qxx"/>
@@ -486,14 +499,24 @@
                         <animations/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="tJL-tM-Lqd" firstAttribute="top" secondItem="Q2t-cb-LN1" secondAttribute="bottom" constant="20" id="3qv-nV-crd"/>
+                            <constraint firstItem="tJL-tM-Lqd" firstAttribute="top" secondItem="Q2t-cb-LN1" secondAttribute="bottom" constant="20" id="3qv-nV-crd">
+                                <variation key="heightClass=regular" constant="10"/>
+                            </constraint>
                             <constraint firstItem="EGC-Jc-bIa" firstAttribute="leading" secondItem="ar2-mi-6LR" secondAttribute="leadingMargin" id="QoN-dc-tuu"/>
                             <constraint firstItem="Q2t-cb-LN1" firstAttribute="bottom" secondItem="7Yr-Jk-V9p" secondAttribute="bottom" id="VRE-em-Ccr"/>
                             <constraint firstItem="Q2t-cb-LN1" firstAttribute="bottom" secondItem="EGC-Jc-bIa" secondAttribute="bottom" id="W8c-Hc-WXX"/>
                             <constraint firstItem="7Yr-Jk-V9p" firstAttribute="trailing" secondItem="ar2-mi-6LR" secondAttribute="trailingMargin" id="X2E-f3-D5C"/>
                             <constraint firstItem="Q2t-cb-LN1" firstAttribute="centerX" secondItem="ar2-mi-6LR" secondAttribute="centerX" id="q8v-Vi-JaR"/>
                         </constraints>
+                        <variation key="heightClass=regular">
+                            <mask key="subviews">
+                                <include reference="Q2t-cb-LN1"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="toggleFullscreenButton" destination="EGC-Jc-bIa" id="C9A-wg-jrk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eKk-eE-YQL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -503,11 +526,11 @@
     <resources>
         <image name="bubble_tail" width="22" height="21"/>
         <image name="camera" width="24" height="18"/>
-        <image name="camera_interface_fullscreen" width="23" height="23"/>
-        <image name="camera_interface_switch" width="30" height="24"/>
+        <image name="camera_interface_fullscreen" width="46" height="46"/>
+        <image name="camera_interface_switch" width="60" height="48"/>
         <image name="geo" width="21" height="21"/>
         <image name="images" width="22" height="22"/>
         <image name="placeholder" width="300" height="300"/>
-        <image name="send" width="40" height="40"/>
+        <image name="send" width="80" height="80"/>
     </resources>
 </document>

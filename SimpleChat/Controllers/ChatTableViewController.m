@@ -8,7 +8,6 @@
 
 #import "ChatTableViewController.h"
 #import "ChatTableViewCell.h"
-#import "CameraRouter.h"
 
 typedef enum : NSUInteger {
     ScrollDirectionUp = 1,
@@ -33,12 +32,14 @@ typedef enum : NSUInteger {
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarBottomConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *maxInputTextViewConstraint;
 
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *cameraPreviewContainerHeightConstraint;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *imagesCollectionViewHeightConstraint;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *imagesCollectionViewWidthConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *cameraPreviewContainerHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *cameraPreviewFullscreenConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imagesCollectionViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imagesCollectionViewWidthConstraint;
 
 //@property (nonatomic, strong) id <ImagePresenter> imagePresenter;
 @property (nonatomic, strong) id <CameraPresenter> cameraPresenter;
+@property (nonatomic, assign) NSInteger cameraFullscreenConstraintCurrentValue;
 
 @end
 
@@ -51,8 +52,12 @@ static NSString * const kMessageCellReuseIdentifier = @"Chat Message Cell";
 static NSString * const kCameraSegueName = @"Camera Embedded Segue";
 static NSString * const kImageSegueName = @"Image Embedded Segue";
 static NSUInteger const kPercentOfUserInputTextHeight = 10;
-static UILayoutPriority const kMaxConstraintPriority = 900;
+static UILayoutPriority const kMaxConstraintPriority = 800;
 static UILayoutPriority const kMinConstraintPriority = 200;
+
+static UILayoutPriority const kMaxMaxConstraintPriority = 900;
+static UILayoutPriority const kMinMinConstraintPriority = 100;
+
 static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 
 #pragma mark - Life cycle
@@ -102,6 +107,7 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:kCameraSegueName]) {
         self.cameraPresenter = segue.destinationViewController;
+        self.cameraPresenter.cameraProcessor = self;
     }
 }
 
@@ -141,19 +147,23 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 #pragma mark - Image processor
 
 - (void)processImage:(UIImage *)image {
-    NSString *trimmedText = [self processTextToSend];
-    __weak __typeof(self) weakSelf = self;
-    [self.chatHandler sendTextMessage:trimmedText
-                             andImage:image
-                       withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-                           dispatch_async(dispatch_get_main_queue(), ^{
-                               if (succeeded) {
-                                   [weakSelf scrollMessages:ScrollDirectionDown];
-                               } else {
-                                   NSLog(@"Failed to send message with image: %@ %@", error, error.userInfo);
-                               }
-                           });
-                       }];
+    [self sendImage:image];
+    [self hideImagesCollectionViewWithAnimation:YES];
+}
+
+#pragma mark - Camera processor
+
+- (void)toggleFullscreen {
+    if (self.cameraPreviewFullscreenConstraint.priority < kMinConstraintPriority) {
+        self.cameraPreviewFullscreenConstraint.priority = kMaxMaxConstraintPriority;
+    } else {
+        self.cameraPreviewFullscreenConstraint.priority = kMinMinConstraintPriority;
+    }
+    [self animateConstraintDefaultWithScroll:NO];
+}
+- (void)sendPhoto:(UIImage *)image {
+    [self sendImage:image];
+    [self hideCameraPreviewViewWithAnimation:YES];
 }
 
 #pragma mark - Actions
@@ -183,8 +193,8 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     NSLog(@"Gallery");
 }
 - (IBAction)switchCameraOn:(UIBarButtonItem *)sender {
-    [self.cameraPresenter showCamera];
     [self triggerCameraPreviewViewWithAnimation:YES];
+    [self.cameraPresenter showCamera];
 }
 
 #pragma mark - Private common
@@ -274,6 +284,22 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 - (UIInterfaceOrientation)deviceOrientation {
     return [[UIApplication sharedApplication] statusBarOrientation];
 }
+- (void)sendImage:(UIImage *)image {
+    NSString *trimmedText = [self processTextToSend];
+    __weak __typeof(self) weakSelf = self;
+    [self.chatHandler sendTextMessage:trimmedText
+                             andImage:image
+                       withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                           dispatch_async(dispatch_get_main_queue(), ^{
+                               if (succeeded) {
+                                   [weakSelf scrollMessages:ScrollDirectionDown];
+                               } else {
+                                   NSLog(@"Failed to send message with image: %@ %@", error, error.userInfo);
+                               }
+                           });
+                       }];
+}
+
 
 #pragma mark - Private keyboard
 
@@ -481,6 +507,7 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     }
 }
 - (void)hideCameraPreviewViewWithAnimation:(BOOL)animation {
+    self.cameraPreviewFullscreenConstraint.priority = kMinMinConstraintPriority;
     self.cameraPreviewContainerHeightConstraint.priority = kMinConstraintPriority;
     if (animation) {
         BOOL needsToScroll = UIInterfaceOrientationIsPortrait([self deviceOrientation]);
