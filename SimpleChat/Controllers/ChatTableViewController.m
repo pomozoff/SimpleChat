@@ -520,7 +520,7 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     self.cameraPreviewContainerHeightConstraint.priority = kMinConstraintPriority;
     if (animation) {
         BOOL needsToScroll = UIInterfaceOrientationIsPortrait([self deviceOrientation]);
-        [self animateConstraintDefaultWithScroll:(needsToScroll)];
+        [self animateConstraintDefaultWithScroll:needsToScroll];
     }
 }
 - (void)hideAllPanesWithAnimation:(BOOL)animation {
