@@ -53,7 +53,7 @@
                                                                 <constraint firstAttribute="height" priority="500" id="aek-wF-3Yo"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="290-BH-sW6">
+                                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="290-BH-sW6">
                                                             <rect key="frame" x="-10" y="-10" width="20" height="20"/>
                                                             <animations/>
                                                             <constraints>

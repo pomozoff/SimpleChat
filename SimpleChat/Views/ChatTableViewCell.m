@@ -92,13 +92,11 @@
 }
 - (void)showProgress {
     if (self.chatMessage.hasImage || self.chatMessage.hasLocation) {
-        self.activityIndicatorOfImageLoading.hidden = NO;
         [self.activityIndicatorOfImageLoading startAnimating];
     }
 }
 - (void)hideProgress {
     [self.activityIndicatorOfImageLoading stopAnimating];
-    self.activityIndicatorOfImageLoading.hidden = YES;
 }
 
 #pragma mark - Lifecycle
