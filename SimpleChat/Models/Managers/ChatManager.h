@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)sendTextMessage:(NSString *)text withCompletion:(CompletionHandler)handler;
 - (void)sendTextMessage:(nullable NSString *)text andImage:(UIImage *)image withCompletion:(CompletionHandler)handler;
 - (void)sendTextMessage:(NSString *)text andLocation:(CLLocationCoordinate2D)coordinate withCompletion:(CompletionHandler)handler;
+- (void)freeMemory;
 
 @end
 

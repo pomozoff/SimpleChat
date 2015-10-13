@@ -43,6 +43,9 @@ static NSString * const kCatsFileName = @"cats";
     }
     handler(YES, [imageItems copy], nil);
 }
+- (void)freeMemory {
+    self.cats = nil;
+}
 
 #pragma mark - Private
 

@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSInteger)numberOfItemsInSection:(NSInteger)section;
 - (id <ImageItem>)imageAtIndexPath:(NSIndexPath *)indexPath;
 - (void)fetchImagesWithCompletion:(CompletionHandler)handler;
+- (void)freeMemory;
 
 @end
 

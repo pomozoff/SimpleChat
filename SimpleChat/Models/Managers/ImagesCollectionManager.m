@@ -34,5 +34,8 @@
         handler(succeeded, error);
     }];
 }
+- (void)freeMemory {
+    self.imageItems = nil;
+}
 
 @end

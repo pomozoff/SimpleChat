@@ -20,6 +20,7 @@ typedef void (^FetchImagesCompletionHandler)(BOOL succeeded, NSArray <id <ImageI
 @protocol ImagesDataSource <NSObject>
 
 - (void)fetchImagesWithCompletion:(FetchImagesCompletionHandler)handler;
+- (void)freeMemory;
 
 @end
 

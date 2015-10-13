@@ -100,7 +100,10 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+    [self hideAllPanesWithAnimation:YES];
+    self.imagePickerController = nil;
+    [self.chatHandler freeMemory];
 }
 - (BOOL)prefersStatusBarHidden {
     return NO;

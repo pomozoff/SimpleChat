@@ -85,6 +85,11 @@
     chatMessage.longitude = coordinate.longitude;
     [self processNewMessage:chatMessage withCompletion:handler];
 }
+- (void)freeMemory {
+    for (id <ChatMessage> chatMessage in self.messages) {
+        chatMessage.image = nil;
+    }
+}
 
 #pragma mark - Message controller
 

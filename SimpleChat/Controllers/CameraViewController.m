@@ -66,7 +66,7 @@ static NSString * const kSwitchToPreviewImageName = @"fullscreen_close";
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    self.image = nil;
 }
 
 #pragma mark - Camera presenter
