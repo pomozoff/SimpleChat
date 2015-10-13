@@ -83,7 +83,7 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
-    [self hideAllPanesWithAnimation:NO];
+    [self hideAllPanesWithAnimation:YES];
 }
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
@@ -173,7 +173,7 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     } else {
         self.cameraPreviewFullscreenConstraint.priority = kMinMinConstraintPriority;
     }
-    [self animateConstraintDefaultWithScroll:NO];
+    [self animateConstraintDefaultWithScroll:YES];
 }
 - (void)sendPhoto:(UIImage *)image {
     NSString *trimmedText = [self processTextToSend];
@@ -386,7 +386,6 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     
     self.imagesBottomConstraint.constant = isShowing ? endFrame.size.height : 0.0f;
     self.toolbarBottomConstraint.constant = self.imagesBottomConstraint.constant;
-    
     [self.view setNeedsUpdateConstraints];
     
     __weak __typeof(self) weakSelf = self;
@@ -394,16 +393,12 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
                           delay:0.0f
                         options:animationCurve
                      animations: ^{
-                         dispatch_async(dispatch_get_main_queue(), ^{
-                             [weakSelf.view layoutIfNeeded];
-                         });
+                         [weakSelf.view layoutIfNeeded];
                      }
                      completion:^(BOOL finished) {
-                         dispatch_async(dispatch_get_main_queue(), ^{
-                             if (finished) {
-                                 [weakSelf scrollMessages:ScrollDirectionDown];
-                             }
-                         });
+                         if (finished && isShowing) {
+                             [weakSelf scrollMessages:ScrollDirectionDown];
+                         }
                      }];
 }
 - (void)addHideKeyboardGestureRecognizer {
@@ -465,6 +460,7 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     self.sendButton.enabled = self.userInputTextView.text.length > 0;
 }
 - (void)scrollMessages:(ScrollDirection)scrollDirection {
+    NSLog(@"Scrolling %@", scrollDirection == ScrollDirectionUp ? @"up" : @"down");
     NSInteger sectionsNumber = [self.chatDataSource numberOfSections];
     NSInteger rowsNumber = [self.chatDataSource numberOfRowsInSection:sectionsNumber - 1];
     if (sectionsNumber > 0 && rowsNumber > 0) {
@@ -513,6 +509,12 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 - (BOOL)isConstraintPrioritized:(nonnull NSLayoutConstraint *)constraint {
     return constraint.priority >= kMaxConstraintPriority;
 }
+- (BOOL)isImagesViewCollectionPresent {
+    return [self isConstraintPrioritized:self.imagesCollectionViewHeightConstraint] || [self isConstraintPrioritized:self.imagesCollectionViewWidthConstraint];
+}
+- (BOOL)isCameraPreviewContainerPresent {
+    return [self isConstraintPrioritized:self.cameraPreviewContainerHeightConstraint];
+}
 - (void)triggerConstraint:(nonnull NSLayoutConstraint *)constraint {
     if ([self isConstraintPrioritized:constraint]) {
         constraint.priority = kMinConstraintPriority;
@@ -533,17 +535,17 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 }
 - (void)triggerImagesCollectionViewWithAnimation:(BOOL)animation {
     BOOL needsToScroll = UIInterfaceOrientationIsPortrait([self deviceOrientation]);
+    BOOL isShowing = !([self isConstraintPrioritized:self.imagesCollectionViewHeightConstraint] || [self isConstraintPrioritized:self.imagesCollectionViewWidthConstraint]);
     
     [self triggerView:self.imagesCollectionView
        withConstraint:@[self.imagesCollectionViewHeightConstraint, self.imagesCollectionViewWidthConstraint]
-           withScroll:needsToScroll
+           withScroll:(needsToScroll && isShowing)
          andAnimation:animation];
 
-    BOOL isHiding = !([self isConstraintPrioritized:self.imagesCollectionViewHeightConstraint] || [self isConstraintPrioritized:self.imagesCollectionViewWidthConstraint]);
-    self.cameraButton.enabled = isHiding;
-    self.geoButton.enabled = isHiding;
+    self.cameraButton.enabled = !isShowing;
+    self.geoButton.enabled = !isShowing;
     
-    if (!isHiding) {
+    if (isShowing) {
         [self.imagesCollectionPresenter reloadImages];
     }
 }
@@ -563,16 +565,14 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     self.geoButton.enabled = YES;
 
     if (animation) {
-        BOOL needsToScroll = UIInterfaceOrientationIsPortrait([self deviceOrientation]);
-        [self animateConstraintDefaultWithScroll:needsToScroll];
+        [self animateConstraintDefaultWithScroll:NO];
     }
 }
 - (void)hideCameraPreviewViewWithAnimation:(BOOL)animation {
     self.cameraPreviewFullscreenConstraint.priority = kMinMinConstraintPriority;
     self.cameraPreviewContainerHeightConstraint.priority = kMinConstraintPriority;
     if (animation) {
-        BOOL needsToScroll = UIInterfaceOrientationIsPortrait([self deviceOrientation]);
-        [self animateConstraintDefaultWithScroll:needsToScroll];
+        [self animateConstraintDefaultWithScroll:NO];
     }
 }
 - (void)hideAllPanesWithAnimation:(BOOL)animation {
@@ -580,10 +580,10 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     [self hideCameraPreviewViewWithAnimation:animation];
 }
 - (void)hidePanesOnTapWithAnimation:(BOOL)animation {
-    if ([self isConstraintPrioritized:self.cameraPreviewContainerHeightConstraint]) {
+    if ([self isCameraPreviewContainerPresent]) {
         [self hideCameraPreviewViewWithAnimation:animation];
         [self.cameraPresenter stopCamera];
-    } else {
+    } else if ([self isImagesViewCollectionPresent]) {
         if (UIInterfaceOrientationIsPortrait([self deviceOrientation])) {
             [self hideImagesCollectionViewWithAnimation:animation];
         }

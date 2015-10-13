@@ -125,15 +125,15 @@ static NSString * const kSwitchToPreviewImageName = @"fullscreen_close";
     NSArray <AVCaptureDevice *> *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
     for (AVCaptureDevice *device in devices) {
         if (device.position == desiredPosition) {
-            AVCaptureDeviceInput *input = [self videoInputForDevice:device];
-            [self replaceVideoInput:input forDevice:device];
-            
             [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionCurveEaseInOut
                              animations:^(void) {
                                  self.view.transform = CGAffineTransformMakeScale(0.5f, 0.5f);
                                  self.view.transform = CGAffineTransformMakeScale(1.0f, 1.0f);
                              }
                              completion:nil];
+            AVCaptureDeviceInput *input = [self videoInputForDevice:device];
+            [self replaceVideoInput:input forDevice:device];
+            
             break;
         }
     }

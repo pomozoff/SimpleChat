@@ -265,19 +265,9 @@
                                         <rect key="frame" x="8" y="112" width="584" height="30"/>
                                         <animations/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="ZED-91-076"/>
+                                            <constraint firstAttribute="height" priority="500" constant="44" id="ZED-91-076"/>
                                         </constraints>
                                         <state key="normal" title="Gallery"/>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="ZED-91-076"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=compact">
-                                            <mask key="constraints">
-                                                <include reference="ZED-91-076"/>
-                                            </mask>
-                                        </variation>
                                         <connections>
                                             <action selector="selectImageFromGallery:" destination="jNt-2b-EQ4" eventType="touchUpInside" id="tbr-WP-0Uv"/>
                                         </connections>
