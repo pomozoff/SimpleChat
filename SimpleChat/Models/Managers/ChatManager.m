@@ -111,7 +111,6 @@
 }
 - (void)processNewMessage:(nonnull id <ChatMessage>)chatMessage withCompletion:(nonnull CompletionHandler)handler {
     [self.messagesDataSource addChatMessage:chatMessage andCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-        handler(succeeded, error);
     }];
 
     NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:(NSInteger)self.messages.count - 1 inSection:0];
@@ -121,6 +120,7 @@
                           forChangeType:CollectionChangeInsert
                            newIndexPath:newIndexPath];
     [self.dataPresenter didChangeContent];
+    handler(YES, nil);
 }
 
 @end
