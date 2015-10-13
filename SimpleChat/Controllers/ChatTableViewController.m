@@ -460,7 +460,7 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     self.sendButton.enabled = self.userInputTextView.text.length > 0;
 }
 - (void)scrollMessages:(ScrollDirection)scrollDirection {
-    NSLog(@"Scrolling %@", scrollDirection == ScrollDirectionUp ? @"up" : @"down");
+    //NSLog(@"Scrolling %@", scrollDirection == ScrollDirectionUp ? @"up" : @"down");
     NSInteger sectionsNumber = [self.chatDataSource numberOfSections];
     NSInteger rowsNumber = [self.chatDataSource numberOfRowsInSection:sectionsNumber - 1];
     if (sectionsNumber > 0 && rowsNumber > 0) {
