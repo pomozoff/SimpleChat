@@ -29,6 +29,9 @@
 @property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
 @property (nonatomic, strong) UIImageView *panningImageView;
 
+@property (nonatomic, assign) CGFloat panDeltaX;
+@property (nonatomic, assign) CGFloat panDeltaY;
+
 @end
 
 @implementation ChatTableViewCell
@@ -146,14 +149,43 @@
 - (void)animateConstraintsChangesDuration:(CGFloat)duration withAnimation:(void(^)(void))animation withCompletion:(void (^)(BOOL))completion {
     [UIView animateWithDuration:duration
                           delay:0.0f
-         usingSpringWithDamping:0.5f
+         usingSpringWithDamping:0.8f
           initialSpringVelocity:0.5f
                         options:0
                      animations:animation
                      completion:completion];
 }
 - (void)didTapOnImage:(UITapGestureRecognizer *)recognizer {
-    NSLog(@"Tap");
+    self.panningImageView = [[UIImageView alloc] initWithImage:self.chatMessage.image];
+    self.panningImageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.panningImageView.backgroundColor = [UIColor blackColor];
+    self.panningImageView.userInteractionEnabled = YES;
+    self.panningImageView.frame = [self.window convertRect:self.chatImageView.frame fromView:self.chatImageView.superview];
+
+    __weak __typeof(self) weakSelf = self;
+    [self animateConstraintsChangesDuration:0.5f withAnimation:^{
+        [weakSelf.window addSubview:weakSelf.panningImageView];
+        weakSelf.panningImageView.frame = weakSelf.window.frame;
+    }
+                             withCompletion:^(BOOL finished) {
+                                 UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:weakSelf
+                                                                                                                        action:@selector(didTapOnFullscreenImage:)];
+                                 [weakSelf.panningImageView addGestureRecognizer:tapGestureRecognizer];
+                             }];
+}
+- (void)didTapOnFullscreenImage:(UITapGestureRecognizer *)recognizer {
+    __weak __typeof(self) weakSelf = self;
+    self.panningImageView.layer.cornerRadius = 5.0f;
+    self.panningImageView.layer.masksToBounds = YES;
+    self.panningImageView.backgroundColor = [UIColor clearColor];
+
+    [self animateConstraintsChangesDuration:0.3f withAnimation:^{
+        weakSelf.panningImageView.frame = [self.window convertRect:self.chatImageView.frame fromView:self.chatImageView.superview];
+    }
+                             withCompletion:^(BOOL finished) {
+                                 [weakSelf.panningImageView removeFromSuperview];
+                                 weakSelf.panningImageView = nil;
+                             }];
 }
 - (void)didLongTapOnImage:(UILongPressGestureRecognizer *)recognizer {
     if (recognizer.state == UIGestureRecognizerStateBegan) {
@@ -165,11 +197,12 @@
 - (void)panHandler:(UIPanGestureRecognizer *)recognizer {
     if (self.isImageTapped) {
         CGPoint coordinate = [recognizer locationInView:self.window];
+        coordinate.x += self.panDeltaX;
+        coordinate.y += self.panDeltaY;
         [self updateFrameOfView:self.panningImageView toCoordinate:coordinate];
     }
 }
 - (void)updateFrameOfView:(UIView *)view withNewFrame:(CGRect)newFrame {
-    //NSLog(@"New frame: %@", NSStringFromCGRect(newFrame));
     view.frame = newFrame;
     [self setNeedsDisplay];
 }
@@ -198,21 +231,27 @@
     self.panningImageView.layer.masksToBounds = YES;
     self.chatImageView.image = [UIImage imageNamed:@"placeholder"];
     
-    [self updateFrameOfView:self.panningImageView toCoordinate:coordinate];
+    CGRect frame = [self.window convertRect:self.chatImageView.frame fromView:self.chatImageView.superview];
+    self.panningImageView.frame = frame;
     [self.window addSubview:self.panningImageView];
+    
+    self.panDeltaX = frame.origin.x + frame.size.width / 2 - coordinate.x;
+    self.panDeltaY = frame.origin.y + frame.size.height / 2 - coordinate.y;
     
     __weak __typeof(self) weakSelf = self;
     [self animateConstraintsChangesDuration:0.5f withAnimation:^{
-        [self growView:weakSelf.panningImageView];
+        [weakSelf growView:weakSelf.panningImageView];
     }
                              withCompletion:nil];
 }
 - (void)moveImageBack {
     self.isImageTapped = NO;
     
+    CGRect oldFrame = [self.window convertRect:self.chatImageView.frame fromView:self.chatImageView.superview];
     __weak __typeof(self) weakSelf = self;
     [self animateConstraintsChangesDuration:0.5f withAnimation:^{
-        weakSelf.chatImageView.image = self.panningImageView.image;
+        weakSelf.panningImageView.frame = oldFrame;
+        weakSelf.chatImageView.image = weakSelf.panningImageView.image;
         [weakSelf.panningImageView removeFromSuperview];
         weakSelf.panningImageView = nil;
     }
