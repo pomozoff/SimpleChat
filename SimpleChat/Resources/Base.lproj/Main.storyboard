@@ -305,6 +305,10 @@
                                     <segue destination="Jft-3o-xOM" kind="embed" identifier="Camera Embedded Segue" id="SdI-4M-hp3"/>
                                 </connections>
                             </containerView>
+                            <view hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u3Y-GO-lSY" userLabel="Transparent View">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <animations/>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -318,12 +322,14 @@
                             <constraint firstItem="Suq-EI-lgg" firstAttribute="leading" secondItem="naH-9S-jkP" secondAttribute="leading" id="A5J-ZX-QPl"/>
                             <constraint firstItem="suS-fy-QHt" firstAttribute="top" secondItem="e7w-bV-8JW" secondAttribute="bottom" id="Bkg-Qs-jOL"/>
                             <constraint firstItem="e7w-bV-8JW" firstAttribute="top" secondItem="fUv-XU-4x4" secondAttribute="bottom" id="DG8-yb-D0F"/>
+                            <constraint firstItem="u3Y-GO-lSY" firstAttribute="leading" secondItem="naH-9S-jkP" secondAttribute="leading" id="Ibn-9e-6rh"/>
                             <constraint firstItem="Suq-EI-lgg" firstAttribute="top" secondItem="Yhs-tB-jhH" secondAttribute="bottom" id="JeS-Qk-3jy">
                                 <variation key="heightClass=regular" constant="-20"/>
                             </constraint>
                             <constraint firstItem="dvg-o4-R3K" firstAttribute="leading" secondItem="GVa-gb-Xkb" secondAttribute="leading" id="L8G-EF-EuD"/>
                             <constraint firstAttribute="trailing" secondItem="e7w-bV-8JW" secondAttribute="trailing" id="N5O-w9-DW1"/>
                             <constraint firstItem="7FK-2X-8A5" firstAttribute="centerY" secondItem="naH-9S-jkP" secondAttribute="centerY" id="Oyy-tg-5pB"/>
+                            <constraint firstItem="u3Y-GO-lSY" firstAttribute="bottom" secondItem="dvg-o4-R3K" secondAttribute="top" id="Shb-p1-Csw"/>
                             <constraint firstItem="2aq-46-pPy" firstAttribute="leading" secondItem="GVa-gb-Xkb" secondAttribute="leading" id="TGj-sA-usZ"/>
                             <constraint firstItem="fUv-XU-4x4" firstAttribute="leading" secondItem="GVa-gb-Xkb" secondAttribute="leading" id="U3E-DI-MQ8"/>
                             <constraint firstItem="GVa-gb-Xkb" firstAttribute="trailing" secondItem="e7w-bV-8JW" secondAttribute="leading" id="UqD-SK-Qsj"/>
@@ -334,7 +340,9 @@
                             <constraint firstItem="7FK-2X-8A5" firstAttribute="centerX" secondItem="naH-9S-jkP" secondAttribute="centerX" id="d7L-OL-Vgc"/>
                             <constraint firstItem="dvg-o4-R3K" firstAttribute="trailing" secondItem="GVa-gb-Xkb" secondAttribute="trailing" id="dmQ-Lr-Obc"/>
                             <constraint firstItem="e7w-bV-8JW" firstAttribute="width" secondItem="Suq-EI-lgg" secondAttribute="width" multiplier="0.2" priority="900" id="fkl-Y9-ZfQ"/>
+                            <constraint firstAttribute="trailing" secondItem="u3Y-GO-lSY" secondAttribute="trailing" id="ftk-7T-t8R"/>
                             <constraint firstItem="fUv-XU-4x4" firstAttribute="top" secondItem="dvg-o4-R3K" secondAttribute="bottom" id="lwB-C9-Mbx"/>
+                            <constraint firstItem="u3Y-GO-lSY" firstAttribute="top" secondItem="naH-9S-jkP" secondAttribute="top" id="m4O-fp-vMx"/>
                             <constraint firstItem="7FK-2X-8A5" firstAttribute="trailing" secondItem="GVa-gb-Xkb" secondAttribute="trailing" id="ndI-MG-SPT"/>
                             <constraint firstAttribute="trailing" secondItem="GVa-gb-Xkb" secondAttribute="trailing" id="nnx-SO-ZUQ"/>
                             <constraint firstItem="7FK-2X-8A5" firstAttribute="trailing" secondItem="GVa-gb-Xkb" secondAttribute="trailing" id="oHg-a7-Zg6"/>
@@ -350,10 +358,17 @@
                             <constraint firstItem="suS-fy-QHt" firstAttribute="top" secondItem="2aq-46-pPy" secondAttribute="bottom" id="yIZ-vu-esU"/>
                         </constraints>
                         <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="u3Y-GO-lSY"/>
+                            </mask>
                             <mask key="constraints">
-                                <exclude reference="cRW-ik-3AJ"/>
+                                <exclude reference="Ibn-9e-6rh"/>
+                                <exclude reference="Shb-p1-Csw"/>
+                                <exclude reference="ftk-7T-t8R"/>
+                                <exclude reference="m4O-fp-vMx"/>
                                 <exclude reference="UqD-SK-Qsj"/>
                                 <exclude reference="nnx-SO-ZUQ"/>
+                                <exclude reference="cRW-ik-3AJ"/>
                                 <exclude reference="Oyy-tg-5pB"/>
                                 <exclude reference="d7L-OL-Vgc"/>
                                 <exclude reference="u3u-lu-8H9"/>
@@ -380,9 +395,16 @@
                             </mask>
                         </variation>
                         <variation key="heightClass=regular">
+                            <mask key="subviews">
+                                <include reference="u3Y-GO-lSY"/>
+                            </mask>
                             <mask key="constraints">
-                                <include reference="cRW-ik-3AJ"/>
+                                <include reference="Ibn-9e-6rh"/>
+                                <include reference="Shb-p1-Csw"/>
+                                <include reference="ftk-7T-t8R"/>
+                                <include reference="m4O-fp-vMx"/>
                                 <include reference="nnx-SO-ZUQ"/>
+                                <include reference="cRW-ik-3AJ"/>
                                 <include reference="d7L-OL-Vgc"/>
                                 <include reference="u3u-lu-8H9"/>
                                 <include reference="lwB-C9-Mbx"/>
@@ -410,6 +432,7 @@
                         <outlet property="sendButton" destination="mXo-Re-U1I" id="yxx-zd-dsb"/>
                         <outlet property="tableView" destination="GVa-gb-Xkb" id="qBe-Lg-qWd"/>
                         <outlet property="toolbarBottomConstraint" destination="ve0-17-FAP" id="VMi-L2-owF"/>
+                        <outlet property="transparentView" destination="u3Y-GO-lSY" id="WDZ-34-nZ1"/>
                         <outlet property="userInputTextView" destination="Oes-MW-wEK" id="eRj-2K-dKv"/>
                     </connections>
                 </viewController>

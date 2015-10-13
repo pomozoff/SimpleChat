@@ -19,6 +19,7 @@ typedef enum : NSUInteger {
 @property (weak, nonatomic) IBOutlet UITextView *userInputTextView;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 @property (weak, nonatomic) IBOutlet UILabel *chatIsEmptyLabel;
+@property (weak, nonatomic) IBOutlet UIView *transparentView;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cameraButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *imagesButton;
@@ -385,6 +386,7 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     CGRect endFrame = [info[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
     BOOL isShowing = notification.name == UIKeyboardWillShowNotification;
+    self.transparentView.hidden = !isShowing;
 
     NSTimeInterval duration = [info[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     NSNumber *animationCurveRawNSN = info[UIKeyboardAnimationCurveUserInfoKey];
@@ -410,7 +412,7 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 - (void)addHideKeyboardGestureRecognizer {
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                           action:@selector(hideOpenedViews)];
-    [self.tableView addGestureRecognizer:tap];
+    [self.transparentView addGestureRecognizer:tap];
 }
 - (void)hideOpenedViews {
     [self hidePanesOnTapWithAnimation:YES];
@@ -487,7 +489,7 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     [refreshControl endRefreshing];
     [self triggerEmptyChatMessage];
 }
-- (void) disableScrollsToTopPropertyOnAllSubviewsOf:(UIView *)view {
+- (void)disableScrollsToTopPropertyOnAllSubviewsOf:(UIView *)view {
     for (UIView *subview in view.subviews) {
         if ([subview isKindOfClass:[UIScrollView class]]) {
             ((UIScrollView *)subview).scrollsToTop = NO;
@@ -562,14 +564,17 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     if (isShowing) {
         [self.imagesCollectionPresenter reloadImages];
     }
+    self.transparentView.hidden = !isShowing;
 }
 - (void)triggerCameraPreviewViewWithAnimation:(BOOL)animation {
     BOOL needsToScroll = UIInterfaceOrientationIsPortrait([self deviceOrientation]);
+    BOOL isShowing = ![self isConstraintPrioritized:self.cameraPreviewContainerHeightConstraint];
     
     [self triggerView:self.cameraPreviewContainerView
        withConstraint:@[self.cameraPreviewContainerHeightConstraint]
-           withScroll:needsToScroll
+           withScroll:(needsToScroll && isShowing)
          andAnimation:animation];
+    self.transparentView.hidden = !isShowing;
 }
 - (void)hideImagesCollectionViewWithAnimation:(BOOL)animation {
     self.imagesCollectionViewHeightConstraint.priority = kMinConstraintPriority;
@@ -581,13 +586,16 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     if (animation) {
         [self animateConstraintDefaultWithScroll:NO];
     }
+    self.transparentView.hidden = YES;
 }
 - (void)hideCameraPreviewViewWithAnimation:(BOOL)animation {
     self.cameraPreviewFullscreenConstraint.priority = kMinMinConstraintPriority;
     self.cameraPreviewContainerHeightConstraint.priority = kMinConstraintPriority;
+
     if (animation) {
         [self animateConstraintDefaultWithScroll:NO];
     }
+    self.transparentView.hidden = YES;
 }
 - (void)hideAllPanesWithAnimation:(BOOL)animation {
     [self hideImagesCollectionViewWithAnimation:animation];
