@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *chatImageHeightConstraint;
 
 @property (nonatomic, assign) BOOL isImageTapped;
+@property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 @property (nonatomic, strong) UILongPressGestureRecognizer *longPressGestureRecognizer;
 @property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
 @property (nonatomic, strong) UIImageView *panningImageView;
@@ -56,6 +57,14 @@
     self.bubbleTail.hidden = !hasTail;
 }
 
+- (UITapGestureRecognizer *)tapGestureRecognizer {
+    if (!_tapGestureRecognizer) {
+        _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                        action:@selector(didTapOnImage:)];
+        _tapGestureRecognizer.delegate = self;
+    }
+    return _tapGestureRecognizer;
+}
 - (UILongPressGestureRecognizer *)longPressGestureRecognizer {
     if (!_longPressGestureRecognizer) {
         _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self
@@ -109,6 +118,7 @@
     self.chatImageView.layer.cornerRadius = 5.0f;
     self.chatImageView.layer.masksToBounds = YES;
     
+    [self.chatImageView addGestureRecognizer:self.tapGestureRecognizer];
     [self.chatImageView addGestureRecognizer:self.longPressGestureRecognizer];
     [self.chatImageView addGestureRecognizer:self.panGestureRecognizer];
     
@@ -126,6 +136,7 @@
 }
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     BOOL result = (!self.isImageTapped && gestureRecognizer == self.longPressGestureRecognizer)
+               || (!self.isImageTapped && gestureRecognizer == self.tapGestureRecognizer)
                || (self.isImageTapped && gestureRecognizer == self.panGestureRecognizer);
     return result;
 }
@@ -141,16 +152,19 @@
                      animations:animation
                      completion:completion];
 }
-- (void)didLongTapOnImage:(UILongPressGestureRecognizer *)sender {
-    if (sender.state == UIGestureRecognizerStateBegan) {
-        [self moveImageStartWithCoordinate:[sender locationInView:self.window]];
-    } else if (sender.state == UIGestureRecognizerStateEnded) {
+- (void)didTapOnImage:(UITapGestureRecognizer *)recognizer {
+    NSLog(@"Tap");
+}
+- (void)didLongTapOnImage:(UILongPressGestureRecognizer *)recognizer {
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        [self moveImageStartWithCoordinate:[recognizer locationInView:self.window]];
+    } else if (recognizer.state == UIGestureRecognizerStateEnded) {
         [self moveImageBack];
     }
 }
-- (void)panHandler:(UIPanGestureRecognizer *)sender {
+- (void)panHandler:(UIPanGestureRecognizer *)recognizer {
     if (self.isImageTapped) {
-        CGPoint coordinate = [sender locationInView:self.window];
+        CGPoint coordinate = [recognizer locationInView:self.window];
         [self updateFrameOfView:self.panningImageView toCoordinate:coordinate];
     }
 }
