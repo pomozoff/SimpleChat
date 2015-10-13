@@ -366,9 +366,9 @@
                                 <exclude reference="Shb-p1-Csw"/>
                                 <exclude reference="ftk-7T-t8R"/>
                                 <exclude reference="m4O-fp-vMx"/>
+                                <exclude reference="cRW-ik-3AJ"/>
                                 <exclude reference="UqD-SK-Qsj"/>
                                 <exclude reference="nnx-SO-ZUQ"/>
-                                <exclude reference="cRW-ik-3AJ"/>
                                 <exclude reference="Oyy-tg-5pB"/>
                                 <exclude reference="d7L-OL-Vgc"/>
                                 <exclude reference="u3u-lu-8H9"/>
@@ -403,8 +403,8 @@
                                 <include reference="Shb-p1-Csw"/>
                                 <include reference="ftk-7T-t8R"/>
                                 <include reference="m4O-fp-vMx"/>
-                                <include reference="nnx-SO-ZUQ"/>
                                 <include reference="cRW-ik-3AJ"/>
+                                <include reference="nnx-SO-ZUQ"/>
                                 <include reference="d7L-OL-Vgc"/>
                                 <include reference="u3u-lu-8H9"/>
                                 <include reference="lwB-C9-Mbx"/>
