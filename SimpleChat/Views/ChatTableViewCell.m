@@ -88,9 +88,9 @@
     UIImage *scaledImage;
     CGFloat imageHeight;
     if (image) {
-        CGFloat scale = self.chatImageView.frame.size.width / image.size.width;
+        CGFloat scale = image.size.width / self.chatImageView.frame.size.width;
         scaledImage = [UIImage imageWithCGImage:[image CGImage]
-                                          scale:(image.scale / scale)
+                                          scale:(image.scale * scale)
                                     orientation:image.imageOrientation];
         imageHeight = scaledImage.size.height;
     } else {
