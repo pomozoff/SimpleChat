@@ -258,7 +258,7 @@
                                         <rect key="frame" x="8" y="8" width="584" height="96"/>
                                         <animations/>
                                         <connections>
-                                            <segue destination="wdi-cq-wUW" kind="embed" id="CVe-11-WZU"/>
+                                            <segue destination="wdi-cq-wUW" kind="embed" identifier="Images Collection Embedded Segue" id="CVe-11-WZU"/>
                                         </connections>
                                     </containerView>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="150" verticalCompressionResistancePriority="150" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFx-cE-ves">

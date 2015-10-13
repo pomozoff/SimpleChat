@@ -11,7 +11,13 @@
 #import "ImagesCollectionManager.h"
 #import "imageRouter.h"
 
-@interface ImagesCollectionViewController : UICollectionViewController
+@protocol ImagesCollectionPresenter <NSObject>
+
+- (void)reloadImages;
+
+@end
+
+@interface ImagesCollectionViewController : UICollectionViewController <ImagesCollectionPresenter>
 
 @property (nonatomic, strong) id <ImagesCollectionDataSource> imagesCollectionDataSource;
 @property (nonatomic, strong) id <ImageHandlerRouter> imageHandlerRouter;

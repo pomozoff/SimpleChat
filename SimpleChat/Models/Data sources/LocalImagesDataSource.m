@@ -36,14 +36,10 @@ static NSString * const kCatsFileName = @"cats";
 
 - (void)fetchImagesWithCompletion:(FetchImagesCompletionHandler)handler {
     NSMutableArray <id <ImageItem>> *imageItems = [NSMutableArray arrayWithCapacity:1];
-    if ([self hasPermissions]) {
-
-    } else {
-        for (NSDictionary *cat in self.cats) {
-            id <ImageItem> imageItem = [[ImageItem alloc] init];
-            imageItem.image = [UIImage imageNamed:cat[@"name"]];
-            [imageItems addObject:imageItem];
-        }
+    for (NSDictionary *cat in self.cats) {
+        id <ImageItem> imageItem = [[ImageItem alloc] init];
+        imageItem.image = [UIImage imageNamed:cat[@"name"]];
+        [imageItems addObject:imageItem];
     }
     handler(YES, [imageItems copy], nil);
 }

@@ -14,7 +14,7 @@ typedef enum : NSUInteger {
     ScrollDirectionDown = 2,
 } ScrollDirection;
 
-@interface ChatTableViewController () <UITextViewDelegate, UIScrollViewDelegate>
+@interface ChatTableViewController () <UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *userInputTextView;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
@@ -39,7 +39,7 @@ typedef enum : NSUInteger {
 
 //@property (nonatomic, strong) id <ImagePresenter> imagePresenter;
 @property (nonatomic, strong) id <CameraPresenter> cameraPresenter;
-@property (nonatomic, assign) NSInteger cameraFullscreenConstraintCurrentValue;
+@property (nonatomic, strong) UIImagePickerController *imagePickerController;
 
 @end
 
@@ -51,6 +51,7 @@ static NSString * const kImagePlaceholderName = @"placeholder";
 static NSString * const kMessageCellReuseIdentifier = @"Chat Message Cell";
 static NSString * const kCameraSegueName = @"Camera Embedded Segue";
 static NSString * const kImageSegueName = @"Image Embedded Segue";
+static NSString * const kImagesCollectionSegueName = @"Images Collection Embedded Segue";
 static NSUInteger const kPercentOfUserInputTextHeight = 10;
 static UILayoutPriority const kMaxConstraintPriority = 800;
 static UILayoutPriority const kMinConstraintPriority = 200;
@@ -59,6 +60,16 @@ static UILayoutPriority const kMaxMaxConstraintPriority = 900;
 static UILayoutPriority const kMinMinConstraintPriority = 100;
 
 static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
+
+#pragma mark - Properties
+
+- (UIImagePickerController *)imagePickerController {
+    if (!_imagePickerController) {
+        _imagePickerController = [[UIImagePickerController alloc] init];
+        _imagePickerController.delegate = self;
+    }
+    return _imagePickerController;
+}
 
 #pragma mark - Life cycle
 
@@ -108,6 +119,8 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     if ([segue.identifier isEqualToString:kCameraSegueName]) {
         self.cameraPresenter = segue.destinationViewController;
         self.cameraPresenter.cameraProcessor = self;
+    } else if ([segue.identifier isEqualToString:kImagesCollectionSegueName]) {
+        self.imagesCollectionPresenter = segue.destinationViewController;
     }
 }
 
@@ -168,6 +181,16 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     [self hideCameraPreviewViewWithAnimation:YES];
 }
 
+#pragma mark - <UIImagePickerControllerDelegate>
+
+- (void)imagePickerController:(UIImagePickerController * _Nonnull)picker didFinishPickingMediaWithInfo:(NSDictionary <NSString *, id> * _Nonnull)info {
+    [self.imagePickerController dismissViewControllerAnimated:YES completion:nil];
+
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    NSString *trimmedText = [self processTextToSend];
+    [self sendText:trimmedText withImage:image];
+}
+
 #pragma mark - Actions
 
 - (IBAction)sendMessage:(UIButton *)sender {
@@ -178,13 +201,14 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     NSString *trimmedText = [self processTextToSend];
     [self sendText: trimmedText withCoordinate:[self.locationManager currentCoordinate]];
 }
-- (IBAction)makePhoto:(UIBarButtonItem *)sender {
-}
 - (IBAction)selectImageFromList:(UIBarButtonItem *)sender {
     [self triggerImagesCollectionViewWithAnimation:YES];
 }
 - (IBAction)selectImageFromGallery:(UIButton *)sender {
-    NSLog(@"Gallery");
+    self.imagePickerController.allowsEditing = NO;
+    self.imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    [self presentViewController:self.imagePickerController animated:YES completion:nil];
 }
 - (IBAction)switchCameraOn:(UIBarButtonItem *)sender {
     [self triggerCameraPreviewViewWithAnimation:YES];
@@ -512,12 +536,16 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     
     [self triggerView:self.imagesCollectionView
        withConstraint:@[self.imagesCollectionViewHeightConstraint, self.imagesCollectionViewWidthConstraint]
-     withScroll:needsToScroll
+           withScroll:needsToScroll
          andAnimation:animation];
 
     BOOL isHiding = !([self isConstraintPrioritized:self.imagesCollectionViewHeightConstraint] || [self isConstraintPrioritized:self.imagesCollectionViewWidthConstraint]);
     self.cameraButton.enabled = isHiding;
     self.geoButton.enabled = isHiding;
+    
+    if (!isHiding) {
+        [self.imagesCollectionPresenter reloadImages];
+    }
 }
 - (void)triggerCameraPreviewViewWithAnimation:(BOOL)animation {
     BOOL needsToScroll = UIInterfaceOrientationIsPortrait([self deviceOrientation]);

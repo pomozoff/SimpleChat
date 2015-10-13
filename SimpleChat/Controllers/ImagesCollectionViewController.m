@@ -24,7 +24,6 @@ static NSString * const reuseIdentifier = @"Collection Image Cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self reloadImages];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -87,12 +86,16 @@ static NSString * const reuseIdentifier = @"Collection Image Cell";
     [imageCell updateImage:imageItem.image];
 }
 - (void)reloadImages {
+    __weak __typeof(self) weakSelf = self;
     [self.imagesCollectionDataSource fetchImagesWithCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-        if (succeeded) {
-            [self setupCollectionLayout];
-        } else {
-            NSLog(@"Failed to reload images: %@ %@", error, error.userInfo);
-        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (succeeded) {
+                [weakSelf.collectionView reloadData];
+                [weakSelf setupCollectionLayout];
+            } else {
+                NSLog(@"Failed to reload images: %@ %@", error, error.userInfo);
+            }
+        });
     }];
 }
 - (UIInterfaceOrientation)deviceOrientation {
