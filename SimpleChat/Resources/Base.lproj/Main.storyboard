@@ -318,7 +318,9 @@
                             <constraint firstItem="Suq-EI-lgg" firstAttribute="leading" secondItem="naH-9S-jkP" secondAttribute="leading" id="A5J-ZX-QPl"/>
                             <constraint firstItem="suS-fy-QHt" firstAttribute="top" secondItem="e7w-bV-8JW" secondAttribute="bottom" id="Bkg-Qs-jOL"/>
                             <constraint firstItem="e7w-bV-8JW" firstAttribute="top" secondItem="fUv-XU-4x4" secondAttribute="bottom" id="DG8-yb-D0F"/>
-                            <constraint firstItem="Suq-EI-lgg" firstAttribute="top" secondItem="Yhs-tB-jhH" secondAttribute="bottom" id="JeS-Qk-3jy"/>
+                            <constraint firstItem="Suq-EI-lgg" firstAttribute="top" secondItem="Yhs-tB-jhH" secondAttribute="bottom" id="JeS-Qk-3jy">
+                                <variation key="heightClass=regular" constant="-20"/>
+                            </constraint>
                             <constraint firstItem="dvg-o4-R3K" firstAttribute="leading" secondItem="GVa-gb-Xkb" secondAttribute="leading" id="L8G-EF-EuD"/>
                             <constraint firstAttribute="trailing" secondItem="e7w-bV-8JW" secondAttribute="trailing" id="N5O-w9-DW1"/>
                             <constraint firstItem="7FK-2X-8A5" firstAttribute="centerY" secondItem="naH-9S-jkP" secondAttribute="centerY" id="Oyy-tg-5pB"/>
@@ -336,7 +338,9 @@
                             <constraint firstItem="7FK-2X-8A5" firstAttribute="trailing" secondItem="GVa-gb-Xkb" secondAttribute="trailing" id="ndI-MG-SPT"/>
                             <constraint firstAttribute="trailing" secondItem="GVa-gb-Xkb" secondAttribute="trailing" id="nnx-SO-ZUQ"/>
                             <constraint firstItem="7FK-2X-8A5" firstAttribute="trailing" secondItem="GVa-gb-Xkb" secondAttribute="trailing" id="oHg-a7-Zg6"/>
-                            <constraint firstItem="suS-fy-QHt" firstAttribute="top" secondItem="Suq-EI-lgg" secondAttribute="bottom" id="oz2-Rf-Qc9"/>
+                            <constraint firstItem="suS-fy-QHt" firstAttribute="top" secondItem="Suq-EI-lgg" secondAttribute="bottom" id="oz2-Rf-Qc9">
+                                <variation key="heightClass=regular" constant="20"/>
+                            </constraint>
                             <constraint firstItem="2aq-46-pPy" firstAttribute="trailing" secondItem="GVa-gb-Xkb" secondAttribute="trailing" id="pE1-Pi-25X"/>
                             <constraint firstItem="e7w-bV-8JW" firstAttribute="leading" secondItem="naH-9S-jkP" secondAttribute="leading" id="qTM-8U-kNA"/>
                             <constraint firstItem="7FK-2X-8A5" firstAttribute="centerY" secondItem="naH-9S-jkP" secondAttribute="centerY" id="u3u-lu-8H9"/>
