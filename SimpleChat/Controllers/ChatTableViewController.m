@@ -202,7 +202,7 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 
 - (IBAction)sendMessage:(UIButton *)sender {
     NSString *trimmedText = [self processTextToSend];
-    [self sendText:trimmedText withImage:nil];
+    [self sendText:trimmedText];
 }
 - (IBAction)sendLocation:(UIBarButtonItem *)sender {
     NSString *trimmedText = [self processTextToSend];
@@ -335,6 +335,20 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 }
 - (UIInterfaceOrientation)deviceOrientation {
     return [[UIApplication sharedApplication] statusBarOrientation];
+}
+
+- (void)sendText:(NSString *)text {
+    __weak __typeof(self) weakSelf = self;
+    [self.chatHandler sendTextMessage:text
+                       withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+                           dispatch_async(dispatch_get_main_queue(), ^{
+                               if (succeeded) {
+                                   [weakSelf scrollMessages:ScrollDirectionDown];
+                               } else {
+                                   NSLog(@"Failed to send text: %@, error: %@, %@", text, error, error.userInfo);
+                               }
+                           });
+                       }];
 }
 - (void)sendText:(NSString *)text withImage:(UIImage *)image {
     __weak __typeof(self) weakSelf = self;
