@@ -412,7 +412,11 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 - (void)addHideKeyboardGestureRecognizer {
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                           action:@selector(hideOpenedViews)];
+    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                                action:@selector(hideOpenedViews)];
+    swipe.direction = UISwipeGestureRecognizerDirectionDown;
     [self.transparentView addGestureRecognizer:tap];
+    [self.transparentView addGestureRecognizer:swipe];
 }
 - (void)hideOpenedViews {
     [self hidePanesOnTapWithAnimation:YES];
