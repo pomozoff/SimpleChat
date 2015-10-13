@@ -84,6 +84,9 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     [super viewDidAppear:animated];
 
     [self hideAllPanesWithAnimation:YES];
+    
+    [self disableScrollsToTopPropertyOnAllSubviewsOf:self.view];
+    self.tableView.scrollsToTop = YES;
 }
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
@@ -480,6 +483,14 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 - (void)finishRefreshing:(UIRefreshControl *)refreshControl {
     [refreshControl endRefreshing];
     [self triggerEmptyChatMessage];
+}
+- (void) disableScrollsToTopPropertyOnAllSubviewsOf:(UIView *)view {
+    for (UIView *subview in view.subviews) {
+        if ([subview isKindOfClass:[UIScrollView class]]) {
+            ((UIScrollView *)subview).scrollsToTop = NO;
+        }
+        [self disableScrollsToTopPropertyOnAllSubviewsOf:subview];
+    }
 }
 
 #pragma mark - Private Constraints
