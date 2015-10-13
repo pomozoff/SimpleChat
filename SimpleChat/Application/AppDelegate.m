@@ -8,6 +8,9 @@
 
 @import Parse;
 
+@import Fabric;
+@import Crashlytics;
+
 #import "AppDelegate.h"
 #import "PrivateData.h"
 
@@ -20,6 +23,8 @@
 #pragma mark - Lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [Fabric with:@[[Crashlytics class]]];
+
     [self setupAppearance];
     [self setupParseWithOptions:launchOptions];
     
