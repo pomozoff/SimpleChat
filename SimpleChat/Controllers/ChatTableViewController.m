@@ -488,14 +488,16 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 - (void)scrollMessages:(ScrollDirection)scrollDirection {
     //NSLog(@"Scrolling %@", scrollDirection == ScrollDirectionUp ? @"up" : @"down");
     NSInteger numberOfSections = [self.chatDataSource numberOfSections];
-    NSInteger numberOfRows = [self.chatDataSource numberOfRowsInSection:numberOfSections - 1];
-    if (numberOfSections > 0 && numberOfRows > 0) {
-        NSInteger rowIndex = scrollDirection == ScrollDirectionUp ? 0 : numberOfRows - 1;
-        UITableViewScrollPosition scrollPosition = scrollDirection == ScrollDirectionUp ? UITableViewScrollPositionTop : UITableViewScrollPositionBottom;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:rowIndex inSection:numberOfSections - 1]
-                                  atScrollPosition:scrollPosition animated:YES];
-        });
+    if (numberOfSections > 0) {
+        NSInteger numberOfRows = [self.chatDataSource numberOfRowsInSection:numberOfSections - 1];
+        if (numberOfRows > 0) {
+            NSInteger rowIndex = scrollDirection == ScrollDirectionUp ? 0 : numberOfRows - 1;
+            UITableViewScrollPosition scrollPosition = scrollDirection == ScrollDirectionUp ? UITableViewScrollPositionTop : UITableViewScrollPositionBottom;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:rowIndex inSection:numberOfSections - 1]
+                                      atScrollPosition:scrollPosition animated:YES];
+            });
+        }
     }
 }
 - (void)triggerEmptyChatMessage {
