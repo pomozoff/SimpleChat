@@ -9,11 +9,6 @@
 #import "ChatTableViewController.h"
 #import "ChatTableViewCell.h"
 
-typedef enum : NSUInteger {
-    ScrollDirectionUp = 1,
-    ScrollDirectionDown = 2,
-} ScrollDirection;
-
 @interface ChatTableViewController () <UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *userInputTextView;
@@ -110,15 +105,17 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     return NO;
 }
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    __weak __typeof(self) weakSelf = self;
+    //__weak __typeof(self) weakSelf = self;
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.view layoutIfNeeded];
         });
     } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        /*
         dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf scrollMessages:ScrollDirectionDown];
+            [weakSelf scrollTable:ScrollDirectionDown];
         });
+        */
     }];
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
@@ -300,7 +297,7 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
             if (finished) {
                 [weakSelf.tableView beginUpdates];
                 [weakSelf.tableView endUpdates];
-                [weakSelf scrollMessages:ScrollDirectionDown];
+                [weakSelf scrollTable:ScrollDirectionDown];
             }
         }];
     });
@@ -343,7 +340,7 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
                        withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                            dispatch_async(dispatch_get_main_queue(), ^{
                                if (succeeded) {
-                                   [weakSelf scrollMessages:ScrollDirectionDown];
+                                   weakSelf.scrollToIndexPath = [self.chatDataSource lastIndexPath];
                                } else {
                                    NSLog(@"Failed to send text: %@, error: %@, %@", text, error, error.userInfo);
                                }
@@ -357,7 +354,7 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
                        withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                            dispatch_async(dispatch_get_main_queue(), ^{
                                if (succeeded) {
-                                   [weakSelf scrollMessages:ScrollDirectionDown];
+                                   weakSelf.scrollToIndexPath = [self.chatDataSource lastIndexPath];
                                } else {
                                    NSLog(@"Failed to send text: %@ with image: %@, error: %@, %@", text, image, error, error.userInfo);
                                }
@@ -371,7 +368,7 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
                        withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
                            dispatch_async(dispatch_get_main_queue(), ^{
                                if (succeeded) {
-                                   [weakSelf scrollMessages:ScrollDirectionDown];
+                                   weakSelf.scrollToIndexPath = [self.chatDataSource lastIndexPath];
                                } else {
                                    NSLog(@"Failed to send text: %@ with coordinate, error: %@, %@", text, error, error.userInfo);
                                }
@@ -419,7 +416,7 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
                      }
                      completion:^(BOOL finished) {
                          if (finished && isShowing) {
-                             [weakSelf scrollMessages:ScrollDirectionDown];
+                             [weakSelf scrollTable:ScrollDirectionDown];
                          }
                      }];
 }
@@ -485,21 +482,6 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
 - (void)updateSendButtonState {
     self.sendButton.enabled = self.userInputTextView.text.length > 0;
 }
-- (void)scrollMessages:(ScrollDirection)scrollDirection {
-    //NSLog(@"Scrolling %@", scrollDirection == ScrollDirectionUp ? @"up" : @"down");
-    NSInteger numberOfSections = [self.chatDataSource numberOfSections];
-    if (numberOfSections > 0) {
-        NSInteger numberOfRows = [self.chatDataSource numberOfRowsInSection:numberOfSections - 1];
-        if (numberOfRows > 0) {
-            NSInteger rowIndex = scrollDirection == ScrollDirectionUp ? 0 : numberOfRows - 1;
-            UITableViewScrollPosition scrollPosition = scrollDirection == ScrollDirectionUp ? UITableViewScrollPositionTop : UITableViewScrollPositionBottom;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:rowIndex inSection:numberOfSections - 1]
-                                      atScrollPosition:scrollPosition animated:YES];
-            });
-        }
-    }
-}
 - (void)triggerEmptyChatMessage {
     NSInteger numberOfSections = [self.chatDataSource numberOfSections];
     NSInteger numberOfRows = [self.chatDataSource numberOfRowsInSection:numberOfSections - 1];
@@ -537,7 +519,7 @@ static int64_t const kUpdateLayoutTimeout = 200 * NSEC_PER_MSEC;
     [self animateConstraintsChangesDuration:0.5f withCompletion:^(BOOL finished) {
         if (finished && needsToScroll) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf scrollMessages:ScrollDirectionDown];
+                [weakSelf scrollTable:ScrollDirectionDown];
             });
         }
     }];

@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isLastMessage:(NSIndexPath *)indexPath;
 - (void)resetToNewestMessageWithCompletion:(CompletionHandler)handler;
 - (void)fetchMoreMessagesWithCompletion:(CompletionHandler)handler;
+- (NSIndexPath *)lastIndexPath;
 
 @end
 

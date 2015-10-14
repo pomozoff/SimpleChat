@@ -42,6 +42,13 @@
     self.updateOperation.completionBlock = ^{
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf.tableView endUpdates];
+            if (weakSelf.scrollToIndexPath) {
+                // TODO: Detect scroll position from the current indexPath relative to the new one
+                [weakSelf.tableView scrollToRowAtIndexPath:weakSelf.scrollToIndexPath
+                                          atScrollPosition:UITableViewScrollPositionBottom
+                                                  animated:YES];
+                weakSelf.scrollToIndexPath = nil;
+            }
         });
     };
 }
@@ -119,6 +126,26 @@
 - (void)didChangeContent {
     NSAssert([NSThread isMainThread], @"Not in main thread!");
     [self.updateOperation start];
+}
+
+#pragma mark - Public
+
+- (void)scrollTable:(ScrollDirection)scrollDirection {
+    //NSLog(@"Scrolling %@", scrollDirection == ScrollDirectionUp ? @"up" : @"down");
+    NSInteger numberOfSections = [self.tableView numberOfSections];
+    if (numberOfSections > 0) {
+        NSInteger numberOfRows = [self.tableView numberOfRowsInSection:numberOfSections - 1];
+        if (numberOfRows > 0) {
+            NSInteger rowIndex = scrollDirection == ScrollDirectionUp ? 0 : numberOfRows - 1;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UITableViewScrollPosition scrollPosition = scrollDirection == ScrollDirectionUp ? UITableViewScrollPositionTop : UITableViewScrollPositionBottom;
+                NSIndexPath *indexPath = [NSIndexPath indexPathForItem:rowIndex inSection:numberOfSections - 1];
+                [self.tableView scrollToRowAtIndexPath:indexPath
+                                      atScrollPosition:scrollPosition
+                                              animated:YES];
+            });
+        }
+    }
 }
 
 @end

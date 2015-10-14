@@ -65,6 +65,9 @@
         }
     }];
 }
+- (NSIndexPath *)lastIndexPath {
+    return [NSIndexPath indexPathForRow:(NSInteger)self.messages.count - 1 inSection:0];
+}
 
 #pragma mark - Chat handler
 
@@ -118,14 +121,15 @@
     [self.messagesDataSource addChatMessage:chatMessage andCompletion:^(BOOL succeeded, NSError * _Nullable error) {
     }];
 
-    NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:(NSInteger)self.messages.count - 1 inSection:0];
+    handler(YES, nil);
+    NSIndexPath *newIndexPath = [self lastIndexPath];
+    
     [self.dataPresenter willChangeContent];
     [self.dataPresenter didChangeObject:chatMessage
                             atIndexPath:newIndexPath
                           forChangeType:CollectionChangeInsert
                            newIndexPath:newIndexPath];
     [self.dataPresenter didChangeContent];
-    handler(YES, nil);
 }
 
 @end
